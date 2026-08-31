@@ -1,0 +1,78 @@
+import type { Metadata } from "next";
+import { Inter, Cinzel, Noto_Naskh_Arabic } from "next/font/google";
+import { siteConfig } from "@/config/site";
+import { Header } from "@/components/layout/Header";
+import { Footer } from "@/components/layout/Footer";
+import "./globals.css";
+
+const inter = Inter({
+  subsets: ["latin", "latin-ext"],
+  variable: "--font-inter",
+  display: "swap",
+});
+
+const cinzel = Cinzel({
+  subsets: ["latin"],
+  variable: "--font-cinzel",
+  display: "swap",
+});
+
+const notoNaskhArabic = Noto_Naskh_Arabic({
+  subsets: ["arabic"],
+  variable: "--font-arabic",
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
+});
+
+export const metadata: Metadata = {
+  title: {
+    default: `${siteConfig.name} | ${siteConfig.subtitle}`,
+    template: `%s | ${siteConfig.name}`,
+  },
+  description: siteConfig.description,
+  keywords: siteConfig.keywords as unknown as string[],
+  openGraph: {
+    title: `${siteConfig.name} | ${siteConfig.subtitle}`,
+    description: siteConfig.description,
+    locale: siteConfig.locale,
+    type: "website",
+    siteName: siteConfig.name,
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `${siteConfig.name} | ${siteConfig.subtitle}`,
+    description: siteConfig.description,
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+};
+
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
+  return (
+    <html lang="tr" className="dark">
+      <body
+        className={`${inter.variable} ${cinzel.variable} ${notoNaskhArabic.variable} font-sans min-h-screen flex flex-col bg-background text-primary-text antialiased`}
+      >
+        {/* Islamic geometric pattern overlay */}
+        <div className="islamic-pattern" aria-hidden="true" />
+        {/* Grain texture */}
+        <div className="grain-texture" aria-hidden="true" />
+
+        {/* Header */}
+        <Header />
+
+        {/* Main Content */}
+        <main className="flex-1 relative z-10">{children}</main>
+
+        {/* Footer */}
+        <Footer />
+      </body>
+    </html>
+  );
+}
