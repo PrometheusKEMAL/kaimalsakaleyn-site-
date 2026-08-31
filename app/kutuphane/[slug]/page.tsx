@@ -135,9 +135,11 @@ export default async function BookDetailPage({ params }: { params: Promise<{ slu
                 <span className="inline-block px-2.5 py-1 bg-background-secondary border border-gold-border/20 rounded-sm text-[10px] tracking-widest uppercase text-antique-gold">
                   {book.category}
                 </span>
-                <span className="flex items-center gap-1 text-[10px] uppercase tracking-widest text-primary-emerald bg-primary-emerald/10 border border-primary-emerald/20 px-2.5 py-1 rounded-sm">
-                  <CheckCircle2 className="w-3 h-3" /> Doğrulanmış Kaynak
-                </span>
+                {book.verificationStatus === 'editorial_approved' && (
+                  <span className="flex items-center gap-1 text-[10px] uppercase tracking-widest text-primary-emerald bg-primary-emerald/10 border border-primary-emerald/20 px-2.5 py-1 rounded-sm">
+                    <CheckCircle2 className="w-3 h-3" /> Doğrulanmış Kaynak
+                  </span>
+                )}
               </div>
               <h1 className="font-serif text-4xl md:text-5xl text-primary-text mb-4 leading-tight">
                 {book.title}
@@ -157,30 +159,46 @@ export default async function BookDetailPage({ params }: { params: Promise<{ slu
                 <span className="text-sm font-medium text-primary-text">{book.author}</span>
               </div>
               
-              <div className="flex flex-col border-l border-gold-border/20 pl-4">
-                <span className="text-[10px] text-secondary-text uppercase tracking-widest mb-1.5">Mütercim</span>
-                <span className="text-sm font-medium text-primary-text">{book.translator}</span>
-              </div>
+              {book.translator && (
+                <div className="flex flex-col border-l border-gold-border/20 pl-4">
+                  <span className="text-[10px] text-secondary-text uppercase tracking-widest mb-1.5">Mütercim</span>
+                  <span className="text-sm font-medium text-primary-text">{book.translator}</span>
+                </div>
+              )}
               
-              <div className="flex flex-col border-l border-gold-border/20 pl-4">
-                <span className="text-[10px] text-secondary-text uppercase tracking-widest mb-1.5">Tahkik</span>
-                <span className="text-sm font-medium text-primary-text">{book.verification}</span>
-              </div>
+              {book.verification && (
+                <div className="flex flex-col border-l border-gold-border/20 pl-4">
+                  <span className="text-[10px] text-secondary-text uppercase tracking-widest mb-1.5">Tahkik</span>
+                  <span className="text-sm font-medium text-primary-text">{book.verification}</span>
+                </div>
+              )}
 
-              <div className="flex flex-col border-l border-gold-border/20 pl-4">
-                <span className="text-[10px] text-secondary-text uppercase tracking-widest mb-1.5">Yayınevi & Baskı</span>
-                <span className="text-sm font-medium text-primary-text">{book.publisher}, {book.edition}</span>
-              </div>
+              {(book.publisher || book.edition) && (
+                <div className="flex flex-col border-l border-gold-border/20 pl-4">
+                  <span className="text-[10px] text-secondary-text uppercase tracking-widest mb-1.5">Yayınevi & Baskı</span>
+                  <span className="text-sm font-medium text-primary-text">
+                    {book.publisher}{book.publisher && book.edition ? ', ' : ''}{book.edition}
+                  </span>
+                </div>
+              )}
               
-              <div className="flex flex-col border-l border-gold-border/20 pl-4">
-                <span className="text-[10px] text-secondary-text uppercase tracking-widest mb-1.5">Dil & Hacim</span>
-                <span className="text-sm font-medium text-primary-text">{book.language}, {book.pageCount} Syf</span>
-              </div>
+              {(book.language || book.pageCount) && (
+                <div className="flex flex-col border-l border-gold-border/20 pl-4">
+                  <span className="text-[10px] text-secondary-text uppercase tracking-widest mb-1.5">Dil & Hacim</span>
+                  <span className="text-sm font-medium text-primary-text">
+                    {book.language}{book.language && book.pageCount ? ', ' : ''}{book.pageCount ? `${book.pageCount} Syf` : ''}
+                  </span>
+                </div>
+              )}
               
-              <div className="flex flex-col border-l border-gold-border/20 pl-4">
-                <span className="text-[10px] text-secondary-text uppercase tracking-widest mb-1.5">ISBN & Yıl</span>
-                <span className="text-sm font-medium text-primary-text font-mono">{book.isbn} • {book.year}</span>
-              </div>
+              {(book.isbn || book.year) && (
+                <div className="flex flex-col border-l border-gold-border/20 pl-4">
+                  <span className="text-[10px] text-secondary-text uppercase tracking-widest mb-1.5">ISBN & Yıl</span>
+                  <span className="text-sm font-medium text-primary-text font-mono">
+                    {book.isbn}{book.isbn && book.year ? ' • ' : ''}{book.year}
+                  </span>
+                </div>
+              )}
               
             </div>
 

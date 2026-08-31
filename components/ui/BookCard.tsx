@@ -8,7 +8,7 @@ export interface BookCardProps {
   author: string;
   category: string;
   coverImage?: string; // We might not have real images, so fallback to icon
-  isVerified?: boolean;
+  verificationStatus?: 'draft' | 'needs_review' | 'source_checked' | 'editorial_approved';
 }
 
 export function BookCard({
@@ -18,7 +18,7 @@ export function BookCard({
   author,
   category,
   coverImage,
-  isVerified
+  verificationStatus
 }: BookCardProps) {
   return (
     <Link href={`/kutuphane/${slug}`} className="group block">
@@ -32,7 +32,7 @@ export function BookCard({
               <BookIcon className="w-6 h-6 text-antique-gold/40" />
             </div>
           )}
-          {isVerified && (
+          {verificationStatus === 'editorial_approved' && (
             <div className="absolute top-3 right-3 bg-primary-emerald/90 text-ivory text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-sm">
               Teyitli Kaynak
             </div>

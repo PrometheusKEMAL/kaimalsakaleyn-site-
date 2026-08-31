@@ -78,7 +78,7 @@ export function AdminSidebar({ role = "admin" }: { role?: string }) {
         {/* Action Bottom */}
         <div className="pt-6 mt-6 border-t border-gold-border">
           <Link
-            href="/pano"
+            href="/admin"
             className="flex items-center gap-3 px-3 py-2 text-sm rounded-button text-secondary-text hover:text-primary-text hover:bg-card-bg transition-colors w-full mb-2"
           >
             Meclise Dön

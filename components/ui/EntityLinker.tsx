@@ -2,7 +2,7 @@ import React from "react";
 import Link from "next/link";
 import { mockPersons, mockConcepts, mockBooks, mockArticles } from "@/lib/mock-data";
 
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 
 interface EntityLinkerProps {
   content: string;
@@ -49,8 +49,14 @@ export function EntityLinker({ content }: EntityLinkerProps) {
     }
   });
 
-  // Sanitize the final HTML to prevent XSS attacks before rendering
-  const sanitizedHtml = DOMPurify.sanitize(processedHtml);
+  // Sanitize the final HTML
+  const sanitizedHtml = sanitizeHtml(processedHtml, {
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2']),
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      'a': ['href', 'class', 'target', 'rel']
+    }
+  });
 
   return (
     <div 

@@ -64,11 +64,12 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
                 </span>
               ))}
             </div>
-            {(person.birth || person.death) && (
-              <div className="mt-6 flex items-center justify-center md:justify-start gap-4 text-sm text-secondary-text/80">
+            {(person.birth || person.death || person.occultationStatus) && (
+              <div className="mt-6 flex flex-col md:flex-row items-center justify-center md:justify-start gap-4 text-sm text-secondary-text/80">
                  {person.birth && <span>Doğum: <span className="text-primary-text font-serif">{person.birth}</span></span>}
-                 {person.birth && person.death && <span className="w-1 h-1 rounded-full bg-gold-border"></span>}
+                 {person.birth && (person.death || person.occultationStatus) && <span className="hidden md:inline-block w-1 h-1 rounded-full bg-gold-border"></span>}
                  {person.death && <span>Şehadet: <span className="text-primary-text font-serif">{person.death}</span></span>}
+                 {person.occultationStatus && <span className="text-center md:text-left">Durum: <span className="text-primary-text font-serif">{person.occultationStatus}</span></span>}
               </div>
             )}
           </div>

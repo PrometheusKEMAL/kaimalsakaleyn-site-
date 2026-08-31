@@ -8,10 +8,10 @@ import { mockPersons, mockConcepts } from "@/lib/mock-data/encyclopedia";
 
 export default function Home() {
   const latestBooks = [
-    { slug: "el-kafi-cilt-1", title: "El-Kâfî", originalTitle: "الكافي", author: "Sıkatulislam Kuleynî", category: "Hadis", isVerified: true },
-    { slug: "nehcul-belaga", title: "Nehcü'l Belâğa", originalTitle: "نهج البلاغة", author: "Seyyid Razi", category: "Hitabet & Hadis", isVerified: true },
-    { slug: "sahife-i-seccadiye", title: "Sahife-i Seccadiye", originalTitle: "الصحيفة السجادية", author: "İmam Zeynelabidin (a.s)", category: "Dua & İrfan", isVerified: true },
-    { slug: "tefsir-el-mizan", title: "El-Mîzân Fî Tefsîr'il-Kur'ân", originalTitle: "الميزان في تفسير القرآن", author: "Allame Tabatabai", category: "Tefsir", isVerified: true },
+    { slug: "el-kafi-cilt-1", title: "El-Kâfî", originalTitle: "الكافي", author: "Sıkatulislam Kuleynî", category: "Hadis", verificationStatus: "editorial_approved" as const },
+    { slug: "nehcul-belaga", title: "Nehcü'l Belâğa", originalTitle: "نهج البلاغة", author: "Seyyid Razi", category: "Hitabet & Hadis", verificationStatus: "editorial_approved" as const },
+    { slug: "sahife-i-seccadiye", title: "Sahife-i Seccadiye", originalTitle: "الصحيفة السجادية", author: "İmam Zeynelabidin (a.s)", category: "Dua & İrfan", verificationStatus: "editorial_approved" as const },
+    { slug: "tefsir-el-mizan", title: "El-Mîzân Fî Tefsîr'il-Kur'ân", originalTitle: "الميزان في تفسير القرآن", author: "Allame Tabatabai", category: "Tefsir", verificationStatus: "editorial_approved" as const },
   ];
 
   const articles = [

@@ -4,7 +4,8 @@ export interface Person {
   title: string;
   laqabs: string[];
   birth: string;
-  death: string;
+  death?: string;
+  occultationStatus?: string;
   father: string;
   mother: string;
   relatedBooks: number[];
@@ -205,7 +206,7 @@ export const mockPersons: Person[] = [
     title: "Sahibü'z-Zaman",
     laqabs: ["Mehdi", "Kaim", "Hüccet", "Muntazar", "Baqiyyetullah"],
     birth: "15 Şaban, 255 H.",
-    death: "Hayatta",
+    occultationStatus: "Gaybet-i Kübra (Büyük Gizlilik) halinde, Allah'ın izniyle zuhur edeceği günü beklemektedir.",
     father: "İmam Hasan Askeri (a.s)",
     mother: "Nergis (Melika)",
     relatedBooks: [8],

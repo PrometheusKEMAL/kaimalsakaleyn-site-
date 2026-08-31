@@ -143,7 +143,7 @@ export default function KutuphanePage() {
                   title={book.title}
                   author={book.author}
                   category={book.category}
-                  isVerified={true}
+                  verificationStatus={book.verificationStatus}
                 />
               ) : (
                 <div key={book.id} className="card-base p-4 flex items-center gap-6 group hover:-translate-y-0.5">

@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import nodemailer from "nodemailer";
-import DOMPurify from 'isomorphic-dompurify';
+import sanitizeHtml from 'sanitize-html';
 
 // Simple in-memory rate limiting map
 // Key: IP address, Value: { count: number, resetTime: number }
@@ -55,10 +55,11 @@ export async function POST(request: Request) {
     }
     
     // Sanitize user inputs to prevent HTML/Script injection in emails
-    const safeFullName = DOMPurify.sanitize(fullName, { ALLOWED_TAGS: [] });
-    const safeEmail = DOMPurify.sanitize(email, { ALLOWED_TAGS: [] });
-    const safeSubject = DOMPurify.sanitize(subject || "İletişim Formu", { ALLOWED_TAGS: [] });
-    const safeMessage = DOMPurify.sanitize(message, { ALLOWED_TAGS: [] });
+    const sanitizeOpts = { allowedTags: [], allowedAttributes: {} };
+    const safeFullName = sanitizeHtml(fullName, sanitizeOpts);
+    const safeEmail = sanitizeHtml(email, sanitizeOpts);
+    const safeSubject = sanitizeHtml(subject || "İletişim Formu", sanitizeOpts);
+    const safeMessage = sanitizeHtml(message, sanitizeOpts);
 
     // SMTP yapılandırması
     const transporter = nodemailer.createTransport({

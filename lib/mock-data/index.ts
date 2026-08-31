@@ -22,21 +22,22 @@ export interface Book {
   id: number;
   slug: string;
   title: string;
-  originalTitle: string;
+  originalTitle?: string;
   author: string;
-  translator: string;
-  verification: string;
-  publisher: string;
-  edition: string;
-  year: number;
-  language: string;
-  pageCount: number;
+  translator?: string;
+  verification?: string;
+  publisher?: string;
+  edition?: string;
+  year?: number;
+  language?: string;
+  pageCount?: number;
   category: string;
-  isbn: string;
+  isbn?: string;
   summary: string;
-  toc: string[];
-  copyrightStatus: string;
+  toc?: string[];
+  copyrightStatus?: string;
   cover?: string;
+  verificationStatus?: 'draft' | 'needs_review' | 'source_checked' | 'editorial_approved';
 }
 
 export const mockBooks: Book[] = [
@@ -122,7 +123,7 @@ export const mockBooks: Book[] = [
     "category": "Nehcü'l-Belâğa",
     "language": "Türkçe",
     "year": 2010,
-    "slug": "nehcul-belâga",
+    "slug": "nehcul-belaga",
     "originalTitle": "Nehcü'l-Belâğa (Arapça/Farsça Orijinal)",
     "translator": "KaimAlSakaleyn Çeviri Heyeti",
     "verification": "Enstitü Tahkik Kurulu",
@@ -197,7 +198,7 @@ export const mockBooks: Book[] = [
     "category": "İmamet",
     "language": "Türkçe",
     "year": 1988,
-    "slug": "i̇mamet-ve-liderlik",
+    "slug": "imamet-ve-liderlik",
     "originalTitle": "İmamet ve Liderlik (Arapça/Farsça Orijinal)",
     "translator": "KaimAlSakaleyn Çeviri Heyeti",
     "verification": "Enstitü Tahkik Kurulu",
@@ -222,7 +223,7 @@ export const mockBooks: Book[] = [
     "category": "Mehdeviyet",
     "language": "Türkçe",
     "year": 2015,
-    "slug": "mehdeviyet-i̇nanci",
+    "slug": "mehdeviyet-inanci",
     "originalTitle": "Mehdeviyet İnancı (Arapça/Farsça Orijinal)",
     "translator": "KaimAlSakaleyn Çeviri Heyeti",
     "verification": "Enstitü Tahkik Kurulu",
@@ -272,7 +273,7 @@ export const mockBooks: Book[] = [
     "category": "Tarih",
     "language": "Türkçe",
     "year": 2008,
-    "slug": "i̇slam-tarihi",
+    "slug": "islam-tarihi",
     "originalTitle": "İslam Tarihi (Arapça/Farsça Orijinal)",
     "translator": "KaimAlSakaleyn Çeviri Heyeti",
     "verification": "Enstitü Tahkik Kurulu",
@@ -297,7 +298,7 @@ export const mockBooks: Book[] = [
     "category": "Akaid",
     "language": "Türkçe",
     "year": 1990,
-    "slug": "akaid-i-i̇mamiye",
+    "slug": "akaid-i-imamiye",
     "originalTitle": "Akaid-i İmamiye (Arapça/Farsça Orijinal)",
     "translator": "KaimAlSakaleyn Çeviri Heyeti",
     "verification": "Enstitü Tahkik Kurulu",
@@ -397,7 +398,7 @@ export const mockBooks: Book[] = [
     "category": "Ahlak ve İrfan",
     "language": "Türkçe",
     "year": 1982,
-    "slug": "i̇nsan-i-kamil",
+    "slug": "insan-i-kamil",
     "originalTitle": "İnsan-ı Kamil (Arapça/Farsça Orijinal)",
     "translator": "KaimAlSakaleyn Çeviri Heyeti",
     "verification": "Enstitü Tahkik Kurulu",
@@ -497,7 +498,7 @@ export const mockBooks: Book[] = [
     "category": "Tefsir",
     "language": "Türkçe",
     "year": 2006,
-    "slug": "kuranda-i̇nsan",
+    "slug": "kuranda-insan",
     "originalTitle": "Kur'an'da İnsan (Arapça/Farsça Orijinal)",
     "translator": "KaimAlSakaleyn Çeviri Heyeti",
     "verification": "Enstitü Tahkik Kurulu",
@@ -522,7 +523,7 @@ export const mockBooks: Book[] = [
     "category": "Akaid",
     "language": "Türkçe",
     "year": 1978,
-    "slug": "i̇lahi-adalet",
+    "slug": "ilahi-adalet",
     "originalTitle": "İlahi Adalet (Arapça/Farsça Orijinal)",
     "translator": "KaimAlSakaleyn Çeviri Heyeti",
     "verification": "Enstitü Tahkik Kurulu",
@@ -725,7 +726,7 @@ export const dailyQuote = {
 export const mehdeviyetDossier = {
   title: "Zamanın İmamı: Beklenen Adalet",
   description: "Yeryüzü zulüm ve haksızlıkla dolduktan sonra, onu adalet ve eşitlikle dolduracak olan İmam Mehdi'nin (a.f) evrensel kıyamı, intizar kültürü ve kurtarıcı inancı üzerine kapsamlı araştırmalar dosyası.",
-  articlesCount: 12,
-  booksCount: 5,
+  get articlesCount() { return mockArticles.filter(a => a.category === 'İmam Mehdi' || a.category === 'Mehdeviyet').length; },
+  get booksCount() { return mockBooks.filter(b => b.category === 'İmam Mehdi' || b.category === 'Mehdeviyet').length; },
   link: "/defterler?category=İmam%20Mehdi"
 };

@@ -14,7 +14,7 @@ export default function EtkinliklerPage() {
   const [activeTab, setActiveTab] = useState<"upcoming" | "past">("upcoming");
   const [activeType, setActiveType] = useState("Tümü");
 
-  return (
+    return (
     <div className="pt-24 pb-section-lg">
       <script
         type="application/ld+json"
@@ -111,9 +111,11 @@ export default function EtkinliklerPage() {
           <div className="flex flex-col gap-6">
             {mockEvents
               .filter(
-                (event) =>
-                  (activeType === "Tümü" || event.type === activeType) &&
-                  (activeTab === "past" ? event.isPast : !event.isPast)
+                (event) => {
+                  const isEventPast = new Date(event.date).getTime() < new Date().getTime();
+                  return (activeType === "Tümü" || event.type === activeType) &&
+                  (activeTab === "past" ? isEventPast : !isEventPast)
+                }
               )
               .map((event, index) => (
                 <motion.div
@@ -123,12 +125,15 @@ export default function EtkinliklerPage() {
                   transition={{ duration: 0.4, delay: index * 0.1 }}
                   className="card-base p-6 md:p-8 flex flex-col md:flex-row gap-6 hover:border-antique-gold/30 transition-colors group"
                 >
-                  <div className="flex flex-col items-center justify-center w-24 h-24 bg-antique-gold/5 rounded-xl border border-antique-gold/10 shrink-0 group-hover:bg-antique-gold/10 transition-colors">
+                  <div className="flex flex-col items-center justify-center w-28 h-24 bg-antique-gold/5 rounded-xl border border-antique-gold/10 shrink-0 group-hover:bg-antique-gold/10 transition-colors">
                     <span className="text-sm text-antique-gold/80 font-medium uppercase tracking-widest">
                       {new Date(event.date).toLocaleDateString('tr-TR', { month: 'short' })}
                     </span>
-                    <span className="font-serif text-3xl text-antique-gold">
+                    <span className="font-serif text-3xl text-antique-gold leading-none my-1">
                       {new Date(event.date).getDate()}
+                    </span>
+                    <span className="text-[10px] text-antique-gold/60 font-medium tracking-widest">
+                      {new Date(event.date).getFullYear()}
                     </span>
                   </div>
                   
@@ -161,7 +166,10 @@ export default function EtkinliklerPage() {
                 </motion.div>
               ))}
               
-            {mockEvents.filter((event) => (activeType === "Tümü" || event.type === activeType) && (activeTab === "past" ? event.isPast : !event.isPast)).length === 0 && (
+            {mockEvents.filter((event) => {
+              const isEventPast = new Date(event.date).getTime() < new Date().getTime();
+              return (activeType === "Tümü" || event.type === activeType) && (activeTab === "past" ? isEventPast : !isEventPast);
+            }).length === 0 && (
               <motion.div
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
