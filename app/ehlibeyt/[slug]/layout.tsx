@@ -10,16 +10,16 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 
   return {
     title: `${person.name} | Ehl-i Beyt`,
-    description: person.life.substring(0, 160) + '...',
+    description: (person.life || person.bio || '').substring(0, 160) + '...',
     openGraph: {
       title: person.name,
-      description: person.life.substring(0, 160) + '...',
+      description: (person.life || person.bio || '').substring(0, 160) + '...',
       type: "profile",
     },
     twitter: {
       card: "summary_large_image",
       title: person.name,
-      description: person.life.substring(0, 160) + '...',
+      description: (person.life || person.bio || '').substring(0, 160) + '...',
     }
   };
 }
@@ -45,7 +45,7 @@ export default async function EhlibeytLayout({
               "@type": "Person",
               "name": person.name,
               "alternateName": [person.title, ...person.laqabs],
-              "description": person.life.substring(0, 160),
+              "description": (person.life || person.bio || '').substring(0, 160),
               "url": `${siteConfig.url}/ehlibeyt/${person.slug}`
             })
           }}

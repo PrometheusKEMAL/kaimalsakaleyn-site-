@@ -205,3 +205,131 @@ create trigger on_auth_user_created
 -- 6. Storage Buckets (Optional: run these manually in Supabase Dashboard if they fail here)
 insert into storage.buckets (id, name, public) values ('covers', 'covers', true) on conflict do nothing;
 insert into storage.buckets (id, name, public) values ('pdfs', 'pdfs', true) on conflict do nothing;
+-- 7. Create scholars table (Alimler / Muellifler)
+create table public.scholars (
+  id uuid not null default gen_random_uuid(),
+  name text not null,
+  arabic_name text,
+  slug text not null unique,
+  birth_date text,
+  death_date text,
+  era text,
+  bio text,
+  scholarly_fields text[],
+  teachers text[],
+  students text[],
+  status text not null default 'draft'::text check (status in ('draft', 'review', 'published', 'archived')),
+  created_at timestamp with time zone not null default timezone('utc'::text, now()),
+  updated_at timestamp with time zone not null default timezone('utc'::text, now()),
+  primary key (id)
+);
+alter table public.scholars enable row level security;
+create policy "Published scholars viewable by everyone" on scholars for select using (status = 'published');
+
+-- 8. Alter books table for academic metadata
+alter table public.books add column if not exists original_title text;
+alter table public.books add column if not exists arabic_title text;
+alter table public.books add column if not exists translator text;
+alter table public.books add column if not exists muhakkik text;
+alter table public.books add column if not exists publisher text;
+alter table public.books add column if not exists edition text;
+alter table public.books add column if not exists publish_year text;
+alter table public.books add column if not exists original_language text;
+alter table public.books add column if not exists volume_count integer;
+alter table public.books add column if not exists page_count integer;
+alter table public.books add column if not exists isbn text;
+alter table public.books add column if not exists source_url text;
+alter table public.books add column if not exists source_verified boolean not null default false;
+alter table public.books add column if not exists copyright_status text check (copyright_status in ('public_domain', 'open_license', 'permission_granted', 'copyrighted', 'unknown'));
+alter table public.books add column if not exists verification_status text check (verification_status in ('verified', 'partial', 'unverified')) default 'unverified';
+
+-- 9. Create concepts (Ansiklopedi)
+create table public.concepts (
+  id uuid not null default gen_random_uuid(),
+  title text not null,
+  slug text not null unique,
+  category text not null,
+  definition text not null,
+  etymology text,
+  quranic_usage text,
+  hadith_usage text,
+  historical_development text,
+  theological_aspect text,
+  misconceptions text,
+  status text not null default 'draft'::text check (status in ('draft', 'review', 'published', 'archived')),
+  created_at timestamp with time zone not null default timezone('utc'::text, now()),
+  updated_at timestamp with time zone not null default timezone('utc'::text, now()),
+  primary key (id)
+);
+alter table public.concepts enable row level security;
+create policy "Published concepts viewable by everyone" on concepts for select using (status = 'published');
+
+-- 10. Create special dossiers (Ozel Dosyalar)
+create table public.dossiers (
+  id uuid not null default gen_random_uuid(),
+  title text not null,
+  slug text not null unique,
+  description text,
+  content text,
+  status text not null default 'draft'::text check (status in ('draft', 'review', 'published', 'archived')),
+  created_at timestamp with time zone not null default timezone('utc'::text, now()),
+  updated_at timestamp with time zone not null default timezone('utc'::text, now()),
+  primary key (id)
+);
+alter table public.dossiers enable row level security;
+create policy "Published dossiers viewable by everyone" on dossiers for select using (status = 'published');
+
+-- 11. Verses (Ayetler)
+create table public.verses (
+  id uuid not null default gen_random_uuid(),
+  surah integer not null,
+  verse integer not null,
+  arabic_text text not null,
+  turkish_meal text not null,
+  meal_author text,
+  topics text[],
+  status text not null default 'draft'::text check (status in ('draft', 'review', 'published', 'archived')),
+  primary key (id)
+);
+alter table public.verses enable row level security;
+create policy "Published verses viewable by everyone" on verses for select using (status = 'published');
+
+-- 12. Hadiths (Rivayetler)
+create table public.hadiths (
+  id uuid not null default gen_random_uuid(),
+  arabic_text text,
+  turkish_text text not null,
+  narrator text,
+  source_book_id uuid references public.books(id),
+  volume text,
+  page text,
+  chapter text,
+  hadith_number text,
+  topics text[],
+  source_verified boolean not null default false,
+  status text not null default 'draft'::text check (status in ('draft', 'review', 'published', 'archived')),
+  primary key (id)
+);
+alter table public.hadiths enable row level security;
+create policy "Published hadiths viewable by everyone" on hadiths for select using (status = 'published');
+
+-- 13. Citations (Dipnot / Kaynakca)
+create table public.citations (
+  id uuid not null default gen_random_uuid(),
+  entity_type text not null check (entity_type in ('article', 'concept', 'scholar', 'dossier')),
+  entity_id uuid not null,
+  author text,
+  work text,
+  volume text,
+  page text,
+  chapter text,
+  hadith_number text,
+  edition text,
+  publisher text,
+  publish_year text,
+  source_url text,
+  verification_status text check (verification_status in ('verified', 'partial', 'unverified')) default 'unverified',
+  primary key (id)
+);
+alter table public.citations enable row level security;
+create policy "Citations viewable by everyone" on citations for select using (true);

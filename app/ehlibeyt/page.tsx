@@ -30,7 +30,7 @@ export default function EhlibeytPage() {
         <div className="max-w-6xl mx-auto">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
             {mockPersons.map((person, index) => (
-              <Link href={`/ehlibeyt/${person.slug}`} key={person.id}>
+              <Link href={`/ehlibeyt/${person.slug}`} key={person.slug}>
                 <motion.div
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}

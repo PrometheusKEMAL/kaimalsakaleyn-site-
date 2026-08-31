@@ -81,7 +81,7 @@ export default function KavramDetailPage({ params }: { params: Promise<{ slug: s
               </h3>
               <div className="flex flex-wrap gap-3">
                 {relatedPersonsData.map(person => (
-                  <Link href={`/ehlibeyt/${person.slug}`} key={person.id}>
+                  <Link href={`/ehlibeyt/${person.slug}`} key={person.slug}>
                     <span className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-gold-border/30 bg-card-bg/30 text-sm text-secondary-text hover:text-primary-text hover:border-antique-gold/50 transition-colors">
                       {person.name}
                     </span>

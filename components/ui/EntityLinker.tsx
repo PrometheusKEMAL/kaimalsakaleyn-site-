@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { mockPersons, mockConcepts } from "@/lib/mock-data";
+import { mockPersons, mockConcepts, mockBooks, mockArticles } from "@/lib/mock-data";
 
 import DOMPurify from 'isomorphic-dompurify';
 
@@ -21,6 +21,14 @@ export function EntityLinker({ content }: EntityLinkerProps) {
 
   mockConcepts.forEach(concept => {
     entities.push({ name: concept.title, url: `/kavramlar/${concept.slug}` });
+  });
+
+  mockBooks.forEach(book => {
+    entities.push({ name: book.title, url: `/kutuphane/${book.slug}` });
+  });
+
+  mockArticles.forEach(article => {
+    entities.push({ name: article.title, url: `/defterler/${article.slug}` });
   });
 
   // Sort entities by length descending to match longer phrases first (e.g., "İmam Ali" before "Ali")

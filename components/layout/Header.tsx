@@ -9,6 +9,7 @@ import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { MobileNav } from "./MobileNav";
 import { LogoMark } from "./LogoMark";
+import { AdvancedSearch } from "@/components/ui/AdvancedSearch";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -79,14 +80,7 @@ export function Header() {
 
           {/* Right Section */}
           <div className="flex items-center gap-4">
-            {/* Search Button */}
-            <button
-              className="hidden md:flex items-center justify-center w-9 h-9 text-secondary-text hover:text-antique-gold transition-colors duration-300"
-              aria-label="Ara (Ctrl+K)"
-              title="Ara (Ctrl+K)"
-            >
-              <Search className="w-4 h-4" />
-            </button>
+            <AdvancedSearch />
 
             {/* Login Button */}
             <Link

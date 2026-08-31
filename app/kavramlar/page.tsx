@@ -54,7 +54,7 @@ export default function KavramlarPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {filteredConcepts.length > 0 ? (
               filteredConcepts.map((concept, index) => (
-                <Link href={`/kavramlar/${concept.slug}`} key={concept.id}>
+                <Link href={`/kavramlar/${concept.slug}`} key={concept.slug}>
                   <motion.div
                     initial={{ opacity: 0, y: 16 }}
                     animate={{ opacity: 1, y: 0 }}

@@ -16,8 +16,8 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
     notFound();
   }
 
-  const relatedBooksData = mockBooks.filter(b => person.relatedBooks.includes(b.id));
-  const relatedArticlesData = mockArticles.filter(a => person.relatedArticles.includes(a.slug));
+  const relatedBooksData = mockBooks.filter(b => (person.relatedBooks || []).includes(b.id));
+  const relatedArticlesData = mockArticles.filter(a => (person.relatedArticles || []).includes(a.slug));
 
   const tabs = [
     { id: "hayati", label: "Hayatı", icon: <FileText className="w-4 h-4" /> },
@@ -95,7 +95,7 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.3 }}
                 className="prose prose-invert prose-gold max-w-none text-lg text-secondary-text/90 font-light leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: person.life }}
+                dangerouslySetInnerHTML={{ __html: (person.life || person.bio || '') }}
               />
             )}
 
@@ -108,7 +108,7 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
                 transition={{ duration: 0.3 }}
                 className="space-y-8 pl-4 border-l border-antique-gold/30"
               >
-                {person.chronology.map((item, idx) => (
+                {(person.chronology || []).map((item, idx) => (
                   <div key={idx} className="relative pl-6">
                     <div className="absolute -left-[21px] top-1.5 w-3 h-3 rounded-full bg-background border-2 border-antique-gold" />
                     <span className="text-antique-gold text-sm font-semibold tracking-wider block mb-1">{item.year}</span>
@@ -127,7 +127,7 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
                 transition={{ duration: 0.3 }}
                 className="grid gap-6 md:grid-cols-2"
               >
-                {person.quotes.map((quote, idx) => (
+                {(person.quotes || []).map((quote, idx) => (
                   <div key={idx} className="bg-card-bg/30 border border-gold-border/20 p-8 rounded-2xl relative group hover:border-antique-gold/40 transition-colors">
                     <Quote className="absolute top-6 right-6 w-8 h-8 text-antique-gold/10 group-hover:text-antique-gold/20 transition-colors" />
                     <p className="font-serif text-xl text-primary-text mb-6 leading-relaxed relative z-10">

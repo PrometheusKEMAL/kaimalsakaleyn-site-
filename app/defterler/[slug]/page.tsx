@@ -19,6 +19,7 @@ import { mockArticles, mockBooks } from "@/lib/mock-data";
 import { siteConfig } from "@/config/site";
 
 import { EntityLinker } from "@/components/ui/EntityLinker";
+import { ArticleReader } from "@/components/ui/ArticleReader";
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }): Promise<Metadata> {
   const { slug } = await params;
@@ -54,8 +55,8 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
     notFound();
   }
 
-  const relatedArticles = mockArticles.filter(a => article.relatedArticles.includes(a.slug));
-  const relatedBooks = mockBooks.filter(b => article.relatedBooks.includes(b.id));
+  const relatedArticles = mockArticles.filter(a => (article.relatedArticles || []).includes(a.slug));
+  const relatedBooks = mockBooks.filter(b => (article.relatedBooks || []).includes(b.id));
 
   return (
     <div className="pt-24 pb-section-lg bg-background">
@@ -96,7 +97,8 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
           ])
         }}
       />
-      <div className="max-w-4xl mx-auto px-6">
+      <div className="max-w-6xl mx-auto px-6">
+        <ArticleReader>
         
         {/* Breadcrumb */}
         <div className="flex items-center gap-2 text-xs text-secondary-text mb-10 font-medium tracking-wide uppercase">
@@ -157,7 +159,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
         <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-16">
           <div className="flex flex-wrap items-center gap-2">
             <Tag className="w-4 h-4 text-antique-gold/60 mr-2" />
-            {article.tags.map((tag) => (
+            {(article.tags || []).map((tag) => (
               <span key={tag} className="px-3 py-1 bg-card-bg border border-gold-border/50 rounded-full text-xs text-secondary-text hover:text-primary-text hover:border-antique-gold/50 cursor-pointer transition-colors">
                 #{tag}
               </span>
@@ -178,30 +180,39 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
         </div>
 
         {/* Academic Footer (Footnotes & Bibliography) */}
-        {(article.footnotes.length > 0 || article.bibliography.length > 0) && (
-          <div className="bg-card-bg/30 border border-gold-border/30 rounded-2xl p-8 mb-16">
-            {article.footnotes.length > 0 && (
-              <div className="mb-8">
-                <h3 className="font-serif text-lg text-primary-text mb-4 border-b border-gold-border/20 pb-2">Dipnotlar</h3>
-                <ol className="list-decimal list-inside text-sm text-secondary-text/80 space-y-2">
-                  {article.footnotes.map((fn) => (
-                    <li key={fn.id} id={`fn-${fn.id}`}>{fn.text}</li>
+        {((article.footnotes && article.footnotes.length > 0) || (article.bibliography && article.bibliography.length > 0)) && (
+          <div className="mt-16 bg-card-bg/30 p-8 rounded-xl border border-gold-border/20">
+          <h3 className="font-serif text-2xl text-primary-text mb-6 text-antique-gold flex items-center gap-2">
+            <BookOpen className="w-5 h-5" />
+            Kaynakça ve Notlar
+          </h3>
+          <div className="space-y-6">
+            {(article.bibliography && article.bibliography.length > 0) && (
+              <div>
+                <h4 className="text-sm uppercase tracking-wider text-secondary-text mb-3">Kaynakça</h4>
+                <ul className="list-disc list-inside space-y-2 text-sm text-secondary-text/80 font-light">
+                  {article.bibliography.map((item, idx) => (
+                    <li key={idx} className="leading-relaxed">{item}</li>
                   ))}
-                </ol>
+                </ul>
               </div>
             )}
-
-            {article.bibliography.length > 0 && (
+            
+            {(article.footnotes && article.footnotes.length > 0) && (
               <div>
-                <h3 className="font-serif text-lg text-primary-text mb-4 border-b border-gold-border/20 pb-2">Kaynakça</h3>
-                <ul className="list-disc list-inside text-sm text-secondary-text/80 space-y-2">
-                  {article.bibliography.map((bib, idx) => (
-                    <li key={idx}>{bib}</li>
+                <h4 className="text-sm uppercase tracking-wider text-secondary-text mb-3">Dipnotlar</h4>
+                <ul className="space-y-2 text-sm text-secondary-text/80 font-light">
+                  {article.footnotes.map((note) => (
+                    <li key={note.id} className="flex gap-2">
+                      <span className="text-antique-gold font-medium">[{note.id}]</span>
+                      <span className="leading-relaxed">{note.text}</span>
+                    </li>
                   ))}
                 </ul>
               </div>
             )}
           </div>
+        </div>
         )}
 
         {/* Related Content */}
@@ -251,6 +262,7 @@ export default async function ArticleDetailPage({ params }: { params: Promise<{ 
 
           </div>
         )}
+        </ArticleReader>
         
       </div>
     </div>
