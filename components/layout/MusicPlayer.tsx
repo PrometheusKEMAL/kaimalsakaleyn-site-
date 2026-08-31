@@ -30,7 +30,6 @@ export function MusicPlayer() {
           config={{
             youtube: {
               playerVars: {
-                start: 1648,
                 autoplay: 1,
               }
             }
