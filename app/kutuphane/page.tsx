@@ -1,10 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
-import { Library, Search, Book } from "lucide-react";
+import { Search, Filter, LayoutGrid, List, Book } from "lucide-react";
 import { mockBooks } from "@/lib/mock-data";
-import Link from "next/link";
+import { BookCard } from "@/components/ui/BookCard";
 
 const categories = [
   "Tümü", "Kur'an", "Tefsir", "Hadis", "Nehcü'l-Belâğa",
@@ -18,131 +17,164 @@ export default function KutuphanePage() {
   const [activeCategory, setActiveCategory] = useState("Tümü");
   const [activeLanguage, setActiveLanguage] = useState("Tümü");
   const [searchQuery, setSearchQuery] = useState("");
+  const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+
+  const filteredBooks = mockBooks.filter(
+    (book) =>
+      (activeCategory === "Tümü" || book.category === activeCategory) &&
+      (activeLanguage === "Tümü" || book.language === activeLanguage) &&
+      (book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        book.author.toLowerCase().includes(searchQuery.toLowerCase()))
+  );
 
   return (
-    <div className="pt-24 pb-section-lg">
-      {/* Hero */}
-      <section className="py-section px-6 text-center">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="max-w-3xl mx-auto"
-        >
-          <span className="section-label">Arşiv</span>
-          <h1 className="font-serif text-display-lg text-primary-text mb-4">
-            Kütüphane
+    <div className="pt-24 pb-32">
+      {/* Header */}
+      <section className="py-16 px-6 text-center border-b border-gold-border/10 bg-background-secondary/50">
+        <div className="max-w-4xl mx-auto">
+          <span className="section-label mb-6">Katalog</span>
+          <h1 className="font-serif text-4xl md:text-5xl text-primary-text mb-6">
+            KaimAlSakaleyn Dijital Kütüphanesi
           </h1>
-          <p className="text-secondary-text text-base leading-relaxed">
-            Kur&apos;an, tefsir, hadis, Nehcü&apos;l-Belâğa, Sahife-i
-            Seccadiye ve daha fazlasını barındıran dijital kütüphane.
+          <p className="text-secondary-text text-lg leading-relaxed max-w-2xl mx-auto font-light text-balance">
+            Şiî ilim geleneğinin temel eserlerini, müelliflerini ve araştırma 
+            kaynaklarını tek bir akademik çatı altında keşfedin.
           </p>
-        </motion.div>
-      </section>
-
-      {/* Search & Filters */}
-      <section className="px-6 mb-10">
-        <div className="max-w-6xl mx-auto">
-          {/* Search */}
-          <div className="relative max-w-md mx-auto mb-8">
-            <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary-text/40" />
-            <input
-              type="text"
-              placeholder="Eser veya müellif ara..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-card-bg border border-gold-border focus:border-antique-gold/40 rounded-button pl-11 pr-4 py-3 text-primary-text text-sm placeholder:text-secondary-text/30 focus:outline-none transition-colors"
-            />
-          </div>
-
-          {/* Category Filter */}
-          <div className="flex flex-wrap justify-center gap-2 mb-4">
-            {categories.map((cat) => (
-              <button
-                key={cat}
-                onClick={() => setActiveCategory(cat)}
-                className={`text-[11px] tracking-wider uppercase px-4 py-2 rounded-button transition-all duration-300 ${
-                  activeCategory === cat
-                    ? "bg-primary-emerald text-primary-text"
-                    : "bg-card-bg text-secondary-text hover:text-primary-text border border-gold-border hover:border-antique-gold/30"
-                }`}
-              >
-                {cat}
-              </button>
-            ))}
-          </div>
-
-          {/* Language Filter */}
-          <div className="flex justify-center gap-2">
-            {languages.map((lang) => (
-              <button
-                key={lang}
-                onClick={() => setActiveLanguage(lang)}
-                className={`text-[10px] tracking-wider uppercase px-3 py-1.5 rounded-button transition-all duration-300 ${
-                  activeLanguage === lang
-                    ? "bg-antique-gold/20 text-antique-gold border border-antique-gold/30"
-                    : "text-secondary-text/60 hover:text-secondary-text"
-                }`}
-              >
-                {lang}
-              </button>
-            ))}
-          </div>
         </div>
       </section>
 
-      {/* Content Grid */}
-      <section className="px-6">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {mockBooks
-              .filter(
-                (book) =>
-                  (activeCategory === "Tümü" || book.category === activeCategory) &&
-                  (activeLanguage === "Tümü" || book.language === activeLanguage) &&
-                  (book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                    book.author.toLowerCase().includes(searchQuery.toLowerCase()))
+      {/* Main Content Area */}
+      <section className="max-w-7xl mx-auto px-6 py-12 flex flex-col md:flex-row gap-12">
+        
+        {/* Left Sidebar - Filters */}
+        <aside className="w-full md:w-64 shrink-0">
+          <div className="sticky top-24">
+            <h3 className="font-serif text-lg text-primary-text mb-6 flex items-center gap-2">
+              <Filter className="w-4 h-4 text-antique-gold" /> Filtreler
+            </h3>
+            
+            <div className="space-y-8">
+              {/* Categories */}
+              <div>
+                <h4 className="text-[11px] uppercase tracking-widest text-secondary-text mb-4 font-medium">Kategori</h4>
+                <ul className="space-y-2">
+                  {categories.map((cat) => (
+                    <li key={cat}>
+                      <button
+                        onClick={() => setActiveCategory(cat)}
+                        className={`text-sm transition-colors text-left w-full ${
+                          activeCategory === cat ? "text-antique-gold" : "text-primary-text/70 hover:text-primary-text"
+                        }`}
+                      >
+                        {cat}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+
+              {/* Language */}
+              <div>
+                <h4 className="text-[11px] uppercase tracking-widest text-secondary-text mb-4 font-medium">Dil</h4>
+                <ul className="space-y-2">
+                  {languages.map((lang) => (
+                    <li key={lang}>
+                      <button
+                        onClick={() => setActiveLanguage(lang)}
+                        className={`text-sm transition-colors text-left w-full ${
+                          activeLanguage === lang ? "text-antique-gold" : "text-primary-text/70 hover:text-primary-text"
+                        }`}
+                      >
+                        {lang}
+                      </button>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </aside>
+
+        {/* Right Content - Books */}
+        <main className="flex-1 min-w-0">
+          {/* Top Bar */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
+            <div className="relative max-w-sm w-full">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary-text/50" />
+              <input
+                type="text"
+                placeholder="Eser veya yazar ara..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="w-full bg-card-bg border border-gold-border/30 focus:border-antique-gold/50 rounded-md pl-10 pr-4 py-2 text-primary-text text-sm focus:outline-none transition-colors"
+              />
+            </div>
+            
+            <div className="flex items-center gap-2 text-secondary-text border border-gold-border/20 rounded-md p-1 bg-card-bg/50">
+              <button 
+                onClick={() => setViewMode("grid")}
+                className={`p-1.5 rounded-sm transition-colors ${viewMode === "grid" ? "bg-background-secondary text-primary-text shadow-sm" : "hover:text-primary-text"}`}
+                aria-label="Grid Görünümü"
+              >
+                <LayoutGrid className="w-4 h-4" />
+              </button>
+              <button 
+                onClick={() => setViewMode("list")}
+                className={`p-1.5 rounded-sm transition-colors ${viewMode === "list" ? "bg-background-secondary text-primary-text shadow-sm" : "hover:text-primary-text"}`}
+                aria-label="Liste Görünümü"
+              >
+                <List className="w-4 h-4" />
+              </button>
+            </div>
+          </div>
+
+          {/* Results Count */}
+          <div className="text-xs text-secondary-text mb-6">
+            {filteredBooks.length} kaynak bulundu
+          </div>
+
+          {/* Grid/List Container */}
+          <div className={viewMode === "grid" ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" : "space-y-4"}>
+            {filteredBooks.map((book) => (
+              viewMode === "grid" ? (
+                <BookCard 
+                  key={book.id}
+                  slug={book.slug}
+                  title={book.title}
+                  author={book.author}
+                  category={book.category}
+                  isVerified={true}
+                />
+              ) : (
+                <div key={book.id} className="card-base p-4 flex items-center gap-6 group hover:-translate-y-0.5">
+                  <div className="w-12 h-16 bg-[#1a1a1a] border border-gold-border/20 flex items-center justify-center rounded-sm shrink-0">
+                     <Book className="w-4 h-4 text-antique-gold/40" />
+                  </div>
+                  <div className="flex-1 min-w-0">
+                     <h3 className="font-serif text-lg text-primary-text group-hover:text-antique-gold transition-colors truncate">{book.title}</h3>
+                     <p className="text-sm text-secondary-text">{book.author}</p>
+                  </div>
+                  <div className="hidden sm:block shrink-0 text-right">
+                     <span className="text-[10px] uppercase tracking-widest text-antique-gold font-medium block">{book.category}</span>
+                     <span className="text-xs text-secondary-text">{book.language}</span>
+                  </div>
+                </div>
               )
-              .map((book, index) => (
-                <Link href={`/kutuphane/${book.slug}`} key={book.id}>
-                  <motion.div
-                    initial={{ opacity: 0, y: 16 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.4, delay: index * 0.05 }}
-                    className="card-base p-6 hover:-translate-y-1 transition-transform group flex flex-col h-full relative overflow-hidden"
-                  >
-                    <div className="absolute top-0 right-0 w-32 h-32 bg-antique-gold/5 rounded-full blur-[40px] group-hover:bg-antique-gold/15 transition-colors duration-700" />
-                    
-                    <div className="relative z-10 bg-gradient-to-br from-card-bg to-card-bg/50 border border-gold-border/30 rounded-lg mb-6 flex flex-col items-center justify-center h-48 group-hover:border-antique-gold/40 transition-colors shadow-lg overflow-hidden">
-                      {/* Decorative spine effect */}
-                      <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-r from-black/40 to-transparent z-20" />
-                      
-                      <Book className="w-10 h-10 text-antique-gold/30 mb-3 group-hover:text-antique-gold/60 transition-colors group-hover:scale-110 duration-500" />
-                      <span className="text-[10px] text-center font-serif px-4 text-secondary-text/50 line-clamp-2">{book.title}</span>
-                    </div>
-
-                    <div className="flex-1 relative z-10">
-                      <h3 className="font-serif text-lg text-primary-text mb-1 line-clamp-2 group-hover:text-antique-gold transition-colors">
-                        {book.title}
-                      </h3>
-                      <p className="text-secondary-text text-sm mb-4">
-                        {book.author}
-                      </p>
-                    </div>
-
-                    <div className="flex items-center justify-between pt-4 border-t border-gold-border/30 mt-auto relative z-10">
-                      <span className="text-[10px] tracking-wider uppercase text-antique-gold/80 bg-antique-gold/10 px-2 py-1 rounded">
-                        {book.category}
-                      </span>
-                      <span className="text-[10px] tracking-wider uppercase text-secondary-text/60">
-                        {book.language}
-                      </span>
-                    </div>
-                  </motion.div>
-                </Link>
-              ))}
+            ))}
           </div>
-        </div>
+
+          {filteredBooks.length === 0 && (
+            <div className="py-24 text-center border border-dashed border-gold-border/20 rounded-md">
+              <p className="text-secondary-text">Kriterlerinize uygun eser bulunamadı.</p>
+              <button 
+                onClick={() => { setActiveCategory("Tümü"); setActiveLanguage("Tümü"); setSearchQuery(""); }}
+                className="mt-4 text-sm text-antique-gold hover:underline"
+              >
+                Filtreleri Temizle
+              </button>
+            </div>
+          )}
+        </main>
       </section>
     </div>
   );

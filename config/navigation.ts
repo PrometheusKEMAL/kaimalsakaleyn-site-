@@ -6,35 +6,40 @@ export interface NavItem {
 
 export const mainNavigation: NavItem[] = [
   { label: "Ana Sayfa", href: "/" },
-  { label: "Hakkımızda", href: "/hakkimizda" },
-  { label: "İlkeler", href: "/ilkeler" },
-  { label: "Ehl-i Beyt", href: "/ehlibeyt" },
-  { label: "Kavramlar", href: "/kavramlar" },
-  { label: "Sekaleyn Defterleri", href: "/defterler" },
   { label: "Kütüphane", href: "/kutuphane" },
-  { label: "Neşriyat", href: "/nesriyat" },
-  { label: "Etkinlikler", href: "/etkinlikler" },
-  { label: "Meclis", href: "/meclis" },
+  { label: "Ansiklopedi", href: "/kavramlar" },
+  { label: "Ehl-i Beyt", href: "/ehlibeyt" },
+  { label: "Sekaleyn Defterleri", href: "/defterler" },
+  { 
+    label: "Keşfet", 
+    href: "#",
+    children: [
+      { label: "Kur'an", href: "/kutuphane?q=Kuran" },
+      { label: "Âlimler", href: "/alimler" },
+      { label: "Araştırma Dosyaları", href: "/dosyalar" },
+      { label: "Neşriyat", href: "/nesriyat" },
+      { label: "Etkinlikler", href: "/etkinlikler" }
+    ]
+  }
 ];
 
 export const footerNavigation = {
-  kesfet: [
-    { label: "Hakkımızda", href: "/hakkimizda" },
-    { label: "İlkeler", href: "/ilkeler" },
-    { label: "Ehl-i Beyt", href: "/ehlibeyt" },
-    { label: "Kavramlar", href: "/kavramlar" },
-    { label: "Sekaleyn Defterleri", href: "/defterler" },
+  arastirma: [
     { label: "Kütüphane", href: "/kutuphane" },
-    { label: "Neşriyat", href: "/nesriyat" },
-    { label: "Etkinlikler", href: "/etkinlikler" },
+    { label: "Ansiklopedi", href: "/kavramlar" },
+    { label: "Sekaleyn Defterleri", href: "/defterler" },
+    { label: "Ehl-i Beyt Biyografileri", href: "/ehlibeyt" },
+    { label: "Kur'an ve Tefsir", href: "/kutuphane?q=Kuran" },
+    { label: "Şiî Âlimler", href: "/alimler" },
   ],
-  meclis: [
+  kurumsal: [
+    { label: "Hakkımızda", href: "/hakkimizda" },
+    { label: "Yayın İlkeleri", href: "/yayin-ilkeleri" },
+    { label: "Editoryal Prensipler", href: "/ilkeler" },
     { label: "Üye Girişi", href: "/giris" },
-    { label: "Davet Usulü", href: "/hakkimizda#davet" },
     { label: "İletişim", href: "/iletisim" },
   ],
   hukuki: [
-    { label: "Editoryal İlkeler", href: "/editoryal-ilkeler" },
     { label: "Gizlilik Politikası", href: "/gizlilik" },
     { label: "KVKK Aydınlatma Metni", href: "/kvkk" },
     { label: "Kullanım Şartları", href: "/kullanim-sartlari" },

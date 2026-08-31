@@ -10,61 +10,65 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#080B0A",
-        "background-secondary": "#0D1210",
-        "card-bg": "#111714",
+        background: "#0a0a0a", // Deeper, slightly more neutral dark
+        "background-secondary": "#121212",
+        "card-bg": "#161616",
         "deep-emerald": "#123C2D",
         "primary-emerald": "#1C513D",
         "muted-emerald": "#274F40",
-        "antique-gold": "#B89A5B",
-        "light-gold": "#D0B778",
-        ivory: "#EEE7D8",
-        "primary-text": "#F1EEE7",
-        "secondary-text": "#A7AAA4",
-        "gold-border": "rgba(190, 161, 94, 0.18)",
+        "antique-gold": "#C1A362",
+        "light-gold": "#D8C08A",
+        ivory: "#F4F1EA",
+        "primary-text": "#E5E5E5", // Softer off-white for reading
+        "secondary-text": "#9CA3AF",
+        "gold-border": "rgba(193, 163, 98, 0.15)",
       },
       fontFamily: {
         serif: ["Cinzel", "Georgia", "serif"],
         sans: ["Inter", "system-ui", "sans-serif"],
-        arabic: ["Noto Naskh Arabic", "serif"],
+        arabic: ["Noto Naskh Arabic", "Amiri", "serif"],
       },
       fontSize: {
-        "display-xl": ["clamp(2.5rem, 5vw, 4.5rem)", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
-        "display-lg": ["clamp(2rem, 4vw, 3.5rem)", { lineHeight: "1.15", letterSpacing: "-0.01em" }],
-        "display-md": ["clamp(1.5rem, 3vw, 2.5rem)", { lineHeight: "1.2" }],
+        "display-xl": ["clamp(2.5rem, 5vw, 4rem)", { lineHeight: "1.1", letterSpacing: "-0.02em" }],
+        "display-lg": ["clamp(2rem, 4vw, 3rem)", { lineHeight: "1.15", letterSpacing: "-0.01em" }],
+        "display-md": ["clamp(1.5rem, 3vw, 2.25rem)", { lineHeight: "1.2" }],
         "display-sm": ["clamp(1.25rem, 2vw, 1.75rem)", { lineHeight: "1.3" }],
       },
       spacing: {
-        "section": "clamp(4rem, 8vw, 8rem)",
-        "section-lg": "clamp(5rem, 10vw, 10rem)",
+        "1": "4px",
+        "2": "8px",
+        "3": "12px",
+        "4": "16px",
+        "6": "24px",
+        "8": "32px",
+        "12": "48px",
+        "16": "64px",
+        "24": "96px",
+        "32": "128px",
+        "section": "clamp(3rem, 6vw, 6rem)",
+        "section-lg": "clamp(4rem, 8vw, 8rem)",
       },
       borderRadius: {
-        card: "10px",
-        button: "8px",
+        card: "6px",
+        button: "4px",
+        full: "9999px",
+        sm: "4px",
+        md: "6px",
+        lg: "8px",
       },
       backgroundImage: {
         "gradient-radial": "radial-gradient(var(--tw-gradient-stops))",
-        "gradient-gold": "linear-gradient(135deg, #B89A5B, #D0B778)",
-        "gradient-emerald": "linear-gradient(135deg, #123C2D, #1C513D)",
-        "gradient-dark": "linear-gradient(180deg, #080B0A, #0D1210)",
+        "gradient-gold": "linear-gradient(135deg, #C1A362, #D8C08A)",
+        "gradient-dark": "linear-gradient(180deg, #0a0a0a, #121212)",
       },
       boxShadow: {
-        "gold-glow": "0 0 30px rgba(184, 154, 91, 0.15)",
-        "emerald-glow": "0 0 30px rgba(28, 81, 61, 0.25)",
-        card: "0 4px 24px rgba(0, 0, 0, 0.3)",
-        "card-hover": "0 8px 40px rgba(0, 0, 0, 0.4)",
+        "subtle": "0 2px 10px rgba(0, 0, 0, 0.2)",
+        card: "0 4px 20px rgba(0, 0, 0, 0.3)",
+        "card-hover": "0 6px 30px rgba(0, 0, 0, 0.4)",
       },
       animation: {
-        "fade-in": "fadeIn 0.8s ease-out forwards",
-        "fade-in-up": "fadeInUp 0.8s ease-out forwards",
-        "fade-in-down": "fadeInDown 0.6s ease-out forwards",
-        "scale-in": "scaleIn 0.5s ease-out forwards",
-        "slide-in-right": "slideInRight 0.5s ease-out forwards",
-        "pulse-slow": "pulse 4s ease-in-out infinite",
-        "float": "float 6s ease-in-out infinite",
-        "scroll-indicator": "scrollIndicator 2s ease-in-out infinite",
-        "shimmer": "shimmer 2s linear infinite",
-        "border-glow": "borderGlow 3s ease-in-out infinite",
+        "fade-in": "fadeIn 0.4s ease-out forwards",
+        "fade-in-up": "fadeInUp 0.4s ease-out forwards",
       },
       keyframes: {
         fadeIn: {
@@ -72,75 +76,52 @@ const config: Config = {
           "100%": { opacity: "1" },
         },
         fadeInUp: {
-          "0%": { opacity: "0", transform: "translateY(24px)" },
+          "0%": { opacity: "0", transform: "translateY(12px)" },
           "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        fadeInDown: {
-          "0%": { opacity: "0", transform: "translateY(-12px)" },
-          "100%": { opacity: "1", transform: "translateY(0)" },
-        },
-        scaleIn: {
-          "0%": { opacity: "0", transform: "scale(0.95)" },
-          "100%": { opacity: "1", transform: "scale(1)" },
-        },
-        slideInRight: {
-          "0%": { opacity: "0", transform: "translateX(-20px)" },
-          "100%": { opacity: "1", transform: "translateX(0)" },
-        },
-        float: {
-          "0%, 100%": { transform: "translateY(0)" },
-          "50%": { transform: "translateY(-10px)" },
-        },
-        scrollIndicator: {
-          "0%, 100%": { opacity: "0.4", transform: "translateY(0)" },
-          "50%": { opacity: "1", transform: "translateY(8px)" },
-        },
-        shimmer: {
-          "0%": { backgroundPosition: "-200% 0" },
-          "100%": { backgroundPosition: "200% 0" },
-        },
-        borderGlow: {
-          "0%, 100%": { borderColor: "rgba(190, 161, 94, 0.18)" },
-          "50%": { borderColor: "rgba(190, 161, 94, 0.4)" },
-        },
+        }
       },
       typography: {
         DEFAULT: {
           css: {
-            color: "#F1EEE7",
+            color: "#E5E5E5",
+            maxWidth: "75ch", // Academic reading width constraint
             a: {
-              color: "#B89A5B",
+              color: "#C1A362",
+              textDecoration: "none",
               "&:hover": {
-                color: "#D0B778",
+                color: "#D8C08A",
+                textDecoration: "underline",
               },
             },
             h1: {
-              color: "#F1EEE7",
+              color: "#E5E5E5",
               fontFamily: "Cinzel, Georgia, serif",
+              fontWeight: "600",
             },
             h2: {
-              color: "#F1EEE7",
+              color: "#E5E5E5",
               fontFamily: "Cinzel, Georgia, serif",
+              fontWeight: "600",
+              marginTop: "2em",
             },
             h3: {
-              color: "#F1EEE7",
+              color: "#E5E5E5",
               fontFamily: "Cinzel, Georgia, serif",
             },
             h4: {
-              color: "#F1EEE7",
+              color: "#E5E5E5",
             },
             blockquote: {
-              color: "#A7AAA4",
-              borderLeftColor: "#B89A5B",
+              color: "#D1D5DB",
+              borderLeftColor: "#C1A362",
+              fontStyle: "italic",
+              paddingLeft: "1.5em",
             },
             strong: {
-              color: "#F1EEE7",
-            },
-            code: {
-              color: "#D0B778",
+              color: "#E5E5E5",
             },
             hr: {
-              borderColor: "rgba(190, 161, 94, 0.18)",
+              borderColor: "rgba(193, 163, 98, 0.15)",
             },
           },
         },

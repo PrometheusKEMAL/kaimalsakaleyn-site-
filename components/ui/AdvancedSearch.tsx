@@ -209,9 +209,17 @@ export function AdvancedSearch() {
                 )}
               </div>
 
-              <div className="bg-background/50 border-t border-gold-border/10 px-4 py-3 text-xs text-secondary-text/60 flex items-center justify-between">
-                <span>Sekaleyn Araştırma ve Kaynak Merkezi</span>
-                <span>Yönlendirmek için <kbd className="px-1.5 py-0.5 border border-secondary-text/20 rounded ml-1">Enter</kbd></span>
+              <div className="bg-background-secondary border-t border-gold-border/20 px-4 py-3 flex items-center justify-between">
+                <span className="text-xs text-secondary-text/60">Sekaleyn Araştırma ve Kaynak Merkezi</span>
+                {query.length >= 2 && (
+                  <Link 
+                    href={`/arama?q=${encodeURIComponent(query)}`} 
+                    onClick={() => setIsOpen(false)}
+                    className="text-xs font-medium text-antique-gold hover:text-light-gold flex items-center gap-1"
+                  >
+                    Tüm Sonuçları Gör <ArrowRight className="w-3 h-3" />
+                  </Link>
+                )}
               </div>
             </motion.div>
           </>

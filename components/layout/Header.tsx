@@ -3,96 +3,140 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, Search, X } from "lucide-react";
+import { Menu, X, ChevronDown } from "lucide-react";
 import { mainNavigation } from "@/config/navigation";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
 import { MobileNav } from "./MobileNav";
 import { LogoMark } from "./LogoMark";
 import { AdvancedSearch } from "@/components/ui/AdvancedSearch";
+import { AnimatePresence, motion } from "framer-motion";
 
 export function Header() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [activeMegaMenu, setActiveMegaMenu] = useState<string | null>(null);
   const pathname = usePathname();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 10);
     };
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Close mobile menu on route change
+  // Close menus on route change
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setActiveMegaMenu(null);
   }, [pathname]);
 
   return (
     <>
       <header
         className={cn(
-          "fixed top-0 left-0 right-0 z-50 transition-all duration-500",
-          isScrolled
-            ? "bg-background/80 backdrop-blur-xl border-b border-antique-gold/8 shadow-lg shadow-black/10"
-            : "bg-transparent"
+          "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
+          isScrolled || activeMegaMenu
+            ? "bg-background/95 backdrop-blur-md border-gold-border/20 shadow-sm"
+            : "bg-transparent border-transparent"
         )}
       >
-        <nav className="max-w-7xl mx-auto px-6 md:px-10 h-16 md:h-18 flex items-center justify-between gap-8">
+        <nav className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between gap-8">
           {/* Logo */}
           <Link
             href="/"
             className="flex items-center gap-3 shrink-0 group"
             aria-label="Ana Sayfa"
           >
-            <LogoMark className="w-9 h-9 transition-transform duration-300 group-hover:scale-105" />
+            <LogoMark className="w-8 h-8 transition-transform duration-300 group-hover:scale-105" />
             <div className="hidden sm:block">
-              <div className="font-serif text-[13px] tracking-[0.22em] uppercase font-semibold leading-tight text-antique-gold">
+              <div className="font-serif text-[13px] tracking-[0.2em] uppercase font-semibold leading-tight text-primary-text group-hover:text-antique-gold transition-colors">
                 {siteConfig.nameFormatted}
-              </div>
-              <div className="font-sans text-[8px] tracking-[0.28em] uppercase leading-tight text-secondary-text mt-0.5">
-                {siteConfig.subtitle}
               </div>
             </div>
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden xl:flex items-center gap-7">
+          <div className="hidden xl:flex items-center gap-8 h-full">
             {mainNavigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  "font-sans relative text-[10.5px] tracking-wide uppercase font-medium transition-colors duration-300 whitespace-nowrap pb-0.5",
-                  pathname === item.href
-                    ? "text-antique-gold"
-                    : "text-secondary-text hover:text-antique-gold"
-                )}
+              <div 
+                key={item.label}
+                className="relative h-full flex items-center"
+                onMouseEnter={() => item.children ? setActiveMegaMenu(item.label) : setActiveMegaMenu(null)}
+                onMouseLeave={() => setActiveMegaMenu(null)}
               >
-                {item.label}
-                {pathname === item.href && (
-                  <span className="absolute bottom-0 left-0 w-full h-px bg-antique-gold/50" />
+                {item.children ? (
+                  <button
+                    className={cn(
+                      "flex items-center gap-1 font-sans text-[11px] tracking-widest uppercase font-medium transition-colors duration-200",
+                      activeMegaMenu === item.label
+                        ? "text-antique-gold"
+                        : "text-secondary-text hover:text-primary-text"
+                    )}
+                  >
+                    {item.label}
+                    <ChevronDown className="w-3 h-3" />
+                  </button>
+                ) : (
+                  <Link
+                    href={item.href}
+                    className={cn(
+                      "font-sans text-[11px] tracking-widest uppercase font-medium transition-colors duration-200",
+                      pathname === item.href || pathname.startsWith(item.href + '/')
+                        ? "text-antique-gold"
+                        : "text-secondary-text hover:text-primary-text"
+                    )}
+                  >
+                    {item.label}
+                  </Link>
                 )}
-              </Link>
+
+                {/* Mega Menu Dropdown */}
+                {item.children && (
+                  <AnimatePresence>
+                    {activeMegaMenu === item.label && (
+                      <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: 10 }}
+                        transition={{ duration: 0.15 }}
+                        className="absolute top-full left-1/2 -translate-x-1/2 w-64 bg-card-bg border border-gold-border/30 rounded-md shadow-card overflow-hidden py-2"
+                      >
+                        <div className="flex flex-col">
+                          {item.children.map(child => (
+                            <Link 
+                              key={child.href}
+                              href={child.href}
+                              className="px-5 py-2.5 text-sm text-secondary-text hover:text-antique-gold hover:bg-white/5 transition-colors"
+                            >
+                              {child.label}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                )}
+              </div>
             ))}
           </div>
 
           {/* Right Section */}
           <div className="flex items-center gap-4">
             <AdvancedSearch />
-
+            
             {/* Login Button */}
             <Link
               href="/giris"
-              className="hidden md:inline-flex items-center gap-2 font-sans text-[10px] tracking-[0.18em] uppercase font-medium text-antique-gold border border-antique-gold/30 px-5 py-2.5 hover:bg-antique-gold/10 hover:border-antique-gold/50 transition-all duration-300 rounded-button"
+              className="hidden md:inline-flex btn-outline-gold py-1.5 px-4 text-[10px]"
             >
-              Üye Girişi
+              Giriş
             </Link>
 
             {/* Mobile Menu Button */}
             <button
-              className="xl:hidden text-antique-gold/70 hover:text-antique-gold transition-colors p-1"
+              className="xl:hidden text-secondary-text hover:text-primary-text transition-colors p-1"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Menüyü Kapat" : "Menü"}
             >
