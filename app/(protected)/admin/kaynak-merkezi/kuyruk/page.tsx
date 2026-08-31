@@ -5,27 +5,81 @@ import { Check, Edit3, X, AlertCircle, ExternalLink, ShieldAlert, ShieldCheck } 
 import Link from "next/link";
 
 // Mock data for UI demonstration
-const mockQueueItem = {
-  id: "1",
-  entityType: "book",
-  sourceUrl: "https://example-shia-library.org/book/123",
-  confidenceScore: 82,
-  extractedData: {
-    title: "Kitâbü'l-Gaybe",
-    arabic_title: "كتاب الغيبة",
-    author: "Muhammed b. İbrahim en-Nu'mânî",
-    publication_year: "1997",
-    publisher: "Ensar Yayıncılık",
-    page_count: 480,
+const initialQueueItems = [
+  {
+    id: "1",
+    entityType: "book",
+    sourceUrl: "https://example-shia-library.org/book/123",
+    confidenceScore: 82,
+    extractedData: {
+      title: "Kitâbü'l-Gaybe",
+      arabic_title: "كتاب الغيبة",
+      author: "Muhammed b. İbrahim en-Nu'mânî",
+      publication_year: "1997",
+      publisher: "Ensar Yayıncılık",
+      page_count: 480,
+    }
   }
-};
+];
 
 export default function ReviewQueuePage() {
-  const [activeItem] = useState(mockQueueItem);
+  const [items, setItems] = useState(initialQueueItems);
+  const [notification, setNotification] = useState<{message: string, type: 'success' | 'error'} | null>(null);
+
+  const handleApprove = (id: string) => {
+    // In a real app, this would call an API to insert the data into the main database
+    setItems(items.filter(item => item.id !== id));
+    setNotification({ message: "Kayıt başarıyla kütüphaneye eklendi ve yayınlandı.", type: 'success' });
+    setTimeout(() => setNotification(null), 3000);
+  };
+
+  const handleReject = (id: string) => {
+    // In a real app, this would call an API to mark the queue item as rejected
+    setItems(items.filter(item => item.id !== id));
+    setNotification({ message: "Kayıt reddedildi ve kuyruktan kaldırıldı.", type: 'error' });
+    setTimeout(() => setNotification(null), 3000);
+  };
+
+  if (items.length === 0) {
+    return (
+      <div className="p-8 max-w-[1600px] mx-auto min-h-screen">
+        {notification && (
+          <div className={`mb-4 p-4 rounded-md text-sm font-medium ${notification.type === 'success' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
+            {notification.message}
+          </div>
+        )}
+        <div className="mb-8 flex items-center justify-between border-b border-gold-border/20 pb-6">
+          <div>
+            <div className="flex items-center gap-3 mb-2">
+              <Link href="/admin/kaynak-merkezi" className="text-secondary-text hover:text-antique-gold transition-colors text-sm">
+                &larr; Kaynak Merkezi
+              </Link>
+              <span className="text-gold-border text-sm">/</span>
+              <span className="text-primary-text text-sm">Onay Kuyruğu (0)</span>
+            </div>
+            <h1 className="text-2xl font-serif text-primary-text">Metadata İnceleme</h1>
+          </div>
+        </div>
+        <div className="card-base p-12 text-center">
+          <Check className="w-12 h-12 text-emerald-500 mx-auto mb-4" />
+          <h2 className="text-xl font-serif text-primary-text mb-2">Kuyruk Boş</h2>
+          <p className="text-secondary-text">İncelenecek yeni bir kaynak kaydı bulunmuyor.</p>
+        </div>
+      </div>
+    );
+  }
+
+  const activeItem = items[0];
 
   return (
     <div className="p-8 max-w-[1600px] mx-auto min-h-screen">
       
+      {notification && (
+        <div className={`mb-4 p-4 rounded-md text-sm font-medium ${notification.type === 'success' ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
+          {notification.message}
+        </div>
+      )}
+
       {/* Header */}
       <div className="mb-8 flex items-center justify-between border-b border-gold-border/20 pb-6">
         <div>
@@ -34,16 +88,16 @@ export default function ReviewQueuePage() {
               &larr; Kaynak Merkezi
             </Link>
             <span className="text-gold-border text-sm">/</span>
-            <span className="text-primary-text text-sm">Onay Kuyruğu (12)</span>
+            <span className="text-primary-text text-sm">Onay Kuyruğu ({items.length})</span>
           </div>
           <h1 className="text-2xl font-serif text-primary-text">Metadata İnceleme</h1>
         </div>
         
         <div className="flex gap-3">
-          <button className="px-4 py-2 border border-red-500/50 text-red-500 rounded text-sm hover:bg-red-500/10 transition-colors flex items-center gap-2">
+          <button onClick={() => handleReject(activeItem.id)} className="px-4 py-2 border border-red-500/50 text-red-500 rounded text-sm hover:bg-red-500/10 transition-colors flex items-center gap-2">
             <X className="w-4 h-4" /> Reddet
           </button>
-          <button className="px-4 py-2 bg-antique-gold text-background rounded text-sm font-medium hover:bg-antique-gold/90 transition-colors flex items-center gap-2">
+          <button onClick={() => handleApprove(activeItem.id)} className="px-4 py-2 bg-antique-gold text-background rounded text-sm font-medium hover:bg-antique-gold/90 transition-colors flex items-center gap-2">
             <Check className="w-4 h-4" /> Kütüphaneye Ekle
           </button>
         </div>
