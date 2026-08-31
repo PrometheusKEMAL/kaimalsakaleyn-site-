@@ -24,7 +24,7 @@ const adminNavItems = [
   { href: "/admin/ayarlar", label: "Ayarlar", icon: Settings },
 ];
 
-export function AdminSidebar() {
+export function AdminSidebar({ role = "admin" }: { role?: string }) {
   const pathname = usePathname();
   const router = useRouter();
 
@@ -46,7 +46,9 @@ export function AdminSidebar() {
         </div>
         
         <nav className="space-y-1.5 flex-1">
-          {adminNavItems.map((item) => {
+          {adminNavItems
+            .filter((item) => !(role === "moderator" && item.href === "/admin/kullanicilar"))
+            .map((item) => {
             const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
             return (
               <Link

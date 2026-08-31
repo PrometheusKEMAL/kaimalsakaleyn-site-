@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Search, MoreVertical, ShieldAlert, Ban, CheckCircle, Shield, Edit, X, Save } from "lucide-react";
 import { createBrowserClient } from "@supabase/ssr";
-import { updateUserAdmin } from "@/app/actions/admin-users";
+import { updateUserAdmin, createUserAdmin } from "@/app/actions/admin-users";
 
 export default function AdminKullanicilarPage() {
   const [searchQuery, setSearchQuery] = useState("");
@@ -15,7 +15,11 @@ export default function AdminKullanicilarPage() {
 
   // Modal State
   const [editingUser, setEditingUser] = useState<any>(null);
-  const [editForm, setEditForm] = useState({ fullName: "", email: "", password: "" });
+  const [editForm, setEditForm] = useState({ fullName: "", email: "", password: "", role: "user" });
+  
+  const [isAddingUser, setIsAddingUser] = useState(false);
+  const [addForm, setAddForm] = useState({ fullName: "", email: "", password: "", role: "user" });
+  
   const [isSaving, setIsSaving] = useState(false);
 
   const supabase = createBrowserClient(
@@ -65,7 +69,7 @@ export default function AdminKullanicilarPage() {
 
   const handleEditClick = (user: any) => {
     setEditingUser(user);
-    setEditForm({ fullName: user.full_name || "", email: user.email || "", password: "" });
+    setEditForm({ fullName: user.full_name || "", email: user.email || "", password: "", role: user.role || "user" });
   };
 
   const handleSaveEdit = async () => {
@@ -75,6 +79,7 @@ export default function AdminKullanicilarPage() {
     if (editForm.fullName !== editingUser.full_name) updateData.fullName = editForm.fullName;
     if (editForm.email !== editingUser.email) updateData.email = editForm.email;
     if (editForm.password) updateData.password = editForm.password;
+    if (editForm.role !== editingUser.role) updateData.role = editForm.role;
 
     if (Object.keys(updateData).length === 0) {
       setEditingUser(null);
@@ -101,6 +106,31 @@ export default function AdminKullanicilarPage() {
     const nameMatch = user.full_name?.toLowerCase().includes(searchQuery.toLowerCase());
     return emailMatch || nameMatch;
   });
+
+  const handleAddUser = async () => {
+    if (!addForm.email || !addForm.fullName) {
+      alert("Lütfen isim ve e-posta alanlarını doldurun.");
+      return;
+    }
+
+    setIsSaving(true);
+    const result = await createUserAdmin({
+      fullName: addForm.fullName,
+      email: addForm.email,
+      password: addForm.password || undefined,
+      role: addForm.role,
+    });
+
+    if (result.success) {
+      alert("Kullanıcı başarıyla eklendi.");
+      fetchUsers();
+      setIsAddingUser(false);
+      setAddForm({ fullName: "", email: "", password: "", role: "user" });
+    } else {
+      alert("Hata: " + result.error + "\n\nNot: Bu işlemin çalışması için .env.local dosyasında SUPABASE_SERVICE_ROLE_KEY tanımlı olmalıdır.");
+    }
+    setIsSaving(false);
+  };
 
   return (
     <div className="space-y-8 relative">
@@ -154,6 +184,18 @@ export default function AdminKullanicilarPage() {
                     className="w-full bg-background/50 border border-gold-border/50 rounded-md px-4 py-2 text-primary-text focus:outline-none focus:border-antique-gold transition-colors placeholder:text-secondary-text/30"
                   />
                 </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-wider text-secondary-text mb-2">Rol</label>
+                  <select 
+                    value={editForm.role}
+                    onChange={(e) => setEditForm({...editForm, role: e.target.value})}
+                    className="w-full bg-background/50 border border-gold-border/50 rounded-md px-4 py-2 text-primary-text focus:outline-none focus:border-antique-gold transition-colors"
+                  >
+                    <option value="user">Üye</option>
+                    <option value="moderator">Moderatör</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
               </div>
               <div className="p-6 border-t border-gold-border/50 flex justify-end gap-3 bg-black/20">
                 <button 
@@ -176,6 +218,90 @@ export default function AdminKullanicilarPage() {
         )}
       </AnimatePresence>
 
+      {/* Add User Modal */}
+      <AnimatePresence>
+        {isAddingUser && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4"
+          >
+            <motion.div 
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              className="bg-card-bg border border-gold-border rounded-xl shadow-2xl w-full max-w-md overflow-hidden"
+            >
+              <div className="flex justify-between items-center p-6 border-b border-gold-border/50 bg-black/20">
+                <h3 className="font-serif text-lg text-primary-text">Yeni Kullanıcı Ekle</h3>
+                <button onClick={() => setIsAddingUser(false)} className="text-secondary-text hover:text-white transition-colors">
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+              <div className="p-6 space-y-4">
+                <div>
+                  <label className="block text-xs uppercase tracking-wider text-secondary-text mb-2">Ad Soyad</label>
+                  <input 
+                    type="text" 
+                    value={addForm.fullName}
+                    onChange={(e) => setAddForm({...addForm, fullName: e.target.value})}
+                    className="w-full bg-background/50 border border-gold-border/50 rounded-md px-4 py-2 text-primary-text focus:outline-none focus:border-antique-gold transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-wider text-secondary-text mb-2">E-posta</label>
+                  <input 
+                    type="email" 
+                    value={addForm.email}
+                    onChange={(e) => setAddForm({...addForm, email: e.target.value})}
+                    className="w-full bg-background/50 border border-gold-border/50 rounded-md px-4 py-2 text-primary-text focus:outline-none focus:border-antique-gold transition-colors"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-wider text-secondary-text mb-2">Şifre (İsteğe Bağlı)</label>
+                  <input 
+                    type="password" 
+                    placeholder="Boş bırakılırsa rastgele oluşturulur"
+                    value={addForm.password}
+                    onChange={(e) => setAddForm({...addForm, password: e.target.value})}
+                    className="w-full bg-background/50 border border-gold-border/50 rounded-md px-4 py-2 text-primary-text focus:outline-none focus:border-antique-gold transition-colors placeholder:text-secondary-text/30"
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs uppercase tracking-wider text-secondary-text mb-2">Rol</label>
+                  <select 
+                    value={addForm.role}
+                    onChange={(e) => setAddForm({...addForm, role: e.target.value})}
+                    className="w-full bg-background/50 border border-gold-border/50 rounded-md px-4 py-2 text-primary-text focus:outline-none focus:border-antique-gold transition-colors"
+                  >
+                    <option value="user">Üye</option>
+                    <option value="moderator">Moderatör</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </div>
+              </div>
+              <div className="p-6 border-t border-gold-border/50 flex justify-end gap-3 bg-black/20">
+                <button 
+                  onClick={() => setIsAddingUser(false)}
+                  className="px-4 py-2 text-sm text-secondary-text hover:text-white transition-colors"
+                  disabled={isSaving}
+                >
+                  İptal
+                </button>
+                <button 
+                  onClick={handleAddUser}
+                  disabled={isSaving}
+                  className="btn-primary py-2 px-6 text-sm flex items-center"
+                >
+                  {isSaving ? "Ekleniyor..." : <><Save className="w-4 h-4 mr-2" /> Ekle</>}
+                </button>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Header */}
       <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
         <motion.div
@@ -190,6 +316,16 @@ export default function AdminKullanicilarPage() {
             Platforma kayıtlı tüm üyeleri görüntüleyin ve yönetin.
           </p>
         </motion.div>
+        
+        <motion.button
+          initial={{ opacity: 0, x: 20 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.5 }}
+          onClick={() => setIsAddingUser(true)}
+          className="btn-primary py-2 px-4 flex items-center shrink-0"
+        >
+          Yeni Kullanıcı Ekle
+        </motion.button>
       </div>
 
       {/* Toolbar */}
@@ -217,6 +353,7 @@ export default function AdminKullanicilarPage() {
           >
             <option value="all">Tüm Roller</option>
             <option value="admin">Admin</option>
+            <option value="moderator">Moderatör</option>
             <option value="user">Üye</option>
           </select>
           <select 
@@ -273,10 +410,10 @@ export default function AdminKullanicilarPage() {
                     </td>
                     <td className="px-6 py-4">
                       <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[10px] uppercase tracking-widest ${
-                        user.role === "admin" ? "bg-antique-gold/10 text-antique-gold border border-antique-gold/20" : "bg-white/5 text-secondary-text border border-white/10"
+                        user.role === "admin" ? "bg-antique-gold/10 text-antique-gold border border-antique-gold/20" : user.role === "moderator" ? "bg-blue-500/10 text-blue-400 border border-blue-500/20" : "bg-white/5 text-secondary-text border border-white/10"
                       }`}>
-                        {user.role === "admin" ? <Shield className="w-3 h-3" /> : <ShieldAlert className="w-3 h-3 opacity-50" />}
-                        {user.role === "admin" ? "Admin" : "Üye"}
+                        {user.role === "admin" ? <Shield className="w-3 h-3" /> : user.role === "moderator" ? <ShieldAlert className="w-3 h-3" /> : <ShieldAlert className="w-3 h-3 opacity-50" />}
+                        {user.role === "admin" ? "Admin" : user.role === "moderator" ? "Moderatör" : "Üye"}
                       </span>
                     </td>
                     <td className="px-6 py-4">

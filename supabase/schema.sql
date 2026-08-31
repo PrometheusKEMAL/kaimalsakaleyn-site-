@@ -5,7 +5,7 @@ create table public.profiles (
   id uuid not null references auth.users on delete cascade,
   email text not null,
   full_name text,
-  role text not null default 'user'::text check (role in ('admin', 'user')),
+  role text not null default 'user'::text check (role in ('admin', 'moderator', 'user')),
   status text not null default 'active'::text check (status in ('active', 'blocked')),
   created_at timestamp with time zone not null default timezone('utc'::text, now()),
   updated_at timestamp with time zone not null default timezone('utc'::text, now()),
@@ -61,35 +61,35 @@ create policy "Published articles are viewable by everyone."
   on articles for select
   using ( status = 'published' );
 
-create policy "Admins can view all articles."
+create policy "Admins and moderators can view all articles."
   on articles for select
   using ( 
     exists (
-      select 1 from profiles where id = auth.uid() and role = 'admin'
+      select 1 from profiles where id = auth.uid() and role in ('admin', 'moderator')
     )
   );
 
-create policy "Admins can insert articles."
+create policy "Admins and moderators can insert articles."
   on articles for insert
   with check ( 
     exists (
-      select 1 from profiles where id = auth.uid() and role = 'admin'
+      select 1 from profiles where id = auth.uid() and role in ('admin', 'moderator')
     )
   );
 
-create policy "Admins can update articles."
+create policy "Admins and moderators can update articles."
   on articles for update
   using ( 
     exists (
-      select 1 from profiles where id = auth.uid() and role = 'admin'
+      select 1 from profiles where id = auth.uid() and role in ('admin', 'moderator')
     )
   );
 
-create policy "Admins can delete articles."
+create policy "Admins and moderators can delete articles."
   on articles for delete
   using ( 
     exists (
-      select 1 from profiles where id = auth.uid() and role = 'admin'
+      select 1 from profiles where id = auth.uid() and role in ('admin', 'moderator')
     )
   );
 
@@ -119,35 +119,35 @@ create policy "Published books are viewable by everyone."
   on books for select
   using ( status = 'published' );
 
-create policy "Admins can view all books."
+create policy "Admins and moderators can view all books."
   on books for select
   using ( 
     exists (
-      select 1 from profiles where id = auth.uid() and role = 'admin'
+      select 1 from profiles where id = auth.uid() and role in ('admin', 'moderator')
     )
   );
 
-create policy "Admins can insert books."
+create policy "Admins and moderators can insert books."
   on books for insert
   with check ( 
     exists (
-      select 1 from profiles where id = auth.uid() and role = 'admin'
+      select 1 from profiles where id = auth.uid() and role in ('admin', 'moderator')
     )
   );
 
-create policy "Admins can update books."
+create policy "Admins and moderators can update books."
   on books for update
   using ( 
     exists (
-      select 1 from profiles where id = auth.uid() and role = 'admin'
+      select 1 from profiles where id = auth.uid() and role in ('admin', 'moderator')
     )
   );
 
-create policy "Admins can delete books."
+create policy "Admins and moderators can delete books."
   on books for delete
   using ( 
     exists (
-      select 1 from profiles where id = auth.uid() and role = 'admin'
+      select 1 from profiles where id = auth.uid() and role in ('admin', 'moderator')
     )
   );
 

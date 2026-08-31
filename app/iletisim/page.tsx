@@ -14,10 +14,31 @@ export default function IletisimPage() {
     if (!kvkkAccepted) return;
     setIsSubmitting(true);
 
-    // Simulate submission — in production this hits the API
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setIsSubmitted(true);
-    setIsSubmitting(false);
+    const formData = new FormData(e.currentTarget);
+    const data = {
+      fullName: formData.get("fullName"),
+      email: formData.get("email"),
+      subject: formData.get("subject"),
+      message: formData.get("message"),
+    };
+
+    try {
+      const response = await fetch("/api/iletisim", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+      } else {
+        alert("Mesaj gönderilemedi. Lütfen tekrar deneyin.");
+      }
+    } catch (error) {
+      alert("Bir hata oluştu.");
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -82,6 +103,7 @@ export default function IletisimPage() {
                   <User className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary-text/30 group-focus-within:text-antique-gold/60 transition-colors" />
                   <input
                     type="text"
+                    name="fullName"
                     required
                     placeholder="Adınız ve soyadınız"
                     className="w-full bg-background/50 border border-gold-border focus:border-antique-gold/40 rounded-button pl-11 pr-4 py-3.5 text-primary-text text-sm placeholder:text-secondary-text/25 focus:outline-none transition-colors"
@@ -98,6 +120,7 @@ export default function IletisimPage() {
                   <Mail className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary-text/30 group-focus-within:text-antique-gold/60 transition-colors" />
                   <input
                     type="email"
+                    name="email"
                     required
                     placeholder="E-posta adresiniz"
                     className="w-full bg-background/50 border border-gold-border focus:border-antique-gold/40 rounded-button pl-11 pr-4 py-3.5 text-primary-text text-sm placeholder:text-secondary-text/25 focus:outline-none transition-colors"
@@ -114,6 +137,7 @@ export default function IletisimPage() {
                   <FileText className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary-text/30 group-focus-within:text-antique-gold/60 transition-colors" />
                   <input
                     type="text"
+                    name="subject"
                     required
                     placeholder="Mesajınızın konusu"
                     className="w-full bg-background/50 border border-gold-border focus:border-antique-gold/40 rounded-button pl-11 pr-4 py-3.5 text-primary-text text-sm placeholder:text-secondary-text/25 focus:outline-none transition-colors"
@@ -129,6 +153,7 @@ export default function IletisimPage() {
                 <div className="relative group">
                   <MessageSquare className="absolute left-4 top-4 w-4 h-4 text-secondary-text/30 group-focus-within:text-antique-gold/60 transition-colors" />
                   <textarea
+                    name="message"
                     required
                     rows={5}
                     placeholder="Mesajınızı yazın..."
