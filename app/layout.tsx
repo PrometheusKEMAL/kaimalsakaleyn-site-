@@ -3,6 +3,7 @@ import { Inter, Cinzel, Noto_Naskh_Arabic } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
+import { MusicPlayer } from "@/components/layout/MusicPlayer";
 import "./globals.css";
 
 const inter = Inter({
@@ -72,6 +73,9 @@ export default function RootLayout({
 
         {/* Footer */}
         <Footer />
+        
+        {/* Background Music */}
+        <MusicPlayer />
       </body>
     </html>
   );
