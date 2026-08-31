@@ -27,6 +27,7 @@ export function MusicPlayer() {
           volume={0.3} // Soft background music
           width="0"
           height="0"
+          // @ts-ignore
           config={{
             youtube: {
               playerVars: {
