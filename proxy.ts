@@ -37,7 +37,7 @@ export async function proxy(request: NextRequest) {
     data: { user },
   } = await supabase.auth.getUser();
 
-  const isProtectedRoute = request.nextUrl.pathname.startsWith("/meclis");
+  const isProtectedRoute = request.nextUrl.pathname.startsWith("/pano");
   const isAdminRoute = request.nextUrl.pathname.startsWith("/admin");
   const isAuthRoute = request.nextUrl.pathname === "/giris";
 
@@ -51,7 +51,7 @@ export async function proxy(request: NextRequest) {
 
   // If user is trying to access auth pages but is already logged in
   if (isAuthRoute && user) {
-    return NextResponse.redirect(new URL("/meclis", request.url));
+    return NextResponse.redirect(new URL("/pano", request.url));
   }
 
   return response;

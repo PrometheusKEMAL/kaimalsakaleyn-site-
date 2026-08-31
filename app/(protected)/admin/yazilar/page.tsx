@@ -68,7 +68,7 @@ export default function AdminYazilarPage() {
             Yazı Yönetimi
           </h1>
           <p className="text-secondary-text text-sm">
-            Sakaleyn Defterleri'ndeki tüm yazıları (makaleleri) yönetin.
+            Sekaleyn Defterleri'ndeki tüm yazıları (makaleleri) yönetin.
           </p>
         </motion.div>
         

@@ -2,7 +2,9 @@
 
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Library, Search } from "lucide-react";
+import { Library, Search, Book } from "lucide-react";
+import { mockBooks } from "@/lib/mock-data";
+import Link from "next/link";
 
 const categories = [
   "Tümü", "Kur'an", "Tefsir", "Hadis", "Nehcü'l-Belâğa",
@@ -89,24 +91,57 @@ export default function KutuphanePage() {
         </div>
       </section>
 
-      {/* Empty State */}
+      {/* Content Grid */}
       <section className="px-6">
         <div className="max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 16 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.3 }}
-            className="card-base p-16 text-center"
-          >
-            <Library className="w-12 h-12 text-antique-gold/15 mx-auto mb-5" />
-            <h2 className="font-serif text-xl text-primary-text mb-3">
-              Kütüphaneye Yeni Eserler Hazırlanıyor
-            </h2>
-            <p className="text-secondary-text text-sm max-w-md mx-auto leading-relaxed">
-              Kütüphanemiz yakında zengin bir koleksiyonla hizmetinize
-              sunulacaktır. Eserler admin panelinden yönetilmektedir.
-            </p>
-          </motion.div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+            {mockBooks
+              .filter(
+                (book) =>
+                  (activeCategory === "Tümü" || book.category === activeCategory) &&
+                  (activeLanguage === "Tümü" || book.language === activeLanguage) &&
+                  (book.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+                    book.author.toLowerCase().includes(searchQuery.toLowerCase()))
+              )
+              .map((book, index) => (
+                <Link href={`/kutuphane/${book.slug}`} key={book.id}>
+                  <motion.div
+                    initial={{ opacity: 0, y: 16 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.4, delay: index * 0.05 }}
+                    className="card-base p-6 hover:-translate-y-1 transition-transform group flex flex-col h-full relative overflow-hidden"
+                  >
+                    <div className="absolute top-0 right-0 w-32 h-32 bg-antique-gold/5 rounded-full blur-[40px] group-hover:bg-antique-gold/15 transition-colors duration-700" />
+                    
+                    <div className="relative z-10 bg-gradient-to-br from-card-bg to-card-bg/50 border border-gold-border/30 rounded-lg mb-6 flex flex-col items-center justify-center h-48 group-hover:border-antique-gold/40 transition-colors shadow-lg overflow-hidden">
+                      {/* Decorative spine effect */}
+                      <div className="absolute left-0 top-0 bottom-0 w-3 bg-gradient-to-r from-black/40 to-transparent z-20" />
+                      
+                      <Book className="w-10 h-10 text-antique-gold/30 mb-3 group-hover:text-antique-gold/60 transition-colors group-hover:scale-110 duration-500" />
+                      <span className="text-[10px] text-center font-serif px-4 text-secondary-text/50 line-clamp-2">{book.title}</span>
+                    </div>
+
+                    <div className="flex-1 relative z-10">
+                      <h3 className="font-serif text-lg text-primary-text mb-1 line-clamp-2 group-hover:text-antique-gold transition-colors">
+                        {book.title}
+                      </h3>
+                      <p className="text-secondary-text text-sm mb-4">
+                        {book.author}
+                      </p>
+                    </div>
+
+                    <div className="flex items-center justify-between pt-4 border-t border-gold-border/30 mt-auto relative z-10">
+                      <span className="text-[10px] tracking-wider uppercase text-antique-gold/80 bg-antique-gold/10 px-2 py-1 rounded">
+                        {book.category}
+                      </span>
+                      <span className="text-[10px] tracking-wider uppercase text-secondary-text/60">
+                        {book.language}
+                      </span>
+                    </div>
+                  </motion.div>
+                </Link>
+              ))}
+          </div>
         </div>
       </section>
     </div>

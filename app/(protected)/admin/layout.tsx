@@ -28,7 +28,7 @@ export default async function AdminLayout({
   const profile = profileData as { role: string } | null;
 
   if (!profile || !["admin", "moderator"].includes(profile.role)) {
-    redirect("/meclis");
+    redirect("/pano");
   }
 
   return (

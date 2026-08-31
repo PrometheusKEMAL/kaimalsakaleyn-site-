@@ -60,6 +60,37 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${cinzel.variable} ${notoNaskhArabic.variable} font-sans min-h-screen flex flex-col bg-background text-primary-text antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify([
+              {
+                "@context": "https://schema.org",
+                "@type": "Organization",
+                "name": siteConfig.name,
+                "url": siteConfig.url,
+                "logo": `${siteConfig.url}/logo.png`,
+                "sameAs": [
+                  siteConfig.socialMedia.x,
+                  siteConfig.socialMedia.instagram,
+                  siteConfig.socialMedia.youtube
+                ]
+              },
+              {
+                "@context": "https://schema.org",
+                "@type": "WebSite",
+                "name": siteConfig.name,
+                "url": siteConfig.url,
+                "description": siteConfig.description,
+                "potentialAction": {
+                  "@type": "SearchAction",
+                  "target": `${siteConfig.url}/arama?q={search_term_string}`,
+                  "query-input": "required name=search_term_string"
+                }
+              }
+            ])
+          }}
+        />
         {/* Islamic geometric pattern overlay */}
         <div className="islamic-pattern" aria-hidden="true" />
         {/* Grain texture */}

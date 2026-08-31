@@ -16,13 +16,13 @@ import {
 } from "lucide-react";
 
 const navItems = [
-  { href: "/meclis", label: "Ana Akış", icon: Home },
-  { href: "/meclis/duyurular", label: "Duyurular", icon: Bell },
-  { href: "/meclis/dersler", label: "Dersler", icon: BookOpen },
-  { href: "/meclis/dosyalar", label: "Dosyalar", icon: FileText },
-  { href: "/meclis/etkinlikler", label: "Etkinlikler", icon: Calendar },
-  { href: "/meclis/kaydedilenler", label: "Kaydedilenler", icon: Bookmark },
-  { href: "/meclis/profil", label: "Profil", icon: User },
+  { href: "/pano", label: "Ana Akış", icon: Home },
+  { href: "/pano/duyurular", label: "Duyurular", icon: Bell },
+  { href: "/pano/dersler", label: "Dersler", icon: BookOpen },
+  { href: "/pano/dosyalar", label: "Dosyalar", icon: FileText },
+  { href: "/pano/etkinlikler", label: "Etkinlikler", icon: Calendar },
+  { href: "/pano/kaydedilenler", label: "Kaydedilenler", icon: Bookmark },
+  { href: "/pano/profil", label: "Profil", icon: User },
 ];
 
 export function MeclisSidebar() {

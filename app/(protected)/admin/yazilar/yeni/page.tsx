@@ -20,6 +20,13 @@ export default function YeniYaziPage() {
   const [coverFile, setCoverFile] = useState<File | null>(null);
   const [coverPreview, setCoverPreview] = useState<string | null>(null);
 
+  // SEO Fields
+  const [seoTitle, setSeoTitle] = useState("");
+  const [seoDescription, setSeoDescription] = useState("");
+  const [canonicalUrl, setCanonicalUrl] = useState("");
+  const [noIndex, setNoIndex] = useState(false);
+  const [noFollow, setNoFollow] = useState(false);
+
   const supabase = createBrowserClient(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
@@ -78,6 +85,11 @@ export default function YeniYaziPage() {
           category,
           status,
           cover_image,
+          seo_title: seoTitle || null,
+          seo_description: seoDescription || null,
+          canonical_url: canonicalUrl || null,
+          no_index: noIndex,
+          no_follow: noFollow,
           author_id: user.id
         });
 
@@ -99,6 +111,11 @@ export default function YeniYaziPage() {
     setContent("");
     setCoverFile(null);
     setCoverPreview(null);
+    setSeoTitle("");
+    setSeoDescription("");
+    setCanonicalUrl("");
+    setNoIndex(false);
+    setNoFollow(false);
     setIsSaved(false);
     setError("");
   };
@@ -121,7 +138,7 @@ export default function YeniYaziPage() {
           </Link>
           <div>
             <h1 className="font-serif text-2xl text-primary-text mb-1">Yeni Yazı</h1>
-            <p className="text-secondary-text text-sm">Sakaleyn Defterleri'ne yeni bir makale ekleyin.</p>
+            <p className="text-secondary-text text-sm">Sekaleyn Defterleri'ne yeni bir makale ekleyin.</p>
           </div>
         </motion.div>
       </div>
@@ -267,6 +284,75 @@ export default function YeniYaziPage() {
                 placeholder="Yazınızı buraya yazın (Markdown desteklenir)..."
                 className="w-full bg-background/50 p-4 text-primary-text text-sm placeholder:text-secondary-text/25 focus:outline-none resize-y font-mono"
               />
+            </div>
+          </div>
+
+          {/* SEO Metadata */}
+          <div className="card-base p-6 space-y-6 bg-background-secondary/10">
+            <h3 className="font-serif text-lg text-primary-text mb-4 pb-2 border-b border-gold-border/50">SEO ve Meta Verileri (İsteğe Bağlı)</h3>
+            
+            <div className="grid sm:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-[10px] tracking-widest uppercase text-secondary-text/60 mb-2.5">SEO Başlığı (Title)</label>
+                <input
+                  type="text"
+                  value={seoTitle}
+                  onChange={(e) => setSeoTitle(e.target.value)}
+                  placeholder="Arama motorlarında görünecek başlık"
+                  className="w-full bg-background/50 border border-gold-border focus:border-antique-gold/40 rounded-button px-4 py-3 text-primary-text text-sm placeholder:text-secondary-text/25 focus:outline-none transition-colors"
+                />
+              </div>
+              <div>
+                <label className="block text-[10px] tracking-widest uppercase text-secondary-text/60 mb-2.5">Canonical URL</label>
+                <input
+                  type="url"
+                  value={canonicalUrl}
+                  onChange={(e) => setCanonicalUrl(e.target.value)}
+                  placeholder="https://kaimalsakaleyn.com/defterler/..."
+                  className="w-full bg-background/50 border border-gold-border focus:border-antique-gold/40 rounded-button px-4 py-3 text-primary-text text-sm placeholder:text-secondary-text/25 focus:outline-none transition-colors"
+                />
+              </div>
+            </div>
+
+            <div>
+              <label className="block text-[10px] tracking-widest uppercase text-secondary-text/60 mb-2.5">SEO Açıklaması (Meta Description)</label>
+              <textarea
+                value={seoDescription}
+                onChange={(e) => setSeoDescription(e.target.value)}
+                placeholder="Arama motorları için kısa özet (Maks 160 karakter)"
+                rows={2}
+                className="w-full bg-background/50 border border-gold-border focus:border-antique-gold/40 rounded-button p-4 text-primary-text text-sm placeholder:text-secondary-text/25 focus:outline-none transition-colors resize-none"
+              />
+            </div>
+
+            <div className="flex flex-col sm:flex-row gap-6 pt-4 border-t border-gold-border/20">
+              <label className="flex items-center gap-3 cursor-pointer group">
+                <div className="relative flex items-center justify-center">
+                  <input
+                    type="checkbox"
+                    checked={noIndex}
+                    onChange={(e) => setNoIndex(e.target.checked)}
+                    className="peer sr-only"
+                  />
+                  <div className="w-5 h-5 border border-gold-border rounded bg-background/50 peer-checked:bg-antique-gold peer-checked:border-antique-gold transition-colors"></div>
+                  <CheckCircle className="absolute w-3 h-3 text-background opacity-0 peer-checked:opacity-100 transition-opacity" />
+                </div>
+                <span className="text-sm text-secondary-text group-hover:text-primary-text transition-colors">NoIndex (Arama motorları dizine eklemesin)</span>
+              </label>
+
+              <label className="flex items-center gap-3 cursor-pointer group">
+                <div className="relative flex items-center justify-center">
+                  <input
+                    type="checkbox"
+                    checked={noFollow}
+                    onChange={(e) => setNoFollow(e.target.checked)}
+                    className="peer sr-only"
+                  />
+                  <div className="w-5 h-5 border border-gold-border rounded bg-background/50 peer-checked:bg-antique-gold peer-checked:border-antique-gold transition-colors"></div>
+                  <CheckCircle className="absolute w-3 h-3 text-background opacity-0 peer-checked:opacity-100 transition-opacity" />
+                </div>
+                <span className="text-sm text-secondary-text group-hover:text-primary-text transition-colors">NoFollow (Sayfa içindeki linkler takip edilmesin)</span>
+              </label>
             </div>
           </div>
 
