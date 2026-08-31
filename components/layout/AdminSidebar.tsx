@@ -13,11 +13,13 @@ import {
   Settings,
   LogOut,
   ShieldAlert,
+  Database,
 } from "lucide-react";
 
 const adminNavItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/kullanicilar", label: "Kullanıcılar", icon: Users },
+  { href: "/admin/kaynak-merkezi", label: "Kaynak Merkezi", icon: Database },
   { href: "/admin/yazilar", label: "Yazılar", icon: FileText },
   { href: "/admin/kutuphane", label: "Kütüphane", icon: Library },
   { href: "/admin/etkinlikler", label: "Etkinlikler", icon: CalendarDays },
