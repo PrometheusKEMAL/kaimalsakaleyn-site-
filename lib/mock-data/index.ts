@@ -56,13 +56,14 @@ export const mockBooks: Book[] = [
     "edition": "1. Baskı",
     "pageCount": 579,
     "isbn": "978-605-1922-56",
-    "summary": "Kur'an-ı Kerim Meali eseri, Kur'an alanında yazılmış en temel başvuru kaynaklarından biridir. İnsanlığın hakikate ulaşma yolculuğunda önemli köşe taşlarından birini temsil eder.",
+    "summary": "Kur'an-ı Kerim, insanlığa doğru yolu gösteren ilahi mesajın nihai formudur. Bu meal çalışması, Şiî tefsir geleneğinin ve Ehl-i Beyt mektebinin Kur'an'a yaklaşım metodolojisini merkeze alarak hazırlanmıştır. Ayetlerin çevirisinde sadece lafzi anlamlar değil, aynı zamanda Masum İmamlar'dan (a.s) nakledilen tefsir rivayetleri (hadisler) de göz önünde bulundurulmuştur. Tarihsel bağlam (esbab-ı nüzul) ve kelimelerin kök anlamları titizlikle incelenmiş olup, okuyucunun ilahi kelamı derinlemesine kavraması hedeflenmiştir. Bu eser, Kur'an'ın batıni ve zahiri boyutlarını Ehl-i Beyt perspektifiyle modern Türkçeye taşıyan nadide bir çalışmadır.",
     "toc": [
-      "Önsöz",
-      "Giriş ve Metodoloji",
-      "Birinci Bölüm: Temel Kavramlar",
-      "İkinci Bölüm: Derinlemesine Tahlil",
-      "Sonuç ve Değerlendirme"
+      "Önsöz: Ehl-i Beyt Mektebinde Kur'an Anlayışı",
+      "Giriş: Çeviri Metodolojisi ve Tefsir Kuralları",
+      "Birinci Bölüm: Fatiha Suresi ve Kısa Surelerin Tahlili",
+      "İkinci Bölüm: Ahkam Ayetleri ve Tarihsel Bağlam",
+      "Üçüncü Bölüm: Kıssalar ve İbretler",
+      "Sonuç: Kur'an'ın Evrensel Mesajı ve İmamet"
     ],
     "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
   },
@@ -81,13 +82,13 @@ export const mockBooks: Book[] = [
     "edition": "1. Baskı",
     "pageCount": 366,
     "isbn": "978-605-4276-33",
-    "summary": "El-Mizan Fi Tefsir'il Kur'an eseri, Tefsir alanında yazılmış en temel başvuru kaynaklarından biridir. İnsanlığın hakikate ulaşma yolculuğunda önemli köşe taşlarından birini temsil eder.",
+    "summary": "El-Mizan Fi Tefsir'il Kur'an, 20. yüzyılın en büyük İslam alimlerinden biri olan Allame Seyyid Muhammed Hüseyin Tabatabai tarafından kaleme alınmış anıtsal bir tefsir külliyatıdır. Eserin en belirgin özelliği, 'Kur'an'ı Kur'an ile tefsir etme' (tefsiru'l-Kur'an bi'l-Kur'an) metodunu zirveye taşımasıdır. Allame Tabatabai, ayetleri tefsir ederken öncelikle diğer ayetlerden faydalanmış, ardından felsefi, kelami, sosyolojik ve tarihi tahlillerle konuyu zenginleştirmiştir. Eserde Ehl-i Beyt hadislerine geniş yer verilerek ayetlerin batıni manaları açığa çıkarılmıştır. Yalnızca Şiî dünyasında değil, tüm İslam aleminde büyük bir saygınlığa sahip olan El-Mizan, modern çağın fikri krizlerine Kur'ani çözümler sunan bir şaheserdir.",
     "toc": [
-      "Önsöz",
-      "Giriş ve Metodoloji",
-      "Birinci Bölüm: Temel Kavramlar",
-      "İkinci Bölüm: Derinlemesine Tahlil",
-      "Sonuç ve Değerlendirme"
+      "Müellif Allame Tabatabai'nin Hayatı ve Fikri Mirası",
+      "El-Mizan'ın Tefsir Metodolojisi: Kur'an'ı Kur'an'la Açıklamak",
+      "Felsefi ve Kelami Meselelere Yaklaşım",
+      "Ayetlerin Sosyolojik ve Ahlaki Boyutları",
+      "Ehl-i Beyt Rivayetlerinin Tefsirdeki Yeri"
     ],
     "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
   },
@@ -106,13 +107,14 @@ export const mockBooks: Book[] = [
     "edition": "1. Baskı",
     "pageCount": 100,
     "isbn": "978-605-8468-34",
-    "summary": "Usul-u Kafi eseri, Hadis alanında yazılmış en temel başvuru kaynaklarından biridir. İnsanlığın hakikate ulaşma yolculuğunda önemli köşe taşlarından birini temsil eder.",
+    "summary": "El-Kâfi, Sikatü'l-İslam Ebu Cafer Muhammed bin Yakub el-Kuleyni (ö. 329/941) tarafından yirmi yılı aşkın bir sürede derlenen, Şiî dünyasının en temel ve en muteber dört hadis kitabından (Kütüb-i Erbaa) ilkidir. Usul, Furu ve Ravza olmak üzere üç ana bölümden oluşan bu devasa külliyat, toplamda 16 binden fazla hadis içerir. 'Usul-u Kafi' kısmı; Akıl ve Cehil, İlgi (Tevhid), Hüccet (İmamet), İman ve Küfür gibi inanç esaslarını kapsar. Kuleyni, Küçük Gaybet (Gaybet-i Suğra) döneminde yaşamanın avantajıyla hadisleri asıl kaynaklarına çok yakın bir zaman diliminde toplamıştır. Ehl-i Beyt'in saf öğretilerini günümüze ulaştıran bu eser, İslam düşünce tarihinin en mühim vesikalarından biridir.",
     "toc": [
-      "Önsöz",
-      "Giriş ve Metodoloji",
-      "Birinci Bölüm: Temel Kavramlar",
-      "İkinci Bölüm: Derinlemesine Tahlil",
-      "Sonuç ve Değerlendirme"
+      "Kitabu'l-Akl ve'l-Cehl (Akıl ve Bilgisizlik)",
+      "Kitabu Fazli'l-İlm (İlmin Fazileti ve Alimlerin Konumu)",
+      "Kitabu't-Tevhid (Allah'ın Birliği ve Sıfatları)",
+      "Kitabu'l-Hücce (İmamet ve İlahi Rehberlik)",
+      "Kitabu'l-İman ve'l-Küfr (İnanç ve İnkârın Esasları)",
+      "Kitabu'd-Dua (Dua ve Münacatın Usulleri)"
     ],
     "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
   },
@@ -131,13 +133,13 @@ export const mockBooks: Book[] = [
     "edition": "1. Baskı",
     "pageCount": 559,
     "isbn": "978-605-6418-51",
-    "summary": "Nehcü'l-Belâğa eseri, Nehcü'l-Belâğa alanında yazılmış en temel başvuru kaynaklarından biridir. İnsanlığın hakikate ulaşma yolculuğunda önemli köşe taşlarından birini temsil eder.",
+    "summary": "Nehcü'l-Belâğa (Belâgat Yolu), Seyyid Razi (ö. 406/1015) tarafından İmam Ali'nin (a.s) hutbeleri, mektupları ve hikmetli sözlerinden (kısa vecizeler) derlenmiş muazzam bir edebi ve felsefi şaheserdir. Kur'an-ı Kerim ve Peygamber Efendimiz'in (s.a.a) hadislerinden sonra İslam dünyasının en etkili metinlerinden biri kabul edilir. Eserde tevhidin derin felsefi izahı, adaletin siyasi ve toplumsal yansımaları, ahlaki erdemler, dünyanın geçiciliği ve ahiret bilinci eşsiz bir belagat (söz sanatı) ile işlenir. Özellikle Malik el-Eşter'e yazılan mektup (Ahdname), evrensel bir devlet yönetimi ve insan hakları beyannamesi niteliğindedir. Eser, yalnızca edebi bir başyapıt değil, aynı zamanda Ali ibn Ebu Talib'in siyasi ve manevi vizyonunun kristalleşmiş halidir.",
     "toc": [
-      "Önsöz",
-      "Giriş ve Metodoloji",
-      "Birinci Bölüm: Temel Kavramlar",
-      "İkinci Bölüm: Derinlemesine Tahlil",
-      "Sonuç ve Değerlendirme"
+      "Seyyid Razi'nin Önsözü ve Derleme Metodolojisi",
+      "Birinci Bölüm: Hutbeler (Tevhid, Yaratılış, Tarihi Uyarılar)",
+      "Şıkşıkıyye Hutbesi ve Siyasi Bağlamı",
+      "İkinci Bölüm: Mektuplar (Malik el-Eşter'e Emirname ve Valilere Öğütler)",
+      "Üçüncü Bölüm: Hikmetli Sözler (Ahlaki Vecizeler)"
     ],
     "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
   },
@@ -156,13 +158,13 @@ export const mockBooks: Book[] = [
     "edition": "1. Baskı",
     "pageCount": 584,
     "isbn": "978-605-6928-40",
-    "summary": "Sahife-i Seccadiye eseri, Sahife-i Seccadiye alanında yazılmış en temel başvuru kaynaklarından biridir. İnsanlığın hakikate ulaşma yolculuğunda önemli köşe taşlarından birini temsil eder.",
+    "summary": "Sahife-i Seccadiye, Dördüncü İmam Ali bin Hüseyin Zeynelabidin'in (a.s) dualarını ve münacatlarını içeren, 'Al-i Muhammed'in Zeburu' (Zebur-u Al-i Muhammed) olarak bilinen kutsal bir eserdir. Kerbela trajedisinden sonra İslam ümmetinin içine düştüğü ahlaki çöküntü ve siyasi baskı ortamında, İmam Seccad (a.s) İslam'ın derin irfanını ve tevhid akidesini 'dua' formuyla insanlara aktarmıştır. İçerisinde yer alan 54 ana dua; anne-babaya saygıdan, sınır boylarındaki askerlere duaya, tövbe adabından, ahlaki erdemlerin inşasına (Mekarimü'l-Ahlak) kadar bireysel ve toplumsal hayatın her alanını kapsar. Eser, kulun Yaratıcısı ile kurabileceği en edebi, en derin ve en içten diyaloğun rehberidir.",
     "toc": [
-      "Önsöz",
-      "Giriş ve Metodoloji",
-      "Birinci Bölüm: Temel Kavramlar",
-      "İkinci Bölüm: Derinlemesine Tahlil",
-      "Sonuç ve Değerlendirme"
+      "İmam Seccad'ın (a.s) Hayatı ve Dönemin Sosyopolitik Yapısı",
+      "Duanın Mahiyeti ve İslam İrfanındaki Yeri",
+      "Mekarimü'l-Ahlak Duası (Ahlaki Erdemlerin Zirvesi)",
+      "Ebeveyne, Evlatlara ve Komşulara Yönelik Dualar",
+      "Tövbe, Bağışlanma ve Musibet Anlarında Okunacak Dualar"
     ],
     "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
   },
@@ -574,18 +576,30 @@ export const mockArticles: Article[] = [
     slug: "hakikatin-iki-kanadi-kuran-ve-itret",
     title: "Hakikatin İki Kanadı: Kur'an ve İtret",
     subtitle: "Sekaleyn Hadisi Ekseninde Bir İnceleme",
-    summary: "Peygamber Efendimiz'in (s.a.v.) Veda Haccı'nda bıraktığı iki emanetin günümüzdeki anlamı üzerine tefekkür.",
+    summary: "Peygamber Efendimiz'in (s.a.v.) Veda Haccı'nda bıraktığı iki emanetin, Kur'an ve Ehl-i Beyt'in ayrılmazlığının günümüzdeki anlamı üzerine tefekkür.",
     content: `
-      <p>Peygamber Efendimiz (s.a.v.) ömrünün son demlerinde, ümmetine kıyamete kadar yol gösterecek iki büyük emanet bırakmıştır. Bu emanetlerin mahiyeti ve birbirleriyle olan ayrılmaz bağı, İslam düşünce tarihinin en temel konularından biridir.</p>
-      
-      <h2>Sekaleyn Hadisinin Kaynakları</h2>
-      <p>Hadis-i Sekaleyn, hem Şii hem de Sünni kaynaklarda mütevatir derecesine ulaşmış, inkarı mümkün olmayan bir hakikattir. Resulullah (s.a.v) şöyle buyurmuştur: "Ben size iki paha biçilmez emanet bırakıyorum: Allah'ın Kitabı ve Ehl-i Beytim (İtretim). Bunlara sarıldığınız sürece asla sapıtmazsınız."</p>
-      
-      <h2>Kur'an ve Ehl-i Beyt'in Birlikteliği</h2>
-      <p>Bu iki emanet sadece yan yana duran iki rehber değil, birbirini tamamlayan, biri olmadan diğerinin tam anlaşılamayacağı bir bütündür. Kur'an ilahi vahyin yazılı metni, Ehl-i Beyt ise o metnin yaşayan, nefes alan, en doğru ve sapmasız tefsiridir. Nitekim hadisin devamında "Bu ikisi Havz-ı Kevser'de bana varıncaya kadar birbirinden ayrılmazlar" buyrularak bu ayrılmazlık vurgulanmıştır.</p>
-      
-      <p>Günümüzde Müslümanların yaşadığı en büyük kriz, bu iki kanattan birini ihmal etmekten veya ikisini birbirinden ayırmaktan kaynaklanmaktadır.</p>
-    `,
+# Hakikatin İki Kanadı: Kur'an ve İtret
+
+Peygamber Efendimiz (s.a.v.) ömrünün son demlerinde, Veda Haccı'nda ümmetine kıyamete kadar yol gösterecek iki büyük emanet bırakmıştır. Bu emanetlerin mahiyeti ve birbirleriyle olan ayrılmaz bağı, İslam düşünce tarihinin en temel konularından biridir. Bu makalede, Sekaleyn Hadisi merkeze alınarak Kur'an ve Ehl-i Beyt'in neden birbirinden ayrılamayacağı teolojik ve ontolojik boyutlarıyla incelenmektedir.
+
+## Sekaleyn Hadisinin Kaynakları ve Mütevatir Oluşu
+
+Hadis-i Sekaleyn, hem Şiî hem de Sünni kaynaklarda mütevatir derecesine ulaşmış, inkarı mümkün olmayan bir hakikattir. Resulullah (s.a.v) şöyle buyurmuştur: 
+> "Ben size iki paha biçilmez emanet bırakıyorum: Allah'ın Kitabı ve Ehl-i Beytim (İtretim). Bunlara sarıldığınız sürece asla sapıtmazsınız." (Müslim, Fedailu's-Sahabe, 36)
+
+Bu hadis, İslam ümmetinin yegane kurtuluş reçetesidir. İki emanetin "paha biçilmez" (Sekaleyn) olarak nitelendirilmesi, onların sıradan birer miras olmadığını, aksine hidayetin yegane kaynağı olduklarını gösterir.
+
+## Kur'an ve Ehl-i Beyt'in Ayrılmaz Birlikteliği
+
+Bu iki emanet sadece yan yana duran iki rehber değil, birbirini tamamlayan, biri olmadan diğerinin tam anlaşılamayacağı organik bir bütündür:
+* **Kur'an:** İlahi vahyin yazılı metni, dilsiz (samit) bir rehberdir.
+* **Ehl-i Beyt:** O metnin yaşayan, nefes alan, en doğru ve sapmasız tefsiri, konuşan (natık) Kur'an'dır.
+
+Nitekim hadisin devamında *"Bu ikisi Havz-ı Kevser'de bana varıncaya kadar birbirinden ayrılmazlar"* buyrularak bu ontolojik ayrılmazlık vurgulanmıştır. Kur'an'ı Ehl-i Beyt'siz anlamaya çalışmak, metni kendi heva ve hevesine göre yorumlama tehlikesini doğururken; Ehl-i Beyt'i Kur'an'dan bağımsız düşünmek de imkansızdır.
+
+### Günümüzdeki Yansımaları
+Günümüzde Müslümanların yaşadığı en büyük kriz, bu iki kanattan birini ihmal etmekten veya ikisini birbirinden ayırmaktan kaynaklanmaktadır. Yalnızca Kur'an diyenler vahyin pratik ve masum tefsirinden mahrum kalırken, sadece İtret diyenler vahyin evrensel metninden uzaklaşma riski taşır. Hakikat kuşu ancak bu iki kanatla uçabilir.
+`,
     author: "Ahmet Yılmaz",
     editor: "Kemal Demir",
     publishedAt: "15 Mart 2024",
@@ -627,7 +641,26 @@ export const mockArticles: Article[] = [
     slug: "kerbela-bir-direnis-okulu",
     title: "Kerbela: Bir Direniş Okulu",
     subtitle: "Aşura'nın Sosyolojik ve İrfani Boyutu",
-    summary: "İmam Hüseyin'in (a.s.) kıyamının sadece tarihi bir olay değil, her çağda yaşayan bir mektep olması.",
+    summary: "İmam Hüseyin'in (a.s.) kıyamının sadece tarihi bir trajedi değil, her çağda yaşayan bir hak ve adalet mektebi olması.",
+    content: `
+# Kerbela: Bir Direniş Okulu
+
+Hicri 61. yılda yaşanan Kerbela Vakıası, İslam tarihinin en acı verici sayfası olmakla birlikte, aynı zamanda en büyük direniş ve uyanış destanıdır. İmam Hüseyin'in (a.s.) Yezid'in gayr-i meşru yönetimine karşı başlattığı bu kıyam, sadece o döneme ait siyasi bir çatışma değil, hak ile batılın kıyamete kadar sürecek mücadelesinin sembolüdür.
+
+## Aşura'nın Sosyolojik Mesajı
+
+İmam Hüseyin (a.s.) kıyamının temel felsefesini şu sözlerle özetlemiştir: 
+> "Ben makam, rütbe, fesat çıkarmak veya zulmetmek için yola çıkmadım. Ben ancak ceddimin ümmetini ıslah etmek, iyiliği emredip kötülükten sakındırmak için yola çıktım."
+
+Bu söz, Kerbela'nın salt bir iktidar mücadelesi olmadığını, aksine ümmetin üzerine çöken ahlaki ve siyasi çürümüşlüğe karşı sosyolojik bir müdahale olduğunu gösterir. Aşura, pasif kalabalıkların nasıl uyandırılacağının ve adaletsizliğe karşı sessiz kalmanın nasıl bir zillet olduğunun manifestosudur.
+
+## İrfani Boyut: Aşka Adanmışlık
+
+Kerbela, görünürde kılıçların ve mızrakların konuştuğu bir savaş meydanı olsa da, batınında ilahi aşkın ve teslimiyetin zirvesidir. İmam Hüseyin (a.s.) ve ashabı, Allah rızası için canlarını, mallarını ve evlatlarını feda ederek irfani bir yolculuğun en yüksek makamına (fena fillah) ulaşmışlardır. Aşura günü okunan dualar, Zeyneb-i Kübra'nın (s.a.) esaret altındaki dik duruşu ve "Ben güzellikten başka bir şey görmedim" sözü, bu kıyamın irfani derinliğini yansıtır.
+
+## Günümüzde Kerbela
+"Her gün Aşura, her yer Kerbela" düsturu, bu mektebin evrenselliğini ilan eder. Günümüzde Kerbela; zulme, emperyalizme ve haksızlığa karşı direnen her onurlu insanın ilham kaynağıdır. Aşura'yı anmak, sadece geçmişe ağlamak değil, bugünün Yezidlerine karşı bugünün Hüseyni duruşunu sergileyebilmektir.
+    `,
     author: "Ali Kaya",
     editor: "Hasan Öz",
     publishedAt: "28 Şubat 2024",
@@ -645,7 +678,31 @@ export const mockArticles: Article[] = [
     slug: "modern-dunyada-imamet",
     title: "Modern Dünyada İmamet",
     subtitle: "Rehbersiz Kalan İnsanın Savrulmaları",
-    summary: "Rehbersiz bir dünyanın savrulmaları ve İmamet inancının bireysel ve toplumsal hayatımıza sunduğu ufuk.",
+    summary: "Modernizm ve sekülerleşmenin yol açtığı anlam krizine karşı, İmamet inancının bireysel ve toplumsal hayatımıza sunduğu ufuk.",
+    content: `
+# Modern Dünyada İmamet ve İnsanın Arayışı
+
+Aydınlanma sonrası dönemde, aklı yegane rehber kabul eden modern insan, maddi alanda devasa ilerlemeler kaydetmiş olsa da, manevi ve varoluşsal anlamda büyük bir buhrana sürüklenmiştir. Değerlerin göreceleştiği, hakikatin parçalandığı ve sekülerizmin insanı ilahi olandan kopardığı bu çağda, "İmamet" inancı sadece teolojik bir tartışma değil, varoluşsal bir ihtiyaç olarak karşımıza çıkmaktadır.
+
+## Rehbersizlik ve Anlam Krizi
+
+Modernizm, insanı kendi kendine yeten, ilahi bir rehberliğe ihtiyaç duymayan bir varlık olarak tanımlamıştır. Ancak yüzyıllar süren bu tecrübe; savaşlar, ekolojik yıkımlar ve artan ruhsal çöküntülerle insanın kâmil bir rehber (İnsan-ı Kamil) olmadan yeryüzünde adaleti ve barışı tesis edemeyeceğini göstermiştir. 
+
+> Yeryüzü hiçbir zaman ilahi bir hüccetten (imam) yoksun kalamaz. (Hadis)
+
+Bu ilke, Allah'ın insanlığı kendi başına, rehbersiz ve karanlıkta bırakmayacağının en büyük garantisidir.
+
+## İmamet: Kozmik ve Toplumsal Düzen
+
+Şiî düşüncesinde İmamet, sadece siyasi bir liderlik (hilafet) meselesi değildir. İmam, yaratılış gayesinin gerçekleşmesi, ilahi feyzin yeryüzüne ulaşması ve Kur'an'ın batıni hakikatlerinin korunması için ontolojik bir zorunluluktur. İmam, Allah ile kullar arasındaki manevi köprüdür. 
+
+Modern dünyada İmamet inancına sahip olmak:
+1. **Umut ve Direniş:** Beklenen İmam (a.f.) inancı, ne kadar karanlık görünürse görünsün geleceğin hak ve adaletten yana olacağına dair sarsılmaz bir umut verir.
+2. **Ahlaki Kılavuz:** İmamların masumiyeti ve kusursuz ahlakı, göreceli ahlak teorilerine karşı mutlak ve sarsılmaz bir ahlaki model sunar.
+3. **Anlam Arayışı:** Hakikatin parçalandığı bir dünyada, İmamet insanı tevhide, birliğe ve varoluşun asıl gayesine yönlendirir.
+
+İmamet, modern insanın kaybolduğu labirentten çıkış için gökyüzünden uzatılan kopmaz bir iptir (Hablullah).
+    `,
     author: "Hasan Öz",
     editor: "Ahmet Yılmaz",
     publishedAt: "20 Şubat 2024",

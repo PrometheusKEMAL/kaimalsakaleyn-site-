@@ -55,7 +55,7 @@ export default function ahsiyetlerAdminPage() {
               {data.slice(0, 15).map((item, idx) => (
                 <tr key={idx} className="hover:bg-white/[0.02] transition-colors">
                   <td className="px-6 py-4">
-                    <p className="text-sm font-medium text-primary-text">{(\'title\' in item ? item.title : (item as any).name)}</p>
+                    <p className="text-sm font-medium text-primary-text">{('title' in item ? item.title : (item as any).name)}</p>
                     <p className="text-xs text-secondary-text mt-1">{item.slug}</p>
                   </td>
                   <td className="px-6 py-4">
