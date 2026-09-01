@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, use } from "react";
+import { useState, use, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
 import { ArrowLeft, Save, Plus, X, Link as LinkIcon, Network } from "lucide-react";
 import Link from "next/link";
@@ -13,10 +14,14 @@ export default function SahsiyetEditPage({ params }: { params: Promise<{ slug: s
   const isNew = resolvedParams.slug === "yeni";
   const router = useRouter();
 
+  const supabase = createClient();
+  const [isLoading, setIsLoading] = useState(!isNew);
+  const [isSaving, setIsSaving] = useState(false);
+
   // Form State
   const [formData, setFormData] = useState({
-    name: isNew ? "" : "Örnek Şahıs (Mock)",
-    title: isNew ? "" : "İmam / Alim",
+    name: "",
+    title: "",
     slug: isNew ? "" : resolvedParams.slug,
     person_type: "scholar",
     birth_date: "",
@@ -33,11 +38,58 @@ export default function SahsiyetEditPage({ params }: { params: Promise<{ slug: s
   const [laqabs, setLaqabs] = useState<string[]>([]);
   const [newLaqab, setNewLaqab] = useState("");
 
-  const handleSave = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (isNew) return;
+    const fetchPerson = async () => {
+      const { data, error } = await supabase.from("persons").select("*").eq("slug", resolvedParams.slug).single() as { data: any, error: any };
+      if (data) {
+        setFormData({
+          name: data.name || "",
+          title: data.title || "",
+          slug: data.slug || "",
+          person_type: data.person_type || "scholar",
+          birth_date: data.birth_date || "",
+          birth_place: data.birth_place || "",
+          death_date: data.death_date || "",
+          father: data.father || "",
+          mother: data.mother || "",
+          biography: data.biography || "",
+          moral_teachings: data.moral_teachings || "",
+          ai_generated: data.ai_generated || false,
+          editorial_status: data.editorial_status || "draft"
+        });
+      }
+      setIsLoading(false);
+    };
+    fetchPerson();
+  }, [isNew, resolvedParams.slug, supabase]);
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Saving Person...", { ...formData, laqabs });
-    alert("Şahsiyet verisi konsola yazdırıldı (Mock Save).");
-    router.push("/admin/sahsiyetler");
+    setIsSaving(true);
+    const { error } = await supabase.from("persons").upsert({
+      name: formData.name,
+      title: formData.title || null,
+      slug: formData.slug,
+      person_type: formData.person_type,
+      birth_date: formData.birth_date || null,
+      birth_place: formData.birth_place || null,
+      death_date: formData.death_date || null,
+      father: formData.father || null,
+      mother: formData.mother || null,
+      biography: formData.biography || null,
+      moral_teachings: formData.moral_teachings || null,
+      ai_generated: formData.ai_generated,
+      editorial_status: formData.editorial_status,
+    } as any, { onConflict: "slug" });
+
+    setIsSaving(false);
+    if (error) {
+      alert("Hata: " + error.message);
+    } else {
+      alert("Başarıyla kaydedildi!");
+      router.push("/admin/sahsiyetler");
+    }
   };
 
   const addLaqab = () => {
@@ -78,7 +130,7 @@ export default function SahsiyetEditPage({ params }: { params: Promise<{ slug: s
             className="flex items-center gap-2 px-6 py-2.5 bg-antique-gold hover:bg-antique-gold/90 text-[#1a1a1a] rounded-button font-medium transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             <Save className="w-4 h-4" />
-            {isNew ? "Kaydet" : "Güncelle"}
+            {isSaving ? "Kaydediliyor..." : (isNew ? "Kaydet" : "Güncelle")}
           </button>
         </div>
       </div>

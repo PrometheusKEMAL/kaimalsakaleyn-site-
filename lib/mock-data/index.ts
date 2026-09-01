@@ -623,7 +623,25 @@ Günümüzde Müslümanların yaşadığı en büyük kriz, bu iki kanattan biri
     slug: "irfani-acidan-dua",
     title: "İrfani Açıdan Dua",
     subtitle: "Sahife-i Seccadiye'nin Derinliklerinde",
-    summary: "Sahife-i Seccadiye ekseninde kulun Rabbiyle olan dikey iletişiminin boyutları.",
+    summary: "Sahife-i Seccadiye ekseninde kulun Rabbiyle olan dikey iletişiminin boyutları, duanın yalnızca istekte bulunmak değil, bir manevi inşa aracı olması.",
+    content: `
+# İrfani Açıdan Dua ve Sahife-i Seccadiye
+
+Dua, İslam irfanında kulun Yaratıcısı ile kurduğu en saf, en aracısız ve en dikey iletişimdir. Kur'an-ı Kerim'de "Duanız olmasa Rabbim size ne diye değer versin?" (Furkan, 77) buyrularak insanın varoluşsal değerinin duaya bağlandığı görülür. Ancak Ehl-i Beyt mektebinde dua, sadece ihtiyaç anlarında Allah'tan bir şeyler istemek (niyaz) değil, aynı zamanda kulun kendini inşa etme sürecidir.
+
+## Duanın Hakikati
+
+İmam Zeynelabidin'in (a.s) eşsiz eseri Sahife-i Seccadiye, duanın bu dönüştürücü gücünü en iyi yansıtan metindir. İmam Seccad (a.s), Kerbela katliamından sonra toplumun içine düştüğü derin ahlaki çöküntüyü "dua" silahıyla tedavi etmeye çalışmıştır. Onun duaları bir yandan insanın zaaflarını ve günahkarlığını yüzüne vururken, diğer yandan Allah'ın sonsuz rahmet okyanusuna işaret ederek ümit aşılar.
+
+## Mekarimü'l-Ahlak (Ahlaki Erdemler)
+
+Sahife-i Seccadiye'nin 20. duası olan Mekarimü'l-Ahlak, irfanın pratik hayattaki tezahürüdür. İmam bu duada şöyle niyaz eder: 
+> "Allah'ım! Muhammed ve Âline salat eyle ve imanımı imanın en kâmil derecesine, yakinimi yakinin en üstün mertebesine, niyetimi niyetlerin en iyisine ulaştır."
+
+Bu dua göstermektedir ki gerçek irfan; dağlara çekilip inzivaya varmak değil, toplum içinde yaşarken nefsi kötülüklerden arındırmak, haset yerine muhabbeti, kin yerine affediciliği koyabilmektir.
+
+Özetle, İmam Seccad'ın (a.s) dilinden dökülen dualar, kulun kendi acziyetini bilip ilahi kudrette fani olma (fena fillah) serüveninin yol haritasıdır.
+    `,
     author: "Mehmet Demir",
     editor: "Zeynep Çelik",
     publishedAt: "10 Mart 2024",
@@ -720,7 +738,26 @@ Modern dünyada İmamet inancına sahip olmak:
     slug: "gaibet-kavraminin-sii-dusuncesindeki-yeri",
     title: "Gaibet Kavramının Şii Düşüncesindeki Yeri",
     subtitle: "Zamanın İmamı ve İntizar Felsefesi",
-    summary: "İmam Mehdi'yi (a.f.) beklemenin pasif bir duruş değil, aktif bir hazırlık süreci olması üzerine kapsamlı bir tahlil.",
+    summary: "İmam Mehdi'yi (a.f.) beklemenin (intizar) pasif bir duruş değil, aktif bir hazırlık ve toplumsal inşa süreci olması üzerine kapsamlı bir teolojik tahlil.",
+    content: `
+# Gaibet (Gizlilik) ve İntizar (Bekleyiş) Felsefesi
+
+Şiî inancının en temel yapı taşlarından biri, on ikinci İmam, Muhammed el-Mehdi'nin (a.f) hayatta olması, ancak ilahi bir hikmet gereği gözlerden gizli (gaip) bulunmasıdır. Gaibet kavramı, dışarıdan bakıldığında bir boşluk veya mahrumiyet gibi algılansa da, Şiî irfan ve sosyolojisinde muazzam bir dinamizmin ve devrimci ruhun kaynağıdır.
+
+## İki Gaybet Dönemi
+
+İmam Mehdi'nin hayatında iki gaybet dönemi yaşanmıştır:
+1. **Gaybet-i Suğra (Küçük Gizlilik):** Yaklaşık 69 yıl süren bu dönemde İmam, dört özel naibi (elçisi) aracılığıyla ümmetle irtibat kurmuş ve toplumu tam bir gizlilik sürecine hazırlamıştır.
+2. **Gaybet-i Kübra (Büyük Gizlilik):** 329 (hicri) yılında dördüncü naibin vefatıyla başlamış ve halen devam eden dönemdir. Bu dönemde özel naiplik kalkmış, sorumluluk "Adil Fakih"lere (müçtehitlere) bırakılmıştır.
+
+## Bulutların Arkasındaki Güneş
+
+Meşhur bir hadiste İmam'ın gaybet dönemindeki faydası, **"Bulutların arkasında kalan güneşin dünyaya faydasına"** benzetilmiştir. Bulutlar güneşin doğrudan görülmesini engellese de, ısısını, ışığını ve yerçekimi etkisini yok edemez. Benzer şekilde, İmam (a.f) da yeryüzünün ontolojik direği olarak ilahi feyzin kullara ulaşmasını sağlar.
+
+## İntizar: Aktif Bir Eylem
+
+Modern çağda "beklemek" genellikle eylemsizlik olarak algılanır. Ancak "En hayırlı amel ferci (kurtuluşu) beklemektir" hadisindeki **İntizar**, adaletin ve hakkın yeryüzüne hakim olması için bireyin önce kendini, sonra çevresini ıslah etmesi demektir. Silahını kuşanmış bir askerin komutanını beklemesi ile uyuyan birinin beklemesi bir tutulamaz. Gerçek bir muntazır (bekleyen), zalimlerle mücadele eden ve İmam'ın zuhuru için zemin hazırlayan aktif bir mümindir.
+`,
     author: "Ahmet Yılmaz",
     editor: "Kemal Demir",
     publishedAt: "5 Şubat 2024",

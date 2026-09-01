@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, use } from "react";
+import { useState, use, useEffect } from "react";
+import { createClient } from "@/lib/supabase/client";
 import { motion } from "framer-motion";
 import { ArrowLeft, Save, Plus, X, Network } from "lucide-react";
 import Link from "next/link";
@@ -13,9 +14,13 @@ export default function KavramEditPage({ params }: { params: Promise<{ slug: str
   const isNew = resolvedParams.slug === "yeni";
   const router = useRouter();
 
+  const supabase = createClient();
+  const [isLoading, setIsLoading] = useState(!isNew);
+  const [isSaving, setIsSaving] = useState(false);
+
   // Form State
   const [formData, setFormData] = useState({
-    title: isNew ? "" : "Örnek Kavram (Mock)",
+    title: "",
     slug: isNew ? "" : resolvedParams.slug,
     arabic_title: "",
     persian_title: "",
@@ -28,11 +33,52 @@ export default function KavramEditPage({ params }: { params: Promise<{ slug: str
   const [bibliography, setBibliography] = useState<string[]>([]);
   const [newBiblio, setNewBiblio] = useState("");
 
-  const handleSave = (e: React.FormEvent) => {
+  useEffect(() => {
+    if (isNew) return;
+    const fetchConcept = async () => {
+      const { data, error } = await supabase.from("concepts").select("*").eq("slug", resolvedParams.slug).single() as { data: any, error: any };
+      if (data) {
+        setFormData({
+          title: data.title || data.name || "", // fallback to name
+          slug: data.slug || "",
+          arabic_title: data.arabic_title || "",
+          persian_title: data.persian_title || "",
+          short_definition: data.short_definition || "",
+          content: data.definition || "", // mapping definition to content for UI
+          ai_generated: data.ai_generated || false,
+          editorial_status: data.editorial_status || "draft"
+        });
+        if (data.bibliography) setBibliography(data.bibliography);
+      }
+      setIsLoading(false);
+    };
+    fetchConcept();
+  }, [isNew, resolvedParams.slug, supabase]);
+
+  const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Saving Concept...", { ...formData, bibliography });
-    alert("Kavram verisi konsola yazdırıldı (Mock Save).");
-    router.push("/admin/kavramlar");
+    setIsSaving(true);
+    const { error } = await supabase.from("concepts").upsert({
+      title: formData.title,
+      name: formData.title, // keeping name for schema compatibility
+      category: "genel", // required field fallback
+      slug: formData.slug,
+      arabic_title: formData.arabic_title || null,
+      persian_title: formData.persian_title || null,
+      short_definition: formData.short_definition || null,
+      definition: formData.content || null, // UI content maps to definition
+      bibliography: bibliography.length > 0 ? bibliography : null,
+      ai_generated: formData.ai_generated,
+      editorial_status: formData.editorial_status,
+    } as any, { onConflict: "slug" });
+
+    setIsSaving(false);
+    if (error) {
+      alert("Hata: " + error.message);
+    } else {
+      alert("Başarıyla kaydedildi!");
+      router.push("/admin/kavramlar");
+    }
   };
 
   const addBiblio = () => {
@@ -73,7 +119,7 @@ export default function KavramEditPage({ params }: { params: Promise<{ slug: str
             className="flex items-center gap-2 px-6 py-2.5 bg-antique-gold hover:bg-antique-gold/90 text-[#1a1a1a] rounded-button font-medium transition-all hover:scale-[1.02] active:scale-[0.98]"
           >
             <Save className="w-4 h-4" />
-            {isNew ? "Kaydet" : "Güncelle"}
+            {isSaving ? "Kaydediliyor..." : (isNew ? "Kaydet" : "Güncelle")}
           </button>
         </div>
       </div>

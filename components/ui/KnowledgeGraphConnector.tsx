@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Search, Plus, X, Network } from "lucide-react";
 
-export function KnowledgeGraphConnector() {
+export function KnowledgeGraphConnector({ entityId }: { entityId?: string }) {
   const [connections, setConnections] = useState([
     { id: 1, type: "Kavram", name: "İmamet" },
     { id: 2, type: "Makale", name: "Modern Dünyada İmamet" }
