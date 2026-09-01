@@ -14,15 +14,20 @@ import {
   LogOut,
   ShieldAlert,
   Database,
+  Network,
+  UserCheck,
+  BookOpen,
 } from "lucide-react";
 
 const adminNavItems = [
   { href: "/admin", label: "Dashboard", icon: LayoutDashboard },
   { href: "/admin/kullanicilar", label: "Kullanıcılar", icon: Users },
   { href: "/admin/kaynak-merkezi", label: "Kaynak Merkezi", icon: Database },
+  { href: "/admin/sahsiyetler", label: "Şahsiyetler", icon: UserCheck },
+  { href: "/admin/kavramlar", label: "Kavramlar", icon: BookOpen },
+  { href: "/admin/knowledge-graph", label: "Knowledge Graph", icon: Network },
   { href: "/admin/yazilar", label: "Yazılar", icon: FileText },
   { href: "/admin/kutuphane", label: "Kütüphane", icon: Library },
-  { href: "/admin/etkinlikler", label: "Etkinlikler", icon: CalendarDays },
   { href: "/admin/ayarlar", label: "Ayarlar", icon: Settings },
 ];
 

@@ -3,11 +3,19 @@ export interface Person {
   name: string;
   title: string;
   laqabs: string[];
+  kunyas?: string[];
   birth: string;
+  birthPlace?: string;
   death?: string;
   occultationStatus?: string;
   father: string;
   mother: string;
+  imamatePeriod?: string;
+  politicalContext?: string;
+  legacy?: string;
+  moralTeachings?: string;
+  teachers?: string[];
+  students?: string[];
   relatedBooks: number[];
   relatedArticles: string[];
   relatedPersons: string[];
@@ -15,6 +23,8 @@ export interface Person {
   life?: string;
   chronology?: Array<{ year: string; event: string }>;
   quotes?: Array<{ text: string; source: string }>;
+  aiGenerated: boolean;
+  editorialStatus: 'draft' | 'researching' | 'source_review' | 'editor_review' | 'approved' | 'published' | 'archived';
 }
 
 export const mockPersons: Person[] = [
@@ -30,7 +40,9 @@ export const mockPersons: Person[] = [
     relatedBooks: [1, 5],
     relatedArticles: ["hakikatin-iki-kanadi-kuran-ve-itret"],
     relatedPersons: ["imam-ali", "hz-fatima"],
-    bio: "İslam'ın son peygamberi. Kur'an-ı Kerim'in kendisine vahyedildiği, Ehl-i Beyt'in atası ve alemlere rahmet olarak gönderilen elçi."
+    bio: "İslam'ın son peygamberi. Kur'an-ı Kerim'in kendisine vahyedildiği, Ehl-i Beyt'in atası ve alemlere rahmet olarak gönderilen elçi.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "hz-fatima",
@@ -44,7 +56,9 @@ export const mockPersons: Person[] = [
     relatedBooks: [],
     relatedArticles: [],
     relatedPersons: ["hz-muhammed", "imam-ali", "imam-hasan", "imam-huseyin"],
-    bio: "Peygamber Efendimiz'in (s.a.a) sevgili kızı, İmam Ali'nin (a.s) eşi, İmam Hasan ve İmam Hüseyin'in annesi. Fedek Hutbesi ile velayet savunmasının bayraktarıdır."
+    bio: "Peygamber Efendimiz'in (s.a.a) sevgili kızı, İmam Ali'nin (a.s) eşi, İmam Hasan ve İmam Hüseyin'in annesi. Fedek Hutbesi ile velayet savunmasının bayraktarıdır.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "imam-ali",
@@ -58,7 +72,9 @@ export const mockPersons: Person[] = [
     relatedBooks: [4, 7],
     relatedArticles: ["hakikatin-iki-kanadi-kuran-ve-itret"],
     relatedPersons: ["hz-muhammed", "hz-fatima"],
-    bio: "Birinci İmam. Nehcü'l-Belağa'nın sahibi. Gadir-i Hum'da Peygamber'in (s.a.a) halifesi olarak ilan edilen, ilim şehrinin kapısı ve velayetin babası."
+    bio: "Birinci İmam. Nehcü'l-Belağa'nın sahibi. Gadir-i Hum'da Peygamber'in (s.a.a) halifesi olarak ilan edilen, ilim şehrinin kapısı ve velayetin babası.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "imam-hasan",
@@ -72,7 +88,9 @@ export const mockPersons: Person[] = [
     relatedBooks: [],
     relatedArticles: [],
     relatedPersons: ["hz-muhammed", "imam-ali", "imam-huseyin"],
-    bio: "İkinci İmam. Muaviye ile yaptığı barış antlaşması ile İslam ümmetinin kanının dökülmesini engelleyen ve Kerbela'nın zeminini hazırlayan masum imam."
+    bio: "İkinci İmam. Muaviye ile yaptığı barış antlaşması ile İslam ümmetinin kanının dökülmesini engelleyen ve Kerbela'nın zeminini hazırlayan masum imam.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "imam-huseyin",
@@ -86,7 +104,9 @@ export const mockPersons: Person[] = [
     relatedBooks: [9, 18],
     relatedArticles: ["kerbela-bir-direnis-okulu"],
     relatedPersons: ["hz-muhammed", "imam-ali", "imam-hasan"],
-    bio: "Üçüncü İmam. Kerbela'da Yezid'in zulüm ordusuna karşı kıyam ederek İslam dinini sapkınlıktan kurtaran şehitlerin efendisi."
+    bio: "Üçüncü İmam. Kerbela'da Yezid'in zulüm ordusuna karşı kıyam ederek İslam dinini sapkınlıktan kurtaran şehitlerin efendisi.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "imam-zeynelabidin",
@@ -100,7 +120,9 @@ export const mockPersons: Person[] = [
     relatedBooks: [6],
     relatedArticles: ["irfani-acidan-dua"],
     relatedPersons: ["imam-huseyin", "imam-bakir"],
-    bio: "Dördüncü İmam. Kerbela vakıasından sonra Sahife-i Seccadiye ve dualar aracılığıyla Şiî toplumunu ahlaki ve irfani yönden yeniden inşa etmiştir."
+    bio: "Dördüncü İmam. Kerbela vakıasından sonra Sahife-i Seccadiye ve dualar aracılığıyla Şiî toplumunu ahlaki ve irfani yönden yeniden inşa etmiştir.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "imam-bakir",
@@ -114,7 +136,9 @@ export const mockPersons: Person[] = [
     relatedBooks: [],
     relatedArticles: [],
     relatedPersons: ["imam-zeynelabidin", "imam-sadik"],
-    bio: "Beşinci İmam. İlimleri yaran anlamındaki lakabıyla bilinir. Şiî fıkhının ve hadis külliyatının temel kaynaklarını oluşturacak ilmi hareketi başlatmıştır."
+    bio: "Beşinci İmam. İlimleri yaran anlamındaki lakabıyla bilinir. Şiî fıkhının ve hadis külliyatının temel kaynaklarını oluşturacak ilmi hareketi başlatmıştır.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "imam-sadik",
@@ -128,7 +152,9 @@ export const mockPersons: Person[] = [
     relatedBooks: [],
     relatedArticles: [],
     relatedPersons: ["imam-bakir", "imam-kazim"],
-    bio: "Altıncı İmam. Dört binden fazla öğrenci yetiştirerek Caferi fıkhının (mezhebinin) sistemleşmesini sağlayan büyük ilim otoritesi."
+    bio: "Altıncı İmam. Dört binden fazla öğrenci yetiştirerek Caferi fıkhının (mezhebinin) sistemleşmesini sağlayan büyük ilim otoritesi.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "imam-kazim",
@@ -142,7 +168,9 @@ export const mockPersons: Person[] = [
     relatedBooks: [],
     relatedArticles: [],
     relatedPersons: ["imam-sadik", "imam-riza"],
-    bio: "Yedinci İmam. Öfkesini yutan (Kazım) lakabıyla bilinir. Hayatının büyük bölümünü Abbasi zindanlarında geçirmiştir."
+    bio: "Yedinci İmam. Öfkesini yutan (Kazım) lakabıyla bilinir. Hayatının büyük bölümünü Abbasi zindanlarında geçirmiştir.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "imam-riza",
@@ -156,7 +184,9 @@ export const mockPersons: Person[] = [
     relatedBooks: [],
     relatedArticles: [],
     relatedPersons: ["imam-kazim", "imam-cevad"],
-    bio: "Sekizinci İmam. Me'mun'un veliahtlık dayatması sebebiyle Horasan'a (Tus) gitmek zorunda kalmış, ilmi münazaralarıyla tanınmıştır. Türbesi Meşhed'dedir."
+    bio: "Sekizinci İmam. Me'mun'un veliahtlık dayatması sebebiyle Horasan'a (Tus) gitmek zorunda kalmış, ilmi münazaralarıyla tanınmıştır. Türbesi Meşhed'dedir.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "imam-cevad",
@@ -170,7 +200,9 @@ export const mockPersons: Person[] = [
     relatedBooks: [],
     relatedArticles: [],
     relatedPersons: ["imam-riza", "imam-hadi"],
-    bio: "Dokuzuncu İmam. Çok genç yaşta imamet makamına ulaşmış, ilmi tartışmalardaki üstünlüğüyle Abbasi alimlerini hayrete düşürmüştür."
+    bio: "Dokuzuncu İmam. Çok genç yaşta imamet makamına ulaşmış, ilmi tartışmalardaki üstünlüğüyle Abbasi alimlerini hayrete düşürmüştür.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "imam-hadi",
@@ -184,7 +216,9 @@ export const mockPersons: Person[] = [
     relatedBooks: [],
     relatedArticles: [],
     relatedPersons: ["imam-cevad", "imam-askeri"],
-    bio: "Onuncu İmam. Samarra'da askeri garnizonda göz hapsinde tutulmuştur. Ziyaret-i Camia-i Kebire onun önemli miraslarındandır."
+    bio: "Onuncu İmam. Samarra'da askeri garnizonda göz hapsinde tutulmuştur. Ziyaret-i Camia-i Kebire onun önemli miraslarındandır.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "imam-askeri",
@@ -198,7 +232,9 @@ export const mockPersons: Person[] = [
     relatedBooks: [],
     relatedArticles: [],
     relatedPersons: ["imam-hadi", "imam-mehdi"],
-    bio: "On Birinci İmam. Samarra'da şiddetli baskı altında yaşamış, Şiî toplumunu Gaibet dönemine hazırlamıştır."
+    bio: "On Birinci İmam. Samarra'da şiddetli baskı altında yaşamış, Şiî toplumunu Gaibet dönemine hazırlamıştır.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "imam-mehdi",
@@ -212,13 +248,18 @@ export const mockPersons: Person[] = [
     relatedBooks: [8],
     relatedArticles: ["gaibet-kavraminin-sii-dusuncesindeki-yeri"],
     relatedPersons: ["imam-askeri"],
-    bio: "On İkinci İmam. Gaibet'te (gizlilikte) olan, yeryüzü zulümle dolduktan sonra adaletle dolduracak olan vaat edilmiş kurtarıcı."
+    bio: "On İkinci İmam. Gaibet'te (gizlilikte) olan, yeryüzü zulümle dolduktan sonra adaletle dolduracak olan vaat edilmiş kurtarıcı.",
+    aiGenerated: true,
+    editorialStatus: 'draft'
   }
 ];
 
 export interface Concept {
   slug: string;
   title: string;
+  arabicTitle?: string;
+  persianTitle?: string;
+  shortDefinition?: string;
   definition: string;
   etymology: string;
   quranicUsage: string;
@@ -227,6 +268,8 @@ export interface Concept {
   relatedArticles: string[];
   relatedPersons: string[];
   bibliography?: string[];
+  aiGenerated: boolean;
+  editorialStatus: 'draft' | 'researching' | 'source_review' | 'editor_review' | 'approved' | 'published' | 'archived';
 }
 
 export const mockConcepts: Concept[] = [
@@ -238,7 +281,9 @@ export const mockConcepts: Concept[] = [
     quranicUsage: "Kur'an'da Bakara 124 gibi ayetlerde ilahi bir makam olarak geçer: 'Seni insanlara imam kılacağım.'",
     relatedBooks: [7, 11],
     relatedArticles: ["modern-dunyada-imamet"],
-    relatedPersons: ["imam-ali", "imam-mehdi"]
+    relatedPersons: ["imam-ali", "imam-mehdi"],
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "mehdeviyet",
@@ -248,7 +293,9 @@ export const mockConcepts: Concept[] = [
     quranicUsage: "Kasas 5 ve Enbiya 105 gibi ayetlerde mustazafların yeryüzüne varis olacağı müjdesi.",
     relatedBooks: [8],
     relatedArticles: ["gaibet-kavraminin-sii-dusuncesindeki-yeri"],
-    relatedPersons: ["imam-mehdi"]
+    relatedPersons: ["imam-mehdi"],
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "ismet",
@@ -258,7 +305,9 @@ export const mockConcepts: Concept[] = [
     quranicUsage: "Tathir ayetinde (Ahzab, 33) 'Allah siz Ehl-i Beyt'ten her türlü kiri gidermek ve sizi tertemiz kılmak istiyor' şeklinde ifade edilir.",
     relatedBooks: [7],
     relatedArticles: ["hakikatin-iki-kanadi-kuran-ve-itret"],
-    relatedPersons: ["hz-muhammed", "hz-fatima", "imam-ali", "imam-hasan", "imam-huseyin", "imam-zeynelabidin", "imam-bakir", "imam-sadik", "imam-kazim", "imam-riza", "imam-cevad", "imam-hadi", "imam-askeri", "imam-mehdi"]
+    relatedPersons: ["hz-muhammed", "hz-fatima", "imam-ali", "imam-hasan", "imam-huseyin", "imam-zeynelabidin", "imam-bakir", "imam-sadik", "imam-kazim", "imam-riza", "imam-cevad", "imam-hadi", "imam-askeri", "imam-mehdi"],
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "asura",
@@ -268,7 +317,9 @@ export const mockConcepts: Concept[] = [
     quranicUsage: "Kur'an'da doğrudan geçmemekle birlikte, Fecr suresi 27-30 ayetlerinin 'Nefs-i Mutmainne' vasfıyla İmam Hüseyin'e (a.s) işaret ettiği rivayet edilir.",
     relatedBooks: [9, 18],
     relatedArticles: ["kerbela-bir-direnis-okulu"],
-    relatedPersons: ["imam-huseyin"]
+    relatedPersons: ["imam-huseyin"],
+    aiGenerated: true,
+    editorialStatus: 'draft'
   },
   {
     slug: "gaybet",
@@ -278,6 +329,8 @@ export const mockConcepts: Concept[] = [
     quranicUsage: "Gayb'a iman kavramı (Bakara 3) kapsamında değerlendirilir.",
     relatedBooks: [8],
     relatedArticles: ["gaibet-kavraminin-sii-dusuncesindeki-yeri"],
-    relatedPersons: ["imam-mehdi"]
+    relatedPersons: ["imam-mehdi"],
+    aiGenerated: true,
+    editorialStatus: 'draft'
   }
 ];

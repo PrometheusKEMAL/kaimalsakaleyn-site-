@@ -730,3 +730,5 @@ export const mehdeviyetDossier = {
   get booksCount() { return mockBooks.filter(b => b.category === 'İmam Mehdi' || b.category === 'Mehdeviyet').length; },
   link: "/defterler?category=İmam%20Mehdi"
 };
+
+export * from './generated-drafts';
