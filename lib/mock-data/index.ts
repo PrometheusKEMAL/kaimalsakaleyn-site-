@@ -5,6 +5,7 @@ export interface Article {
   subtitle: string;
   summary: string;
   content?: string;
+  image?: string;
   author: string;
   editor: string;
   publishedAt: string;
@@ -16,6 +17,9 @@ export interface Article {
   footnotes: { id: number; text: string }[];
   relatedArticles: string[]; // slugs
   relatedBooks: number[]; // book ids
+  versionHistory?: { id: string; date: string; action: string; user: string; role: string; notes?: string; status: any }[];
+  editorialStatus?: "draft" | "researching" | "source_review" | "editor_review" | "approved" | "published" | "archived";
+  verificationStatus?: "verified" | "partial" | "unverified";
 }
 
 export interface Book {
@@ -35,9 +39,10 @@ export interface Book {
   isbn?: string;
   summary: string;
   toc?: string[];
-  copyrightStatus?: string;
+  copyrightStatus?: 'public_domain' | 'licensed' | 'permission_granted' | 'external_only' | 'unknown';
   cover?: string;
-  verificationStatus?: 'draft' | 'needs_review' | 'source_checked' | 'editorial_approved';
+  verificationStatus?: 'verified' | 'partial' | 'unverified';
+  editorialStatus?: 'draft' | 'researching' | 'source_review' | 'editor_review' | 'approved' | 'published' | 'archived';
 }
 
 export const mockBooks: Book[] = [
@@ -49,6 +54,7 @@ export const mockBooks: Book[] = [
     "language": "Türkçe",
     "year": 2020,
     "slug": "kuran-i-kerim-meali",
+    "cover": "/images/books/book_quran.jpg",
     "originalTitle": "-",
     "translator": "KaimAlSakaleyn Çeviri Heyeti",
     "verification": "Enstitü Tahkik Kurulu",
@@ -65,7 +71,9 @@ export const mockBooks: Book[] = [
       "Üçüncü Bölüm: Kıssalar ve İbretler",
       "Sonuç: Kur'an'ın Evrensel Mesajı ve İmamet"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 2,
@@ -75,6 +83,7 @@ export const mockBooks: Book[] = [
     "language": "Türkçe",
     "year": 1995,
     "slug": "el-mizan-fi-tefsiril-kuran",
+    "cover": "/images/books/book_nahj.jpg",
     "originalTitle": "El-Mizan Fi Tefsir'il Kur'an (Arapça/Farsça Orijinal)",
     "translator": "KaimAlSakaleyn Çeviri Heyeti",
     "verification": "Enstitü Tahkik Kurulu",
@@ -90,7 +99,9 @@ export const mockBooks: Book[] = [
       "Ayetlerin Sosyolojik ve Ahlaki Boyutları",
       "Ehl-i Beyt Rivayetlerinin Tefsirdeki Yeri"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 3,
@@ -100,6 +111,7 @@ export const mockBooks: Book[] = [
     "language": "Türkçe",
     "year": 2005,
     "slug": "usul-u-kafi",
+    "cover": "/images/books/book_sahifa.jpg",
     "originalTitle": "Usul-u Kafi (Arapça/Farsça Orijinal)",
     "translator": "KaimAlSakaleyn Çeviri Heyeti",
     "verification": "Enstitü Tahkik Kurulu",
@@ -116,7 +128,9 @@ export const mockBooks: Book[] = [
       "Kitabu'l-İman ve'l-Küfr (İnanç ve İnkârın Esasları)",
       "Kitabu'd-Dua (Dua ve Münacatın Usulleri)"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 4,
@@ -126,6 +140,7 @@ export const mockBooks: Book[] = [
     "language": "Türkçe",
     "year": 2010,
     "slug": "nehcul-belaga",
+    "cover": "/images/books/book_nahj.jpg",
     "originalTitle": "Nehcü'l-Belâğa (Arapça/Farsça Orijinal)",
     "translator": "KaimAlSakaleyn Çeviri Heyeti",
     "verification": "Enstitü Tahkik Kurulu",
@@ -141,7 +156,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Mektuplar (Malik el-Eşter'e Emirname ve Valilere Öğütler)",
       "Üçüncü Bölüm: Hikmetli Sözler (Ahlaki Vecizeler)"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 5,
@@ -151,6 +168,7 @@ export const mockBooks: Book[] = [
     "language": "Türkçe",
     "year": 2012,
     "slug": "sahife-i-seccadiye",
+    "cover": "/images/books/book_sahifa.jpg",
     "originalTitle": "Sahife-i Seccadiye (Arapça/Farsça Orijinal)",
     "translator": "KaimAlSakaleyn Çeviri Heyeti",
     "verification": "Enstitü Tahkik Kurulu",
@@ -166,7 +184,9 @@ export const mockBooks: Book[] = [
       "Ebeveyne, Evlatlara ve Komşulara Yönelik Dualar",
       "Tövbe, Bağışlanma ve Musibet Anlarında Okunacak Dualar"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 6,
@@ -191,7 +211,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 7,
@@ -216,7 +238,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 8,
@@ -241,7 +265,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 9,
@@ -266,7 +292,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 10,
@@ -291,7 +319,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 11,
@@ -316,7 +346,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 12,
@@ -341,7 +373,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 13,
@@ -366,7 +400,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 14,
@@ -391,7 +427,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 15,
@@ -416,7 +454,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 16,
@@ -441,7 +481,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 17,
@@ -466,7 +508,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 18,
@@ -491,7 +535,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 19,
@@ -516,7 +562,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 20,
@@ -541,7 +589,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   },
   {
     "id": 21,
@@ -566,7 +616,9 @@ export const mockBooks: Book[] = [
       "İkinci Bölüm: Derinlemesine Tahlil",
       "Sonuç ve Değerlendirme"
     ],
-    "copyrightStatus": "Telif hakkı gözetilerek yalnızca tanıtım amaçlı listelenmiştir"
+    "copyrightStatus": "external_only",
+    "verificationStatus": "verified",
+    "editorialStatus": "published"
   }
 ];
 
@@ -574,6 +626,9 @@ export const mockArticles: Article[] = [
   {
     id: 1,
     slug: "hakikatin-iki-kanadi-kuran-ve-itret",
+    image: "/images/articles/article_imamah.jpg",
+    verificationStatus: "verified",
+    editorialStatus: "published",
     title: "Hakikatin İki Kanadı: Kur'an ve İtret",
     subtitle: "Sekaleyn Hadisi Ekseninde Bir İnceleme",
     summary: "Peygamber Efendimiz'in (s.a.v.) Veda Haccı'nda bıraktığı iki emanetin, Kur'an ve Ehl-i Beyt'in ayrılmazlığının günümüzdeki anlamı üzerine tefekkür.",
@@ -621,6 +676,9 @@ Günümüzde Müslümanların yaşadığı en büyük kriz, bu iki kanattan biri
   {
     id: 2,
     slug: "irfani-acidan-dua",
+    image: "/images/articles/article_hadith.jpg",
+    verificationStatus: "verified",
+    editorialStatus: "published",
     title: "İrfani Açıdan Dua",
     subtitle: "Sahife-i Seccadiye'nin Derinliklerinde",
     summary: "Sahife-i Seccadiye ekseninde kulun Rabbiyle olan dikey iletişiminin boyutları, duanın yalnızca istekte bulunmak değil, bir manevi inşa aracı olması.",
@@ -694,6 +752,9 @@ Kerbela, görünürde kılıçların ve mızrakların konuştuğu bir savaş mey
   {
     id: 4,
     slug: "modern-dunyada-imamet",
+    image: "/images/articles/article_imamah.jpg",
+    verificationStatus: "verified",
+    editorialStatus: "published",
     title: "Modern Dünyada İmamet",
     subtitle: "Rehbersiz Kalan İnsanın Savrulmaları",
     summary: "Modernizm ve sekülerleşmenin yol açtığı anlam krizine karşı, İmamet inancının bireysel ve toplumsal hayatımıza sunduğu ufuk.",

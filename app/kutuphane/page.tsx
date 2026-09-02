@@ -30,13 +30,13 @@ export default function KutuphanePage() {
   return (
     <div className="pt-24 pb-32">
       {/* Header */}
-      <section className="py-16 px-6 text-center border-b border-gold-border/10 bg-background-secondary/50">
+      <section className="py-16 px-6 text-center border-b border-border/50 bg-muted/30">
         <div className="max-w-4xl mx-auto">
           <span className="section-label mb-6">Katalog</span>
-          <h1 className="font-serif text-4xl md:text-5xl text-primary-text mb-6">
+          <h1 className="font-serif text-4xl md:text-5xl text-foreground mb-6">
             KaimAlSakaleyn Dijital Kütüphanesi
           </h1>
-          <p className="text-secondary-text text-lg leading-relaxed max-w-2xl mx-auto font-light text-balance">
+          <p className="text-muted-foreground text-lg leading-relaxed max-w-2xl mx-auto font-light text-balance">
             Şiî ilim geleneğinin temel eserlerini, müelliflerini ve araştırma 
             kaynaklarını tek bir akademik çatı altında keşfedin.
           </p>
@@ -49,21 +49,21 @@ export default function KutuphanePage() {
         {/* Left Sidebar - Filters */}
         <aside className="w-full md:w-64 shrink-0">
           <div className="sticky top-24">
-            <h3 className="font-serif text-lg text-primary-text mb-6 flex items-center gap-2">
-              <Filter className="w-4 h-4 text-antique-gold" /> Filtreler
+            <h3 className="font-serif text-lg text-foreground mb-6 flex items-center gap-2">
+              <Filter className="w-4 h-4 text-primary" /> Filtreler
             </h3>
             
             <div className="space-y-8">
               {/* Categories */}
               <div>
-                <h4 className="text-[11px] uppercase tracking-widest text-secondary-text mb-4 font-medium">Kategori</h4>
+                <h4 className="text-[11px] uppercase tracking-widest text-muted-foreground mb-4 font-medium">Kategori</h4>
                 <ul className="space-y-2">
                   {categories.map((cat) => (
                     <li key={cat}>
                       <button
                         onClick={() => setActiveCategory(cat)}
                         className={`text-sm transition-colors text-left w-full ${
-                          activeCategory === cat ? "text-antique-gold" : "text-primary-text/70 hover:text-primary-text"
+                          activeCategory === cat ? "text-primary" : "text-foreground/70 hover:text-foreground"
                         }`}
                       >
                         {cat}
@@ -75,14 +75,14 @@ export default function KutuphanePage() {
 
               {/* Language */}
               <div>
-                <h4 className="text-[11px] uppercase tracking-widest text-secondary-text mb-4 font-medium">Dil</h4>
+                <h4 className="text-[11px] uppercase tracking-widest text-muted-foreground mb-4 font-medium">Dil</h4>
                 <ul className="space-y-2">
                   {languages.map((lang) => (
                     <li key={lang}>
                       <button
                         onClick={() => setActiveLanguage(lang)}
                         className={`text-sm transition-colors text-left w-full ${
-                          activeLanguage === lang ? "text-antique-gold" : "text-primary-text/70 hover:text-primary-text"
+                          activeLanguage === lang ? "text-primary" : "text-foreground/70 hover:text-foreground"
                         }`}
                       >
                         {lang}
@@ -100,27 +100,27 @@ export default function KutuphanePage() {
           {/* Top Bar */}
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
             <div className="relative max-w-sm w-full">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-secondary-text/50" />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground/50" />
               <input
                 type="text"
                 placeholder="Eser veya yazar ara..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-card-bg border border-gold-border/30 focus:border-antique-gold/50 rounded-md pl-10 pr-4 py-2 text-primary-text text-sm focus:outline-none transition-colors"
+                className="w-full bg-card border border-border/50 focus:border-primary/50 rounded-md pl-10 pr-4 py-2 text-foreground text-sm focus:outline-none transition-colors"
               />
             </div>
             
-            <div className="flex items-center gap-2 text-secondary-text border border-gold-border/20 rounded-md p-1 bg-card-bg/50">
+            <div className="flex items-center gap-2 text-muted-foreground border border-border/50 rounded-md p-1 bg-card/50">
               <button 
                 onClick={() => setViewMode("grid")}
-                className={`p-1.5 rounded-sm transition-colors ${viewMode === "grid" ? "bg-background-secondary text-primary-text shadow-sm" : "hover:text-primary-text"}`}
+                className={`p-1.5 rounded-sm transition-colors ${viewMode === "grid" ? "bg-muted text-foreground shadow-sm" : "hover:text-foreground"}`}
                 aria-label="Grid Görünümü"
               >
                 <LayoutGrid className="w-4 h-4" />
               </button>
               <button 
                 onClick={() => setViewMode("list")}
-                className={`p-1.5 rounded-sm transition-colors ${viewMode === "list" ? "bg-background-secondary text-primary-text shadow-sm" : "hover:text-primary-text"}`}
+                className={`p-1.5 rounded-sm transition-colors ${viewMode === "list" ? "bg-muted text-foreground shadow-sm" : "hover:text-foreground"}`}
                 aria-label="Liste Görünümü"
               >
                 <List className="w-4 h-4" />
@@ -129,7 +129,7 @@ export default function KutuphanePage() {
           </div>
 
           {/* Results Count */}
-          <div className="text-xs text-secondary-text mb-6">
+          <div className="text-xs text-muted-foreground mb-6">
             {filteredBooks.length} kaynak bulundu
           </div>
 
@@ -147,16 +147,16 @@ export default function KutuphanePage() {
                 />
               ) : (
                 <div key={book.id} className="card-base p-4 flex items-center gap-6 group hover:-translate-y-0.5">
-                  <div className="w-12 h-16 bg-[#1a1a1a] border border-gold-border/20 flex items-center justify-center rounded-sm shrink-0">
-                     <Book className="w-4 h-4 text-antique-gold/40" />
+                  <div className="w-12 h-16 bg-muted/30 border border-border/50 flex items-center justify-center rounded-sm shrink-0">
+                     <Book className="w-4 h-4 text-muted-foreground/40" />
                   </div>
                   <div className="flex-1 min-w-0">
-                     <h3 className="font-serif text-lg text-primary-text group-hover:text-antique-gold transition-colors truncate">{book.title}</h3>
-                     <p className="text-sm text-secondary-text">{book.author}</p>
+                     <h3 className="font-serif text-lg text-foreground group-hover:text-primary transition-colors truncate">{book.title}</h3>
+                     <p className="text-sm text-muted-foreground">{book.author}</p>
                   </div>
                   <div className="hidden sm:block shrink-0 text-right">
-                     <span className="text-[10px] uppercase tracking-widest text-antique-gold font-medium block">{book.category}</span>
-                     <span className="text-xs text-secondary-text">{book.language}</span>
+                     <span className="text-[10px] uppercase tracking-widest text-primary font-medium block">{book.category}</span>
+                     <span className="text-xs text-muted-foreground">{book.language}</span>
                   </div>
                 </div>
               )
@@ -164,11 +164,11 @@ export default function KutuphanePage() {
           </div>
 
           {filteredBooks.length === 0 && (
-            <div className="py-24 text-center border border-dashed border-gold-border/20 rounded-md">
-              <p className="text-secondary-text">Kriterlerinize uygun eser bulunamadı.</p>
+            <div className="py-24 text-center border border-dashed border-border/50 rounded-md">
+              <p className="text-muted-foreground">Kriterlerinize uygun eser bulunamadı.</p>
               <button 
                 onClick={() => { setActiveCategory("Tümü"); setActiveLanguage("Tümü"); setSearchQuery(""); }}
-                className="mt-4 text-sm text-antique-gold hover:underline"
+                className="mt-4 text-sm text-primary hover:underline"
               >
                 Filtreleri Temizle
               </button>

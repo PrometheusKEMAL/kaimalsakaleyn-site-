@@ -32,12 +32,12 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
       
       {/* Breadcrumb */}
       <div className="max-w-5xl mx-auto px-6 mb-8 mt-6">
-        <div className="flex flex-wrap items-center gap-2 text-xs text-secondary-text font-medium tracking-wide uppercase">
-          <Link href="/" className="hover:text-primary-text transition-colors">Ana Sayfa</Link>
+        <div className="flex flex-wrap items-center gap-2 text-xs text-muted-foreground font-medium tracking-wide uppercase">
+          <Link href="/" className="hover:text-foreground transition-colors">Ana Sayfa</Link>
           <ChevronRight className="w-3 h-3" />
-          <Link href="/ehlibeyt" className="hover:text-primary-text transition-colors">Ehl-i Beyt</Link>
+          <Link href="/ehlibeyt" className="hover:text-foreground transition-colors">Ehl-i Beyt</Link>
           <ChevronRight className="w-3 h-3" />
-          <span className="text-antique-gold">{person.name}</span>
+          <span className="text-primary">{person.name}</span>
         </div>
       </div>
 
@@ -45,31 +45,31 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
       <section className="px-6 mb-16">
         <div className="max-w-5xl mx-auto flex flex-col md:flex-row items-center gap-10">
           {/* Avatar/Icon Placeholder */}
-          <div className="w-32 h-32 md:w-48 md:h-48 rounded-full bg-background-secondary border-2 border-gold-border/30 flex items-center justify-center shrink-0 shadow-lg relative overflow-hidden">
+          <div className="w-32 h-32 md:w-48 md:h-48 rounded-full bg-muted/30 border-2 border-border/50 flex items-center justify-center shrink-0 shadow-lg relative overflow-hidden">
              <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDE5MywgMTYz,IDk4LCAwLjE1KSIgc3Ryb2tlLXdpZHRoPSIwLjUiPjxwYXRoIGQ9Ik0xMiAyTDIyIDEyTDEyIDIyTDIgMTJ6Ii8+PC9zdmc+')] opacity-50 bg-repeat bg-[length:24px_24px]" />
-             <User className="w-16 h-16 md:w-24 md:h-24 text-antique-gold/40 relative z-10" />
+             <User className="w-16 h-16 md:w-24 md:h-24 text-primary/40 relative z-10" />
           </div>
 
           <div className="text-center md:text-left flex-1">
-            <span className="text-[10px] tracking-widest uppercase text-antique-gold font-medium border border-antique-gold/20 px-2.5 py-1 bg-antique-gold/5 rounded-sm inline-block mb-4">
+            <span className="text-[10px] tracking-widest uppercase text-primary font-medium border border-primary/20 px-2.5 py-1 bg-primary/5 rounded-sm inline-block mb-4">
               {person.title}
             </span>
-            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-primary-text mb-4 leading-tight">
+            <h1 className="font-serif text-5xl md:text-6xl lg:text-7xl text-foreground mb-4 leading-tight">
               {person.name}
             </h1>
             <div className="flex flex-wrap justify-center md:justify-start gap-2">
               {person.laqabs.map(laqab => (
-                <span key={laqab} className="text-xs text-secondary-text bg-card-bg border border-gold-border/20 px-3 py-1 rounded-sm">
+                <span key={laqab} className="text-xs text-muted-foreground bg-card border border-border/50 px-3 py-1 rounded-sm">
                   {laqab}
                 </span>
               ))}
             </div>
             {(person.birth || person.death || person.occultationStatus) && (
-              <div className="mt-6 flex flex-col md:flex-row items-center justify-center md:justify-start gap-4 text-sm text-secondary-text/80">
-                 {person.birth && <span>Doğum: <span className="text-primary-text font-serif">{person.birth}</span></span>}
-                 {person.birth && (person.death || person.occultationStatus) && <span className="hidden md:inline-block w-1 h-1 rounded-full bg-gold-border"></span>}
-                 {person.death && <span>Şehadet: <span className="text-primary-text font-serif">{person.death}</span></span>}
-                 {person.occultationStatus && <span className="text-center md:text-left">Durum: <span className="text-primary-text font-serif">{person.occultationStatus}</span></span>}
+              <div className="mt-6 flex flex-col md:flex-row items-center justify-center md:justify-start gap-4 text-sm text-muted-foreground/80">
+                 {person.birth && <span>Doğum: <span className="text-foreground font-serif">{person.birth}</span></span>}
+                 {person.birth && (person.death || person.occultationStatus) && <span className="hidden md:inline-block w-1 h-1 rounded-full bg-border"></span>}
+                 {person.death && <span>Şehadet: <span className="text-foreground font-serif">{person.death}</span></span>}
+                 {person.occultationStatus && <span className="text-center md:text-left">Durum: <span className="text-foreground font-serif">{person.occultationStatus}</span></span>}
               </div>
             )}
           </div>
@@ -80,13 +80,13 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
       <section className="px-6 max-w-5xl mx-auto">
         
         {/* Tabs */}
-        <div className="flex flex-wrap border-b border-gold-border/20 mb-12">
+        <div className="flex flex-wrap border-b border-border/50 mb-12">
           {tabs.map(tab => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`flex items-center gap-2 px-6 py-4 text-sm font-medium tracking-wide transition-colors relative whitespace-nowrap ${
-                activeTab === tab.id ? "text-antique-gold" : "text-secondary-text hover:text-primary-text"
+                activeTab === tab.id ? "text-primary" : "text-muted-foreground hover:text-foreground"
               }`}
             >
               {tab.icon}
@@ -94,7 +94,7 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
               {activeTab === tab.id && (
                 <motion.div 
                   layoutId="activeTab"
-                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-antique-gold"
+                  className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
                 />
               )}
             </button>
@@ -112,7 +112,7 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -10 }}
                 transition={{ duration: 0.2 }}
-                className="prose prose-invert max-w-[75ch] prose-p:leading-relaxed prose-p:font-light prose-p:text-secondary-text prose-headings:font-serif prose-headings:text-primary-text prose-a:text-antique-gold hover:prose-a:text-light-gold"
+                className="prose prose-invert max-w-[75ch] prose-p:leading-relaxed prose-p:font-light prose-p:text-muted-foreground prose-headings:font-serif prose-headings:text-foreground prose-a:text-primary hover:prose-a:text-primary/80"
                 dangerouslySetInnerHTML={{ __html: (person.life || person.bio || '') }}
               />
             )}
@@ -140,11 +140,11 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
               >
                 {(person.quotes || []).map((quote, idx) => (
                   <div key={idx} className="card-base p-8 relative group">
-                    <Quote className="absolute top-6 right-6 w-8 h-8 text-antique-gold/10 group-hover:text-antique-gold/20 transition-colors" />
-                    <p className="font-serif text-xl text-primary-text mb-6 leading-relaxed relative z-10 text-balance">
+                    <Quote className="absolute top-6 right-6 w-8 h-8 text-primary/10 group-hover:text-primary/20 transition-colors" />
+                    <p className="font-serif text-xl text-foreground mb-6 leading-relaxed relative z-10 text-balance">
                       "{quote.text}"
                     </p>
-                    <span className="text-sm text-secondary-text italic block">
+                    <span className="text-sm text-muted-foreground italic block">
                       — {quote.source}
                     </span>
                   </div>
@@ -163,19 +163,19 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
               >
                 {relatedBooksData.length > 0 && (
                   <div>
-                    <h3 className="text-2xl font-serif text-primary-text mb-6 flex items-center gap-2 pb-2 border-b border-gold-border/10">
-                      <BookOpen className="w-5 h-5 text-antique-gold" /> İlgili Kütüphane Kaynakları
+                    <h3 className="text-2xl font-serif text-foreground mb-6 flex items-center gap-2 pb-2 border-b border-border/50">
+                      <BookOpen className="w-5 h-5 text-primary" /> İlgili Kütüphane Kaynakları
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {relatedBooksData.map(book => (
                         <Link href={`/kutuphane/${book.slug}`} key={book.id}>
-                          <div className="p-4 border border-gold-border/20 rounded-md hover:border-antique-gold/50 transition-colors bg-card-bg flex gap-4 items-center group">
-                            <div className="w-12 h-16 bg-background-secondary border border-gold-border/20 rounded-sm flex-shrink-0 flex items-center justify-center">
-                              <BookOpen className="w-5 h-5 text-antique-gold/40" />
+                          <div className="p-4 border border-border/50 rounded-md hover:border-primary/50 transition-colors bg-card flex gap-4 items-center group">
+                            <div className="w-12 h-16 bg-muted/30 border border-border/50 rounded-sm flex-shrink-0 flex items-center justify-center">
+                              <BookOpen className="w-5 h-5 text-primary/40" />
                             </div>
                             <div>
-                              <h4 className="font-serif text-lg text-primary-text group-hover:text-antique-gold transition-colors line-clamp-1">{book.title}</h4>
-                              <p className="text-xs text-secondary-text line-clamp-1">{book.author}</p>
+                              <h4 className="font-serif text-lg text-foreground group-hover:text-primary transition-colors line-clamp-1">{book.title}</h4>
+                              <p className="text-xs text-muted-foreground line-clamp-1">{book.author}</p>
                             </div>
                           </div>
                         </Link>
@@ -186,16 +186,16 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
 
                 {relatedArticlesData.length > 0 && (
                   <div>
-                    <h3 className="text-2xl font-serif text-primary-text mb-6 flex items-center gap-2 pb-2 border-b border-gold-border/10">
-                      <FileText className="w-5 h-5 text-antique-gold" /> Akademik Makaleler
+                    <h3 className="text-2xl font-serif text-foreground mb-6 flex items-center gap-2 pb-2 border-b border-border/50">
+                      <FileText className="w-5 h-5 text-primary" /> Akademik Makaleler
                     </h3>
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                       {relatedArticlesData.map(article => (
                         <Link href={`/defterler/${article.slug}`} key={article.id}>
-                          <div className="p-5 border border-gold-border/20 rounded-md hover:border-antique-gold/50 transition-colors bg-card-bg group h-full">
-                            <span className="text-[10px] uppercase tracking-widest text-antique-gold/80 block mb-2">{article.category}</span>
-                            <h4 className="font-serif text-lg text-primary-text group-hover:text-antique-gold transition-colors line-clamp-2 mb-2">{article.title}</h4>
-                            <p className="text-xs text-secondary-text">{article.author}</p>
+                          <div className="p-5 border border-border/50 rounded-md hover:border-primary/50 transition-colors bg-card group h-full">
+                            <span className="text-[10px] uppercase tracking-widest text-primary/80 block mb-2">{article.category}</span>
+                            <h4 className="font-serif text-lg text-foreground group-hover:text-primary transition-colors line-clamp-2 mb-2">{article.title}</h4>
+                            <p className="text-xs text-muted-foreground">{article.author}</p>
                           </div>
                         </Link>
                       ))}
@@ -204,7 +204,7 @@ export default function EhlibeytDetailPage({ params }: { params: Promise<{ slug:
                 )}
                 
                 {relatedBooksData.length === 0 && relatedArticlesData.length === 0 && (
-                  <p className="text-secondary-text italic py-10">Bu şahıs ile ilgili henüz sisteme eklenmiş bir eser veya makale bulunmamaktadır.</p>
+                  <p className="text-muted-foreground italic py-10">Bu şahıs ile ilgili henüz sisteme eklenmiş bir eser veya makale bulunmamaktadır.</p>
                 )}
               </motion.div>
             )}

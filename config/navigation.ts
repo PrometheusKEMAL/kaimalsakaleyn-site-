@@ -34,8 +34,7 @@ export const footerNavigation = {
   ],
   kurumsal: [
     { label: "Hakkımızda", href: "/hakkimizda" },
-    { label: "Yayın İlkeleri", href: "/yayin-ilkeleri" },
-    { label: "Editoryal Prensipler", href: "/ilkeler" },
+    { label: "Akademik Standartlar", href: "/akademik-standartlar" },
     { label: "Üye Girişi", href: "/giris" },
     { label: "İletişim", href: "/iletisim" },
   ],

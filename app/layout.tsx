@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, Cinzel, Noto_Naskh_Arabic } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import { Header } from "@/components/layout/Header";
@@ -20,12 +20,13 @@ const cinzel = Cinzel({
 
 const notoNaskhArabic = Noto_Naskh_Arabic({
   subsets: ["arabic"],
-  variable: "--font-arabic",
+  variable: "--font-noto-naskh",
   weight: ["400", "500", "600", "700"],
   display: "swap",
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
     default: `${siteConfig.name} | ${siteConfig.subtitle}`,
     template: `%s | ${siteConfig.name}`,
@@ -50,6 +51,10 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -58,7 +63,7 @@ export default function RootLayout({
   return (
     <html lang="tr" className="dark">
       <body
-        className={`${inter.variable} ${cinzel.variable} ${notoNaskhArabic.variable} font-sans min-h-screen flex flex-col bg-background text-primary-text antialiased`}
+        className={`${inter.variable} ${cinzel.variable} ${notoNaskhArabic.variable} font-sans min-h-screen flex flex-col bg-background text-foreground antialiased`}
       >
         <script
           type="application/ld+json"
@@ -91,21 +96,13 @@ export default function RootLayout({
             ])
           }}
         />
-        {/* Islamic geometric pattern overlay */}
-        <div className="islamic-pattern" aria-hidden="true" />
-        {/* Grain texture */}
-        <div className="grain-texture" aria-hidden="true" />
 
-        {/* Header */}
         <Header />
 
-        {/* Main Content */}
         <main className="flex-1 relative z-10">{children}</main>
 
-        {/* Footer */}
         <Footer />
         
-        {/* Background Audio */}
         <AudioPlayer />
       </body>
     </html>

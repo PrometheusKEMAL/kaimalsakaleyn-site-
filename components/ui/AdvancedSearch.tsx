@@ -75,7 +75,7 @@ export function AdvancedSearch() {
           description: c.definition.substring(0, 80) + "...",
           url: `/kavramlar/${c.slug}`,
           type: "Kavram",
-          icon: <FileText className="w-4 h-4 text-antique-gold" />
+          icon: <FileText className="w-4 h-4 text-primary" />
         });
       }
     });
@@ -89,7 +89,7 @@ export function AdvancedSearch() {
           description: p.title,
           url: `/ehlibeyt/${p.slug}`,
           type: "Ehl-i Beyt",
-          icon: <User className="w-4 h-4 text-antique-gold" />
+          icon: <User className="w-4 h-4 text-primary" />
         });
       }
     });
@@ -102,7 +102,7 @@ export function AdvancedSearch() {
           description: b.author,
           url: `/kutuphane/${b.slug}`,
           type: "Kitap",
-          icon: <Book className="w-4 h-4 text-antique-gold" />
+          icon: <Book className="w-4 h-4 text-primary" />
         });
       }
     });
@@ -115,7 +115,7 @@ export function AdvancedSearch() {
           description: a.author,
           url: `/defterler/${a.slug}`,
           type: "Makale",
-          icon: <FileText className="w-4 h-4 text-antique-gold" />
+          icon: <FileText className="w-4 h-4 text-primary" />
         });
       }
     });
@@ -127,11 +127,11 @@ export function AdvancedSearch() {
     <>
       <button 
         onClick={() => setIsOpen(true)}
-        className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-card-bg/50 border border-gold-border/30 rounded-full text-secondary-text hover:text-primary-text hover:border-antique-gold transition-colors text-sm"
+        className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 bg-card/50 border border-border/50 rounded-full text-muted-foreground hover:text-foreground hover:border-primary transition-colors text-sm"
       >
         <Search className="w-4 h-4" />
         <span className="hidden md:inline">Kütüphanede Ara...</span>
-        <span className="hidden md:inline ml-4 text-xs opacity-50 border border-secondary-text/30 px-1.5 rounded">Ctrl K</span>
+        <span className="hidden md:inline ml-4 text-xs opacity-50 border border-muted-foreground/30 px-1.5 rounded">Ctrl K</span>
       </button>
 
       <AnimatePresence>
@@ -149,32 +149,32 @@ export function AdvancedSearch() {
               initial={{ opacity: 0, scale: 0.95, y: -20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.95, y: -20 }}
-              className="fixed top-20 left-1/2 -translate-x-1/2 w-[95%] max-w-2xl bg-card-bg border border-gold-border/30 shadow-2xl rounded-2xl z-50 overflow-hidden flex flex-col max-h-[80vh]"
+              className="fixed top-20 left-1/2 -translate-x-1/2 w-[95%] max-w-2xl bg-card border border-border/50 shadow-2xl rounded-2xl z-50 overflow-hidden flex flex-col max-h-[80vh]"
             >
-              <div className="flex items-center border-b border-gold-border/20 px-4 py-4">
-                <Search className="w-5 h-5 text-antique-gold mr-3" />
+              <div className="flex items-center border-b border-border/50 px-4 py-4">
+                <Search className="w-5 h-5 text-primary mr-3" />
                 <input
                   ref={inputRef}
                   type="text"
                   placeholder="Kavram, Kitap, Makale, Şahsiyet ara..."
-                  className="flex-1 bg-transparent border-none outline-none text-primary-text text-lg placeholder:text-secondary-text/50"
+                  className="flex-1 bg-transparent border-none outline-none text-foreground text-lg placeholder:text-muted-foreground/50"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
                 />
-                <button onClick={() => setIsOpen(false)} className="text-secondary-text hover:text-primary-text p-1">
+                <button onClick={() => setIsOpen(false)} className="text-muted-foreground hover:text-foreground p-1">
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              <div className="overflow-y-auto custom-scrollbar p-2">
+              <div className="overflow-y-auto no-scrollbar p-2">
                 {query.length > 0 && query.length < 2 && (
-                  <div className="px-4 py-8 text-center text-secondary-text/70">
+                  <div className="px-4 py-8 text-center text-muted-foreground/70">
                     Arama yapmak için en az 2 karakter girin.
                   </div>
                 )}
                 
                 {query.length >= 2 && results.length === 0 && (
-                  <div className="px-4 py-8 text-center text-secondary-text/70">
+                  <div className="px-4 py-8 text-center text-muted-foreground/70">
                     "{query}" ile eşleşen bir sonuç bulunamadı.
                   </div>
                 )}
@@ -186,22 +186,22 @@ export function AdvancedSearch() {
                         key={idx}
                         href={result.url}
                         onClick={() => setIsOpen(false)}
-                        className="flex items-center gap-4 p-3 rounded-xl hover:bg-white/5 transition-colors group"
+                        className="flex items-center gap-4 p-3 rounded-xl hover:bg-muted/50 transition-colors group"
                       >
-                        <div className="w-10 h-10 rounded-full bg-background flex items-center justify-center border border-gold-border/20 group-hover:border-antique-gold/50 transition-colors">
+                        <div className="w-10 h-10 rounded-full bg-background flex items-center justify-center border border-border group-hover:border-primary/50 transition-colors">
                           {result.icon}
                         </div>
                         <div className="flex-1 min-w-0">
-                          <h4 className="text-primary-text font-medium truncate">{result.title}</h4>
+                          <h4 className="text-foreground font-medium truncate">{result.title}</h4>
                           {result.description && (
-                            <p className="text-xs text-secondary-text truncate">{result.description}</p>
+                            <p className="text-xs text-muted-foreground truncate">{result.description}</p>
                           )}
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] uppercase tracking-wider text-secondary-text bg-background px-2 py-1 rounded-full border border-gold-border/10">
+                          <span className="text-[10px] uppercase tracking-wider text-muted-foreground bg-background px-2 py-1 rounded-full border border-border">
                             {result.type}
                           </span>
-                          <ArrowRight className="w-4 h-4 text-antique-gold opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
+                          <ArrowRight className="w-4 h-4 text-primary opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
                         </div>
                       </Link>
                     ))}
@@ -209,13 +209,13 @@ export function AdvancedSearch() {
                 )}
               </div>
 
-              <div className="bg-background-secondary border-t border-gold-border/20 px-4 py-3 flex items-center justify-between">
-                <span className="text-xs text-secondary-text/60">Sekaleyn Araştırma ve Kaynak Merkezi</span>
+              <div className="bg-muted border-t border-border/50 px-4 py-3 flex items-center justify-between">
+                <span className="text-xs text-muted-foreground/80">Sekaleyn Araştırma ve Kaynak Merkezi</span>
                 {query.length >= 2 && (
                   <Link 
                     href={`/arama?q=${encodeURIComponent(query)}`} 
                     onClick={() => setIsOpen(false)}
-                    className="text-xs font-medium text-antique-gold hover:text-light-gold flex items-center gap-1"
+                    className="text-xs font-medium text-primary hover:text-primary/80 flex items-center gap-1"
                   >
                     Tüm Sonuçları Gör <ArrowRight className="w-3 h-3" />
                   </Link>

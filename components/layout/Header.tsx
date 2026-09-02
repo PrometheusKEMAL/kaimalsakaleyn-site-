@@ -38,7 +38,7 @@ export function Header() {
         className={cn(
           "fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b",
           isScrolled || activeMegaMenu
-            ? "bg-background/95 backdrop-blur-md border-gold-border/20 shadow-sm"
+            ? "bg-background/95 backdrop-blur-md border-border/50 shadow-sm"
             : "bg-transparent border-transparent"
         )}
       >
@@ -51,7 +51,7 @@ export function Header() {
           >
             <LogoMark className="w-8 h-8 transition-transform duration-300 group-hover:scale-105" />
             <div className="hidden sm:block">
-              <div className="font-serif text-[13px] tracking-[0.2em] uppercase font-semibold leading-tight text-primary-text group-hover:text-antique-gold transition-colors">
+              <div className="font-serif text-[13px] tracking-[0.2em] uppercase font-semibold leading-tight text-foreground group-hover:text-primary transition-colors">
                 {siteConfig.nameFormatted}
               </div>
             </div>
@@ -71,8 +71,8 @@ export function Header() {
                     className={cn(
                       "flex items-center gap-1 font-sans text-[11px] tracking-widest uppercase font-medium transition-colors duration-200",
                       activeMegaMenu === item.label
-                        ? "text-antique-gold"
-                        : "text-secondary-text hover:text-primary-text"
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-foreground"
                     )}
                   >
                     {item.label}
@@ -84,8 +84,8 @@ export function Header() {
                     className={cn(
                       "font-sans text-[11px] tracking-widest uppercase font-medium transition-colors duration-200",
                       pathname === item.href || pathname.startsWith(item.href + '/')
-                        ? "text-antique-gold"
-                        : "text-secondary-text hover:text-primary-text"
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-foreground"
                     )}
                   >
                     {item.label}
@@ -101,14 +101,14 @@ export function Header() {
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: 10 }}
                         transition={{ duration: 0.15 }}
-                        className="absolute top-full left-1/2 -translate-x-1/2 w-64 bg-card-bg border border-gold-border/30 rounded-md shadow-card overflow-hidden py-2"
+                        className="absolute top-full left-1/2 -translate-x-1/2 w-64 bg-card border border-border/30 rounded-md shadow-lg overflow-hidden py-2"
                       >
                         <div className="flex flex-col">
                           {item.children.map(child => (
                             <Link 
                               key={child.href}
                               href={child.href}
-                              className="px-5 py-2.5 text-sm text-secondary-text hover:text-antique-gold hover:bg-white/5 transition-colors"
+                              className="px-5 py-2.5 text-sm text-muted-foreground hover:text-primary hover:bg-muted/50 transition-colors"
                             >
                               {child.label}
                             </Link>
@@ -136,7 +136,7 @@ export function Header() {
 
             {/* Mobile Menu Button */}
             <button
-              className="xl:hidden text-secondary-text hover:text-primary-text transition-colors p-1"
+              className="xl:hidden text-muted-foreground hover:text-foreground transition-colors p-1"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Menüyü Kapat" : "Menü"}
             >

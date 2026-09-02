@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Book as BookIcon } from "lucide-react";
+import { Book as BookIcon, CheckCircle2 } from "lucide-react";
 
 export interface BookCardProps {
   slug: string;
@@ -7,8 +7,8 @@ export interface BookCardProps {
   originalTitle?: string;
   author: string;
   category: string;
-  coverImage?: string; // We might not have real images, so fallback to icon
-  verificationStatus?: 'draft' | 'needs_review' | 'source_checked' | 'editorial_approved';
+  coverImage?: string;
+  verificationStatus?: 'verified' | 'partial' | 'unverified';
 }
 
 export function BookCard({
@@ -21,40 +21,40 @@ export function BookCard({
   verificationStatus
 }: BookCardProps) {
   return (
-    <Link href={`/kutuphane/${slug}`} className="group block">
-      <div className="card-base h-full flex flex-col overflow-hidden">
+    <Link href={`/kutuphane/${slug}`} className="group block h-full">
+      <div className="card-base h-full flex flex-col overflow-hidden hover:-translate-y-1 transition-transform duration-300">
         {/* Cover Area */}
-        <div className="h-48 bg-[#1a1a1a] flex items-center justify-center border-b border-gold-border/30 relative">
+        <div className="h-48 bg-muted/30 flex items-center justify-center border-b border-border/50 relative overflow-hidden">
           {coverImage ? (
-            <img src={coverImage} alt={title} className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
+            <img src={coverImage} alt={title} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500" />
           ) : (
-            <div className="w-16 h-24 bg-card-bg border border-gold-border flex items-center justify-center rounded-sm">
-              <BookIcon className="w-6 h-6 text-antique-gold/40" />
+            <div className="w-16 h-24 bg-card border border-border/50 flex items-center justify-center rounded-sm shadow-sm group-hover:border-primary/30 transition-colors">
+              <BookIcon className="w-6 h-6 text-primary/40 group-hover:text-primary transition-colors" />
             </div>
           )}
-          {verificationStatus === 'editorial_approved' && (
-            <div className="absolute top-3 right-3 bg-primary-emerald/90 text-ivory text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-sm">
-              Teyitli Kaynak
+          {verificationStatus === 'verified' && (
+            <div className="absolute top-3 right-3 bg-emerald-600/90 text-white text-[9px] uppercase tracking-widest px-2 py-0.5 rounded-sm flex items-center gap-1 shadow-sm backdrop-blur-sm">
+              <CheckCircle2 className="w-3 h-3" /> Teyitli Kaynak
             </div>
           )}
         </div>
         
         {/* Content Area */}
-        <div className="p-5 flex flex-col flex-1">
-          <span className="text-[10px] text-antique-gold uppercase tracking-widest font-medium mb-2 inline-block">
+        <div className="p-5 flex flex-col flex-1 bg-card/30 group-hover:bg-card/60 transition-colors">
+          <span className="text-[10px] text-primary uppercase tracking-widest font-medium mb-3 inline-block">
             {category}
           </span>
-          <h3 className="font-serif text-lg text-primary-text mb-1 leading-snug group-hover:text-light-gold transition-colors">
+          <h3 className="font-serif text-lg text-foreground mb-2 leading-snug group-hover:text-primary transition-colors text-balance">
             {title}
           </h3>
-          {originalTitle && (
-            <p className="text-xs text-secondary-text/60 italic mb-3 font-serif rtl-text text-right" style={{ direction: 'rtl' }}>
+          {originalTitle && originalTitle !== "-" && (
+            <p className="text-xs text-muted-foreground/70 italic mb-4 font-arabic rtl-text text-right" style={{ direction: 'rtl' }}>
               {originalTitle}
             </p>
           )}
-          <div className="mt-auto pt-4 border-t border-gold-border/20">
-            <p className="text-sm text-secondary-text flex items-center justify-between">
-              <span>{author}</span>
+          <div className="mt-auto pt-4 border-t border-border/50">
+            <p className="text-sm text-muted-foreground font-light">
+              {author}
             </p>
           </div>
         </div>

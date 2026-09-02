@@ -670,3 +670,16 @@ using (
     select 1 from public.profiles where id = auth.uid() and role = 'admin'
   )
 );
+
+
+-- KaimAlSakaleyn Database Schema Phase 5: Article & Scholar alignment
+
+ALTER TABLE public.articles ADD COLUMN IF NOT EXISTS editorial_status editorial_status NOT NULL DEFAULT 'draft';
+ALTER TABLE public.articles ADD COLUMN IF NOT EXISTS verification_status text CHECK (verification_status IN ('verified', 'partial', 'unverified')) DEFAULT 'unverified';
+ALTER TABLE public.articles ADD COLUMN IF NOT EXISTS ai_generated boolean NOT NULL DEFAULT true;
+
+-- Update scholars to use enum
+-- We have to drop the default and constraint to change type if it was text, but since persons is the new model, we just ensure scholars (if still used) is aligned.
+ALTER TABLE public.scholars ADD COLUMN IF NOT EXISTS editorial_status editorial_status NOT NULL DEFAULT 'draft';
+ALTER TABLE public.scholars ADD COLUMN IF NOT EXISTS verification_status text CHECK (verification_status IN ('verified', 'partial', 'unverified')) DEFAULT 'unverified';
+

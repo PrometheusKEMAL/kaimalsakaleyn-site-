@@ -1,14 +1,16 @@
 import React from "react";
 import Link from "next/link";
 import { mockPersons, mockConcepts, mockBooks, mockArticles } from "@/lib/mock-data";
-
 import sanitizeHtml from 'sanitize-html';
+import parse, { DOMNode, Element, domToReact } from 'html-react-parser';
+import { Footnote } from "@/components/ui/Footnote";
 
 interface EntityLinkerProps {
   content: string;
+  footnotes?: { id: number; text: string }[];
 }
 
-export function EntityLinker({ content }: EntityLinkerProps) {
+export function EntityLinker({ content, footnotes = [] }: EntityLinkerProps) {
   // Build a dictionary of entities from our knowledge base
   const entities: { name: string; url: string }[] = [];
 
@@ -43,25 +45,50 @@ export function EntityLinker({ content }: EntityLinkerProps) {
     
     if (!linkedUrls.has(entity.url)) {
       if (regex.test(processedHtml)) {
-        processedHtml = processedHtml.replace(regex, `$1<a href="${entity.url}" class="text-antique-gold underline decoration-antique-gold/30 underline-offset-4 hover:decoration-antique-gold transition-colors">$2</a>`);
+        processedHtml = processedHtml.replace(regex, `$1<a href="${entity.url}" class="text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary transition-colors">$2</a>`);
         linkedUrls.add(entity.url);
       }
     }
   });
 
+  // Inject placeholders for footnotes (e.g. [1])
+  if (footnotes.length > 0) {
+    const footnoteRegex = /\[(\d+)\]/g;
+    processedHtml = processedHtml.replace(footnoteRegex, (match, id) => {
+      const footnote = footnotes.find(f => f.id === parseInt(id, 10));
+      if (footnote) {
+        return `<span data-footnote-id="${id}"></span>`;
+      }
+      return match;
+    });
+  }
+
   // Sanitize the final HTML
   const sanitizedHtml = sanitizeHtml(processedHtml, {
-    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2']),
+    allowedTags: sanitizeHtml.defaults.allowedTags.concat(['img', 'h1', 'h2', 'span']),
     allowedAttributes: {
       ...sanitizeHtml.defaults.allowedAttributes,
-      'a': ['href', 'class', 'target', 'rel']
+      'a': ['href', 'class', 'target', 'rel'],
+      'span': ['data-footnote-id']
     }
   });
 
+  // Parse HTML into React Nodes
+  const options = {
+    replace: (domNode: DOMNode) => {
+      if (domNode instanceof Element && domNode.attribs && domNode.attribs['data-footnote-id']) {
+        const id = parseInt(domNode.attribs['data-footnote-id'], 10);
+        const footnote = footnotes.find(f => f.id === id);
+        if (footnote) {
+          return <Footnote id={id} text={footnote.text} />;
+        }
+      }
+    }
+  };
+
   return (
-    <div 
-      className="entity-linked-content"
-      dangerouslySetInnerHTML={{ __html: sanitizedHtml }} 
-    />
+    <div className="entity-linked-content">
+      {parse(sanitizedHtml, options)}
+    </div>
   );
 }

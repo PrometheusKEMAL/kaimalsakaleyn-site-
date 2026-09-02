@@ -5,11 +5,8 @@ import { LogoMark } from "./LogoMark";
 
 export function Footer() {
   return (
-    <footer className="mt-auto relative bg-[#0a0a0a] border-t border-gold-border/20">
+    <footer className="mt-auto relative bg-background border-t border-border">
       
-      {/* Pattern overlay */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDE5MywgMTYz,IDk4LCAwLjA1KSIgc3Ryb2tlLXdpZHRoPSIwLjUiPjxwYXRoIGQ9Ik0xMiAyTDIyIDEyTDEyIDIyTDIgMTJ6Ii8+PC9zdmc+')] opacity-20 pointer-events-none" />
-
       <div className="relative z-10 max-w-7xl mx-auto px-6 py-16 md:py-20">
         
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8">
@@ -19,15 +16,15 @@ export function Footer() {
             <Link href="/" className="flex items-center gap-3 mb-6 group">
               <LogoMark className="w-10 h-10 group-hover:scale-105 transition-transform" />
               <div>
-                <div className="font-serif text-[15px] tracking-[0.2em] uppercase font-semibold leading-tight text-antique-gold">
+                <div className="font-serif text-[15px] tracking-[0.2em] uppercase font-semibold leading-tight text-primary">
                   {siteConfig.nameFormatted}
                 </div>
               </div>
             </Link>
-            <p className="font-serif italic text-sm text-secondary-text/80 leading-relaxed mb-6">
+            <p className="font-serif italic text-sm text-muted-foreground leading-relaxed mb-6">
               {siteConfig.subtitle}
             </p>
-            <p className="font-sans text-[11px] leading-relaxed text-secondary-text/60 max-w-xs">
+            <p className="font-sans text-[11px] leading-relaxed text-muted-foreground/60 max-w-xs">
               {siteConfig.footerDisclaimer}
             </p>
           </div>
@@ -36,7 +33,7 @@ export function Footer() {
           <div className="lg:col-span-8 grid grid-cols-1 sm:grid-cols-3 gap-8">
             
             <div>
-              <h3 className="text-[11px] tracking-widest uppercase text-antique-gold/90 font-medium mb-6">
+              <h3 className="text-[11px] tracking-widest uppercase text-primary/90 font-medium mb-6">
                 Araştırma Ağı
               </h3>
               <ul className="space-y-4">
@@ -44,7 +41,7 @@ export function Footer() {
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="text-[13px] text-secondary-text hover:text-primary-text transition-colors"
+                      className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -54,7 +51,7 @@ export function Footer() {
             </div>
 
             <div>
-              <h3 className="text-[11px] tracking-widest uppercase text-antique-gold/90 font-medium mb-6">
+              <h3 className="text-[11px] tracking-widest uppercase text-primary/90 font-medium mb-6">
                 Kurumsal
               </h3>
               <ul className="space-y-4">
@@ -62,7 +59,7 @@ export function Footer() {
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="text-[13px] text-secondary-text hover:text-primary-text transition-colors"
+                      className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -72,7 +69,7 @@ export function Footer() {
             </div>
 
             <div>
-              <h3 className="text-[11px] tracking-widest uppercase text-antique-gold/90 font-medium mb-6">
+              <h3 className="text-[11px] tracking-widest uppercase text-primary/90 font-medium mb-6">
                 Hukuki
               </h3>
               <ul className="space-y-4">
@@ -80,7 +77,7 @@ export function Footer() {
                   <li key={item.href}>
                     <Link
                       href={item.href}
-                      className="text-[13px] text-secondary-text hover:text-primary-text transition-colors"
+                      className="text-[13px] text-muted-foreground hover:text-foreground transition-colors"
                     >
                       {item.label}
                     </Link>
@@ -93,11 +90,11 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="mt-16 pt-8 border-t border-gold-border/20 flex flex-col md:flex-row items-center justify-between gap-4">
-          <span className="text-[10px] tracking-widest uppercase text-secondary-text/60">
+        <div className="mt-16 pt-8 border-t border-border/50 flex flex-col md:flex-row items-center justify-between gap-4">
+          <span className="text-[10px] tracking-widest uppercase text-muted-foreground/60">
             © {new Date().getFullYear()} KaimAlSakaleyn. Tüm Hakları Mahfuzdur.
           </span>
-          <span className="font-serif italic text-[13px] text-antique-gold/60">
+          <span className="font-serif italic text-[13px] text-primary/60">
             {siteConfig.footerQuote}
           </span>
         </div>
